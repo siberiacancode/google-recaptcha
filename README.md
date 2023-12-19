@@ -1,6 +1,11 @@
-# 🔑 React Google ReCaptcha Ultimate
+# 🔑 Google ReCaptcha Ultimate
 
 tool that easily and quickly add Google ReCaptcha for your website or application
+
+## 📦 Packages
+
+- [core](https://github.com/siberiacancode/google-recaptcha-ultimate/tree/main/packages/core)
+- [react](https://github.com/siberiacancode/google-recaptcha-ultimate/tree/main/packages/react)
 
 ## 🦉 Philosophy
 
