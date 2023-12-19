@@ -1,0 +1,46 @@
+{
+  "name": "google-recaptcha-ultimate",
+  "license": "MIT",
+  "version": "1.0.0",
+  "keywords": [
+    "prettier",
+    "eslint",
+    "tsconfig",
+    "builder",
+    "jest",
+    "stylelint"
+  ],
+  "private": true,
+  "author": {
+    "name": "SIBERIA CAN CODE 🧊",
+    "url": "https://github.com/siberiacancode"
+  },
+  "bugs": {
+    "url": "https://github.com/siberiacancode/core/issues"
+  },
+  "repository": {
+    "url": "https://github.com/siberiacancode/core"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "deploy": "turbo run deploy",
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "unit-test": "turbo run unit-test",
+    "lint-staged": "turbo run lint-staged",
+    "change": "beachball change --no-commit",
+    "release": "beachball publish --yes",
+    "prepare": "husky install && npm run build"
+  },
+  "devDependencies": {
+    "beachball": "^2.39.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1",
+    "turbo": "^1.11.2"
+  }
+}

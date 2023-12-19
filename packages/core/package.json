@@ -1,0 +1,69 @@
+{
+  "name": "@google-recaptcha-ultimate/core",
+  "version": "1.0.0",
+  "description": "Tool that easily and quickly add Google ReCaptcha for your website or application\n",
+  "author": {
+    "name": "SIBERIA CAN CODE 🧊",
+    "url": "https://github.com/siberiacancode"
+  },
+  "contributors": [
+    {
+      "name": "Dmitry Babin",
+      "url": "https://github.com/debabin"
+    },
+    {
+      "name": "Alexander Vasilchuk",
+      "url": "https://github.com/anv296"
+    }
+  ],
+  "license": "MIT",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "google recaptcha core",
+    "google recaptcha",
+    "recaptcha v3",
+    "recaptcha v2 checkbox",
+    "recaptcha v2 invisible",
+    "recaptcha enterprise"
+  ],
+  "homepage": "https://github.com/siberiacancode/google-recaptcha-ultimate",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/siberiacancode/google-recaptcha-ultimate"
+  },
+  "bugs": {
+    "url": "https://github.com/siberiacancode/google-recaptcha-ultimate/issues"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "build": "shx rm -rf dist && rollup -c --bundleConfigAsCjs",
+    "lint": "eslint . --ext ts --ext js --no-error-on-unmatched-pattern --fix",
+    "format": "prettier --write **/*.{ts,js}",
+    "type": "tsc --noEmit",
+    "pretty": "yarn type && yarn format && yarn lint",
+    "storybook": "storybook dev -p 6010"
+  },
+  "lint-staged": {
+    "*.js": "prettier --write",
+    "*.ts": [
+      "prettier --write",
+      "eslint --no-error-on-unmatched-pattern --fix"
+    ]
+  },
+  "devDependencies": {
+    "@siberiacancode/builder": "^1.2.0",
+    "@siberiacancode/eslint": "^1.0.2",
+    "@siberiacancode/prettier": "^1.0.0",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1",
+    "shx": "^0.3.4",
+    "typescript": "^5.3.3"
+  }
+}

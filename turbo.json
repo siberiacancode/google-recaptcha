@@ -1,0 +1,20 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "lint-staged": {},
+    "stylelint": {},
+    "format": {},
+    "lint": {},
+    "deploy": {
+      "dependsOn": ["build", "stylelint", "format", "lint", "pretty"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}
