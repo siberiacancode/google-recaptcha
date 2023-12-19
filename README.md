@@ -35,3 +35,28 @@ When a user interacts with the [Google ReCaptcha v2 checkbox](https://developers
 
 [Google ReCaptcha Enterprise](https://cloud.google.com/recaptcha-enterprise/docs/overview) is built on the existing reCAPTCHA API and it uses advanced risk analysis techniques to distinguish between humans and bots.
 In order to enable enterprise mode, you need to set the flag `isEnterprise` in `GoogleReCaptchaProvider`. Also in this mode you can pass specials `actions`.
+
+## ✨ Contributors
+
+<table>
+  <tr>
+    <td align="center" style="word-wrap: break-word; width: 100; height: 100">
+        <a href="https://github.com/debabin">
+            <img src="https://avatars.githubusercontent.com/u/45297354?v=4"
+            width="100;"  
+            alt="debabin" />
+            <br />
+            <sub style="font-size:13px"><b>☄️ debabin</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 100.0; height: 100.0">
+        <a href="https://github.com/anv296">
+            <img src="https://avatars.githubusercontent.com/u/39154399?s=400&u=7c4fcc6d120f4b13ccbd03a9a384622b6523c376&v=4"
+            width="100;"  
+            alt="anv296" />
+            <br />
+            <sub style="font-size:13px"><b>🎱️ anv296</b></sub>
+        </a>
+    </td>
+  </tr>
+</table>

@@ -19,5 +19,6 @@
     "noFallthroughCasesInSwitch": true,
     "types": ["@testing-library/jest-dom"]
   },
-  "exclude": ["dist", "node_modules"]
+  "include": ["src/**/*"],
+  "exclude": ["dist", "node_modules", "babel.config.js"]
 }

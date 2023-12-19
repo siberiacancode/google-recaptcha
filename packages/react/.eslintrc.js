@@ -6,6 +6,9 @@ module.exports = {
     ...eslint.react.overrides,
     {
       files: ['*.ts', '*.tsx'],
+      parserOptions: {
+        tsconfigRootDir: __dirname
+      },
       rules: {
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
