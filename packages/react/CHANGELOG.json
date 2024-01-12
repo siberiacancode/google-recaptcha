@@ -1,0 +1,20 @@
+{
+  "name": "@google-recaptcha/react",
+  "entries": [
+    {
+      "date": "Fri, 12 Jan 2024 18:34:25 GMT",
+      "version": "1.0.0",
+      "tag": "@google-recaptcha/react_v1.0.0",
+      "comments": {
+        "none": [
+          {
+            "author": "dmitriybabinup@gmail.com",
+            "package": "@google-recaptcha/react",
+            "commit": "not available",
+            "comment": "🎉 1.0.0"
+          }
+        ]
+      }
+    }
+  ]
+}
