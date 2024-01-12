@@ -9,6 +9,8 @@
     "stylelint": {},
     "format": {},
     "lint": {},
+    "pretty": {},
+    "unit-test": {},
     "deploy": {
       "dependsOn": ["build", "stylelint", "format", "lint", "pretty"]
     },

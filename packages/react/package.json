@@ -1,5 +1,5 @@
 {
-  "name": "@google-recaptcha-ultimate/react",
+  "name": "@google-recaptcha/react",
   "version": "1.2.2",
   "description": "Tool that easily and quickly add Google ReCaptcha for your website or application\n",
   "author": {
@@ -32,13 +32,13 @@
     "recaptcha enterprise",
     "react recaptcha enterprise"
   ],
-  "homepage": "https://github.com/siberiacancode/google-recaptcha-ultimate",
+  "homepage": "https://github.com/siberiacancode/google-recaptcha",
   "repository": {
     "type": "git",
-    "url": "https://github.com/siberiacancode/google-recaptcha-ultimate"
+    "url": "https://github.com/siberiacancode/google-recaptcha"
   },
   "bugs": {
-    "url": "https://github.com/siberiacancode/google-recaptcha-ultimate/issues"
+    "url": "https://github.com/siberiacancode/google-recaptcha/issues"
   },
   "files": [
     "dist/**/*"
@@ -66,7 +66,7 @@
     "react": "^17.0.2 || ^18.0.0"
   },
   "dependencies": {
-    "@google-recaptcha-ultimate/core": "*"
+    "@google-recaptcha/core": "*"
   },
   "devDependencies": {
     "@siberiacancode/builder": "^1.2.0",

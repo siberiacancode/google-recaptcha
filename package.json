@@ -1,14 +1,11 @@
 {
-  "name": "google-recaptcha-ultimate",
+  "name": "google-recaptcha",
   "license": "MIT",
   "version": "1.0.0",
   "keywords": [
-    "prettier",
-    "eslint",
-    "tsconfig",
-    "builder",
-    "jest",
-    "stylelint"
+    "google-recaptcha",
+    "react google-recaptcha",
+    "core google-recaptcha"
   ],
   "private": true,
   "author": {
@@ -31,6 +28,7 @@
     "lint": "turbo run lint",
     "format": "turbo run format",
     "unit-test": "turbo run unit-test",
+    "pretty": "turbo run pretty",
     "lint-staged": "turbo run lint-staged",
     "change": "beachball change --no-commit",
     "release": "beachball publish --yes",

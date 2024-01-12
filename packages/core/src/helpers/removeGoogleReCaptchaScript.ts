@@ -1,13 +1,11 @@
 export const GSTATIC_URL = 'https://www.gstatic.com/recaptcha/releases';
 
 /**
- * Function to remove google recaptcha script after container unmount.
- * This function is called if it was not created independently.
+ * Removes the Google reCAPTCHA container element with the specified container ID.
  *
- * @category Function
- * @param scriptId Script id of google recaptcha.
+ * @param {ContainerId} containerId - The ID of the container element to be removed.
+ * @return {void} This function does not return a value.
  */
-
 export const removeGoogleReCaptchaScript = (scriptId: string) => {
   // eslint-disable-next-line no-underscore-dangle
   (window as any).___grecaptcha_cfg = undefined;

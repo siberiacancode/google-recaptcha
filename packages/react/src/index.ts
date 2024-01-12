@@ -3,4 +3,4 @@ export * from './context';
 export {
   generateGoogleReCaptchaHiddenBadgeStyles,
   generateGoogleReCaptchaScriptSrc
-} from '@google-recaptcha-ultimate/core';
+} from '@google-recaptcha/core';

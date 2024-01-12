@@ -1,13 +1,11 @@
 import type { ContainerId } from '../types';
 
 /**
- * Function to remove google recaptcha container after container unmount.
- * This function is used if the user has not specified a container in an explicit.
+ * Removes the Google reCAPTCHA container element with the specified container ID.
  *
- * @category Function
- * @param containerId Container id for google recaptcha.
+ * @param {ContainerId} containerId - The ID of the container element to be removed.
+ * @return {void} This function does not return a value.
  */
-
 export const removeGoogleReCaptchaContainer = (containerId: ContainerId) => {
   const container = document.getElementById(containerId);
 

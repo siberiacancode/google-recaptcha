@@ -1,15 +1,15 @@
-# 🔑 Google ReCaptcha Ultimate
+# 🔑 Google ReCaptcha
 
 tool that easily and quickly add Google ReCaptcha for your website or application
 
 ## 📦 Packages
 
-- [core](https://github.com/siberiacancode/google-recaptcha-ultimate/tree/main/packages/core)
-- [react](https://github.com/siberiacancode/google-recaptcha-ultimate/tree/main/packages/react)
+- [core](https://github.com/siberiacancode/google-recaptcha/tree/main/packages/core)
+- [react](https://github.com/siberiacancode/google-recaptcha/tree/main/packages/react)
 
 ## 🦉 Philosophy
 
-**🔑 React Google ReCaptcha Ultimate** this is a library that will allow you to easily and quickly add Google ReCaptcha for your website or application. The main difference from other libraries is that all current versions of Google ReCaptcha are supported here.
+**🔑 Google ReCaptcha** this is a library that will allow you to easily and quickly add Google ReCaptcha for your website or application. The main difference from other libraries is that all current versions of Google ReCaptcha are supported here.
 
 ## Features
 

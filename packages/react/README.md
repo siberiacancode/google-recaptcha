@@ -1,4 +1,4 @@
-# 🔑 React Google ReCaptcha Ultimate
+# 🔑 React Google ReCaptcha
 
 tool that easily and quickly add Google ReCaptcha for your website or application
 
@@ -7,14 +7,14 @@ tool that easily and quickly add Google ReCaptcha for your website or applicatio
 Install with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 
 ```bash
-$ npm i @google-recaptcha-ultimate/react
+$ npm i @google-recaptcha/react
 # or
-$ yarn add @google-recaptcha-ultimate/react
+$ yarn add @google-recaptcha/react
 ```
 
 ## 🦉 Philosophy
 
-**🔑 React Google ReCaptcha Ultimate** this is a library that will allow you to easily and quickly add Google ReCaptcha for your website or application. The main difference from other libraries is that all current versions of Google ReCaptcha are supported here.
+**🔑 React Google ReCaptcha** this is a library that will allow you to easily and quickly add Google ReCaptcha for your website or application. The main difference from other libraries is that all current versions of Google ReCaptcha are supported here.
 
 ## Features
 
@@ -25,12 +25,12 @@ $ yarn add @google-recaptcha-ultimate/react
 
 ## Usage
 
-Install **🔑 React Google ReCaptcha Ultimate** with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+Install **🔑 React Google ReCaptcha** with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 
 ```bash
-$ npm i @google-recaptcha-ultimate/react
+$ npm i @google-recaptcha/react
 # or
-$ yarn add @google-recaptcha-ultimate/react
+$ yarn add @google-recaptcha/react
 ```
 
 ### V3
@@ -38,7 +38,7 @@ $ yarn add @google-recaptcha-ultimate/react
 [Google ReCaptcha v3](https://developers.google.com/recaptcha/docs/v3) returns a score for each request without user friction. The score is based on interactions with your site and enables you to take an appropriate action for your site.
 
 ```typescript jsx
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-ultimate';
+import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -56,7 +56,7 @@ root.render(
 [Google ReCaptcha v2 invisible](https://developers.google.com/recaptcha/docs/display) does not require users to solve any puzzles or enter any codes. Instead, it runs in the background and analyzes user behavior on the web page to determine if they are genuine users or potential bots.
 
 ```typescript jsx
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-ultimate';
+import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -74,7 +74,7 @@ root.render(
 When a user interacts with the [Google ReCaptcha v2 checkbox](https://developers.google.com/recaptcha/docs/display), advanced algorithms analyze their behavior to distinguish between humans and bots. If the system suspects suspicious activity, additional challenges may be presented, such as image selections or puzzle-solving tasks.
 
 ```typescript jsx
-import { GoogleReCaptchaProvider, GoogleReCaptchaCheckbox } from 'react-google-recaptcha-ultimate';
+import { GoogleReCaptchaProvider, GoogleReCaptchaCheckbox } from '@google-recaptcha/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -117,7 +117,7 @@ In order to enable enterprise mode, you need to set the flag `isEnterprise` in `
 #### v2 checkbox
 
 ```typescript jsx
-import { GoogleReCaptchaProvider, GoogleReCaptchaCheckbox } from 'react-google-recaptcha-ultimate';
+import { GoogleReCaptchaProvider, GoogleReCaptchaCheckbox } from '@google-recaptcha/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -139,7 +139,7 @@ root.render(
 #### v3 or v2 invisible
 
 ```typescript jsx
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-ultimate';
+import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -157,7 +157,7 @@ root.render(
 
 ### GoogleReCaptchaProvider
 
-`react-google-recaptcha-ultimate` provides a `GoogleReCaptchaProvider` provider component that should be used to wrap around your components.
+`@google-recaptcha/react` provides a `GoogleReCaptchaProvider` provider component that should be used to wrap around your components.
 
 `GoogleReCaptchaProvider`'s responsibility is to load the necessary reCaptcha script and provide access to reCaptcha to the rest of your application.
 
@@ -235,7 +235,7 @@ We recommend using this hook for v2 invisible and v3 to trigger recaptcha execut
 The `executeV3` and `executeV2Invisible` function returned from the hook can be undefined when the recaptcha script has not been successfully loaded.
 
 ```typescript jsx
-import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-ultimate';
+import { GoogleReCaptchaProvider, useGoogleReCaptcha } from '@google-recaptcha/react';
 
 const App = () => {
   const { executeV3 } = useGoogleReCaptcha();
@@ -279,7 +279,7 @@ import {
   GoogleReCaptchaProvider,
   withGoogleReCaptcha,
   WithGoogleReCaptchaParams
-} from 'react-google-recaptcha-ultimate';
+} from '@google-recaptcha/react';
 
 const App = (props) => {
     // Create an event handler so you can call the verification on button click event or form submit

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { ContainerId, GoogleReCaptcha } from '@google-recaptcha-ultimate/core';
+import type { ContainerId, GoogleReCaptcha } from '@google-recaptcha/core';
 import {
   checkGoogleReCaptchaInjected,
   hideGoogleReCaptchaBadge,
@@ -7,7 +7,7 @@ import {
   removeGoogleReCaptchaBadge,
   removeGoogleReCaptchaContainer,
   removeGoogleReCaptchaScript
-} from '@google-recaptcha-ultimate/core';
+} from '@google-recaptcha/core';
 
 import { GoogleReCaptchaContextProvider } from './GoogleReCaptchaContext';
 
@@ -63,6 +63,12 @@ export type GoogleReCaptchaProviderProps =
 const onLoadCallbackName = 'onGoogleReCaptchaLoad';
 const containerId = 'google-recaptcha-container';
 
+/**
+ * Renders the Google ReCaptcha component and handles the loading and initialization of the ReCaptcha script.
+ *
+ * @param {GoogleReCaptchaProviderProps} props - The props for the GoogleReCaptchaProvider component.
+ * @return {ReactElement} The rendered GoogleReCaptchaProvider component.
+ */
 export const GoogleReCaptchaProvider: React.FC<GoogleReCaptchaProviderProps> = ({
   type,
   siteKey,

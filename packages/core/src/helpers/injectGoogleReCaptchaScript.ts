@@ -12,10 +12,17 @@ interface InjectGoogleReCaptchaScriptParams extends GoogleReCaptcha.Script {
 }
 
 /**
- * Function to inject a script link src for google recaptcha.
+ * Injects the Google ReCaptcha script into the DOM.
  *
- * @category Function
- * @params object The link and script params.
+ * @param {InjectGoogleReCaptchaScriptParams} params - The parameters for injecting the script.
+ * @param {Function} params.onload - The callback function to execute when the script has finished loading.
+ * @param {string} [params.appendTo='head'] - The element to which the script should be appended.
+ * @param {boolean} [params.isEnterprise=false] - Indicates whether the ReCaptcha is an enterprise version.
+ * @param {string} [params.host] - The host URL for the ReCaptcha.
+ * @param {string} [params.render] - The rendering method for the ReCaptcha.
+ * @param {string} [params.badge] - The badge position for the ReCaptcha.
+ * @param {string} [params.hl] - The language code for the ReCaptcha.
+ * @return {void} This function does not return a value.
  */
 export const injectGoogleReCaptchaScript = ({
   onload,

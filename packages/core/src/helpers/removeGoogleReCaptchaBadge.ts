@@ -1,9 +1,8 @@
 /**
- * Function to remove google recaptcha badge after container unmount
+ * Removes the Google reCAPTCHA badge.
  *
- * @category Function
+ * @return {void} This function does not return a value.
  */
-
 export const removeGoogleReCaptchaBadge = () => {
   const nodeBadge = document.querySelector('.grecaptcha-badge');
   if (nodeBadge && nodeBadge.parentNode) {

@@ -1,4 +1,4 @@
-# 🔑 Core Google ReCaptcha Ultimate
+# 🔑 Core Google ReCaptcha
 
 🔑 tool that easily and quickly add Google ReCaptcha for your website or application
 
@@ -7,14 +7,14 @@
 Install with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 
 ```bash
-$ npm i @google-recaptcha-ultimate/core
+$ npm i @google-recaptcha/core
 # or
-$ yarn add @google-recaptcha-ultimate/core
+$ yarn add @google-recaptcha/core
 ```
 
 ## 🦉 Philosophy
 
-**🔑 React Google ReCaptcha Ultimate** this is a library that will allow you to easily and quickly add Google ReCaptcha for your website or application. The main difference from other libraries is that all current versions of Google ReCaptcha are supported here.
+**🔑 Google ReCaptcha** this is a library that will allow you to easily and quickly add Google ReCaptcha for your website or application. The main difference from other libraries is that all current versions of Google ReCaptcha are supported here.
 
 ## Features
 
@@ -25,12 +25,12 @@ $ yarn add @google-recaptcha-ultimate/core
 
 ## Usage
 
-Install **🔑 Core Google ReCaptcha Ultimate** with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+Install **🔑 Core Google ReCaptcha** with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 
 ```bash
-$ npm i @google-recaptcha-ultimate/core
+$ npm i @google-recaptcha/core
 # or
-$ yarn add @google-recaptcha-ultimate/core
+$ yarn add @google-recaptcha/core
 ```
 
 ### V3

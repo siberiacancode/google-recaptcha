@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react';
 import React from 'react';
-import type { ContainerId, GoogleReCaptcha } from '@google-recaptcha-ultimate/core';
-import { removeGoogleReCaptchaContainer } from '@google-recaptcha-ultimate/core';
+import type { ContainerId, GoogleReCaptcha } from '@google-recaptcha/core';
+import { removeGoogleReCaptchaContainer } from '@google-recaptcha/core';
 
 import { useGoogleReCaptcha } from '../context/useGoogleReCaptcha';
 import { useIsomorphicLayoutEffect } from '../utils';
@@ -21,6 +21,17 @@ export interface GoogleReCaptchaCheckboxProps extends Omit<ComponentProps<'div'>
 }
 
 const CHECKBOX_CONTAINER_ID = 'google-recaptcha-checkbox-container';
+
+/**
+ * Renders a Google reCAPTCHA checkbox component.
+ *
+ * @param {GoogleReCaptchaCheckboxProps} props - The props for the component.
+ * @param {string} props.id - The ID of the checkbox container.
+ * @param {function} props.onChange - The callback function triggered when the checkbox value changes.
+ * @param {string} props.action - The action to be performed when the checkbox is clicked.
+ * @param {string} props.language - The language for the reCAPTCHA widget.
+ * @return {ReactElement} The rendered Google reCAPTCHA checkbox component.
+ */
 
 export const GoogleReCaptchaCheckbox: React.FC<GoogleReCaptchaCheckboxProps> = ({
   id = CHECKBOX_CONTAINER_ID,

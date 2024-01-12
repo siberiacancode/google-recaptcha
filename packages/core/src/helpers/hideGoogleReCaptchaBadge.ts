@@ -1,12 +1,11 @@
 import { generateGoogleReCaptchaHiddenBadgeStyles } from './generateGoogleReCaptchaHiddenBadgeStyles';
 
 /**
- * A function that hides the google recaptcha badge from the page.
- * This function is executed if the script was implicitly integrated.
+ * Hides the Google reCAPTCHA badge by injecting a style tag into the document's body.
  *
- * @category Function
+ * @param {none} - This function does not take any parameters.
+ * @return {void} This function does not return a value.
  */
-
 export const hideGoogleReCaptchaBadge = () => {
   const style = document.createElement('style');
   style.innerHTML = generateGoogleReCaptchaHiddenBadgeStyles();
