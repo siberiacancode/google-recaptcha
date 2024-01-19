@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "🎉 release@1.0.1",
+  "packageName": "@google-recaptcha/core",
+  "email": "dmitriybabinup@gmail.com",
+  "dependentChangeType": "patch"
+}
