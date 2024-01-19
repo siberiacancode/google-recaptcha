@@ -2,6 +2,21 @@
   "name": "@google-recaptcha/core",
   "entries": [
     {
+      "date": "Fri, 19 Jan 2024 14:35:42 GMT",
+      "version": "1.0.1",
+      "tag": "@google-recaptcha/core_v1.0.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "dmitriybabinup@gmail.com",
+            "package": "@google-recaptcha/core",
+            "commit": "29ec6fad038c371900883980fa4921c00045c19d",
+            "comment": "🎉 release@1.0.1"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 12 Jan 2024 18:34:25 GMT",
       "version": "1.0.0",
       "tag": "@google-recaptcha/core_v1.0.0",
