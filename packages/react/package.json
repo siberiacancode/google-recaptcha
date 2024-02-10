@@ -47,6 +47,7 @@
     "node": ">=14"
   },
   "scripts": {
+    "prepare": "husky install && npm run build",
     "build": "shx rm -rf dist && rollup -c --bundleConfigAsCjs",
     "lint": "eslint . --ext ts --ext tsx --no-error-on-unmatched-pattern --fix",
     "format": "prettier --write **/*.{ts,tsx,js,jsx}",
@@ -63,7 +64,13 @@
     ]
   },
   "peerDependencies": {
+    "@types/react": "^18.0.0",
     "react": "^17.0.2 || ^18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@google-recaptcha/core": "*"
@@ -73,26 +80,26 @@
     "@siberiacancode/eslint": "^1.0.3",
     "@siberiacancode/jest": "^1.0.2",
     "@siberiacancode/prettier": "^1.0.1",
-    "@storybook/addon-actions": "^7.6.10",
-    "@storybook/addon-essentials": "^7.6.10",
-    "@storybook/addon-interactions": "^7.6.10",
-    "@storybook/addon-links": "^7.6.10",
-    "@storybook/react": "^7.6.10",
-    "@storybook/react-webpack5": "^7.6.10",
+    "@storybook/addon-actions": "^7.6.13",
+    "@storybook/addon-essentials": "^7.6.13",
+    "@storybook/addon-interactions": "^7.6.13",
+    "@storybook/addon-links": "^7.6.13",
+    "@storybook/react": "^7.6.13",
+    "@storybook/react-vite": "^7.6.13",
     "@storybook/testing-library": "^0.2.2",
-    "@testing-library/jest-dom": "^6.2.0",
-    "@testing-library/react": "^14.1.2",
-    "@types/jest": "^29.5.11",
-    "@types/react": "18.2.48",
-    "husky": "^8.0.3",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
+    "@types/jest": "^29.5.12",
+    "@types/react": "18.2.55",
+    "husky": "^9.0.10",
     "jest-environment-jsdom": "^29.7.0",
-    "lint-staged": "^15.2.0",
-    "prettier": "^3.2.4",
+    "lint-staged": "^15.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "shx": "^0.3.4",
-    "storybook": "^7.6.10",
+    "storybook": "^7.6.13",
     "ts-loader": "^9.5.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vite": "^5.1.1"
   }
 }

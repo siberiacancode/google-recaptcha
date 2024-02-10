@@ -1,4 +1,4 @@
-import type { StorybookConfig } from '@storybook/react-webpack5';
+import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
   staticDirs: ['../src'],
@@ -9,28 +9,19 @@ const config: StorybookConfig = {
     '@storybook/addon-interactions'
   ],
   framework: {
-    name: '@storybook/react-webpack5',
+    name: '@storybook/react-vite',
     options: {}
   },
   docs: { autodocs: true },
-  webpackFinal: async (config, { configType }) => {
-    if (config?.module?.rules) {
-      config.module.rules.push({
-        test: /\.(ts|tsx)$/,
-        use: [
-          {
-            loader: require.resolve('ts-loader'),
-            options: {
-              reportFiles: ['../**/**/*.{ts,tsx}']
-            }
-          }
-        ]
-      });
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      compilerOptions: {
+        allowSyntheticDefaultImports: false,
+        esModuleInterop: false
+      },
+      propFilter: () => true
     }
-
-    if (config?.resolve?.extensions) config.resolve.extensions.push('.ts', '.tsx');
-
-    return config;
   }
 };
 
