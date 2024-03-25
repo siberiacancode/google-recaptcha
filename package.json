@@ -29,7 +29,7 @@
     "format": "turbo run format",
     "unit-test": "turbo run unit-test",
     "pretty": "turbo run pretty",
-    "lint-staged": "turbo run lint-staged",
+    "lint-staged": "lint-staged",
     "change": "beachball change --no-commit",
     "release": "beachball publish --yes",
     "prepare": "husky install && npm run build"
