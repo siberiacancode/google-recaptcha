@@ -11,7 +11,7 @@ const googleReCaptchaProviderProps = {
 } satisfies GoogleReCaptchaProviderProps;
 
 describe('Google ReCaptcha', () => {
-  test(`Should inject google recatcha script`, () => {
+  test('Should inject google recatcha script', () => {
     render(<GoogleReCaptchaProvider {...googleReCaptchaProviderProps} />);
 
     const script = document.querySelector('#google-recaptcha-script');
@@ -23,7 +23,7 @@ describe('Google ReCaptcha', () => {
     expect(script).toBeInTheDocument();
   });
 
-  test(`Should not inject new script of google recatcha if script already exist`, () => {
+  test('Should not inject new script of google recatcha if script already exist', () => {
     render(
       <>
         <script src='https://www.google.com/recaptcha/api.js?render=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' />
@@ -36,7 +36,7 @@ describe('Google ReCaptcha', () => {
     expect(script).toHaveLength(1);
   });
 
-  test(`Should inject google recatcha enterprise script`, () => {
+  test('Should inject google recatcha enterprise script', () => {
     render(<GoogleReCaptchaProvider {...googleReCaptchaProviderProps} isEnterprise />);
 
     const script = document.querySelector('#google-recaptcha-script');
@@ -48,7 +48,7 @@ describe('Google ReCaptcha', () => {
     expect(script).toBeInTheDocument();
   });
 
-  test(`Should inject google recatcha script with host`, () => {
+  test('Should inject google recatcha script with host', () => {
     render(<GoogleReCaptchaProvider {...googleReCaptchaProviderProps} host='recaptcha.net' />);
 
     const script = document.querySelector('#google-recaptcha-script');
@@ -62,7 +62,7 @@ describe('Google ReCaptcha', () => {
 });
 
 describe('Google ReCaptcha v3', () => {
-  test(`Should inject google recatcha script with language`, () => {
+  test('Should inject google recatcha script with language', () => {
     render(<GoogleReCaptchaProvider {...googleReCaptchaProviderProps} language='ru' />);
 
     const script = document.querySelector('#google-recaptcha-script');
@@ -74,7 +74,7 @@ describe('Google ReCaptcha v3', () => {
     expect(script).toBeInTheDocument();
   });
 
-  test(`Should inject google recatcha script explicit`, () => {
+  test('Should inject google recatcha script explicit', () => {
     render(
       <>
         <div id='container' />
@@ -96,7 +96,7 @@ describe('Google ReCaptcha v3', () => {
 });
 
 describe('Google ReCaptcha v2', () => {
-  test(`Should inject google recatcha script with language`, () => {
+  test('Should inject google recatcha script with language', () => {
     render(
       <GoogleReCaptchaProvider
         {...googleReCaptchaProviderProps}
@@ -114,7 +114,7 @@ describe('Google ReCaptcha v2', () => {
     expect(script).toBeInTheDocument();
   });
 
-  test(`Should inject google recatcha script explicit`, () => {
+  test('Should inject google recatcha script explicit', () => {
     render(
       <>
         <div id='container' />
