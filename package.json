@@ -34,10 +34,10 @@
     "prepare": "husky install && npm run build"
   },
   "devDependencies": {
-    "beachball": "^2.39.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.2.0",
-    "prettier": "^3.2.4",
+    "beachball": "^2.43.1",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
+    "prettier": "^3.3.2",
     "turbo": "^1.11.3"
   }
 }

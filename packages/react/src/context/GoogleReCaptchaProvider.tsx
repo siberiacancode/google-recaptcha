@@ -116,7 +116,9 @@ export const GoogleReCaptchaProvider: React.FC<GoogleReCaptchaProviderProps> = (
           size: type === 'v3' || type === 'v2-invisible' ? 'invisible' : 'normal',
           ...((type === 'v3' || type === 'v2-invisible') && ({ badge: 'bottomright' } as const)),
           sitekey: siteKey,
-          ...explicit
+          ...explicit,
+          'expired-callback': explicit.expiredCallback,
+          'error-callback': explicit.errorCallback
         } as const;
 
         if (!isGoogleReCaptchaInjected) {

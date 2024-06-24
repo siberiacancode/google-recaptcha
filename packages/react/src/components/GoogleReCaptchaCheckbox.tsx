@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
 import React from 'react';
-import type { ContainerId, GoogleReCaptcha } from '@google-recaptcha/core';
+import type { GoogleReCaptcha } from '@google-recaptcha/core';
 import { removeGoogleReCaptchaContainer } from '@google-recaptcha/core';
 
 import { useGoogleReCaptcha } from '../context/useGoogleReCaptcha';
@@ -10,8 +10,6 @@ export interface GoogleReCaptchaCheckboxProps extends Omit<ComponentProps<'div'>
   id?: string;
   action?: string;
   className?: string;
-  container?: ContainerId | HTMLElement;
-  callback?: (token: string) => void;
   errorCallback?: () => void;
   expiredCallback?: () => void;
   language?: GoogleReCaptcha.Language;
@@ -37,6 +35,10 @@ export const GoogleReCaptchaCheckbox: React.FC<GoogleReCaptchaCheckboxProps> = (
   id = CHECKBOX_CONTAINER_ID,
   onChange,
   action,
+  errorCallback,
+  expiredCallback,
+  size,
+  theme,
   language,
   ...props
 }) => {
@@ -51,12 +53,14 @@ export const GoogleReCaptchaCheckbox: React.FC<GoogleReCaptchaCheckboxProps> = (
       sitekey: siteKey,
       callback: onChange,
       ...((language ?? hl) && { hl: language ?? hl }),
-      ...props
-    } as GoogleReCaptcha.Parameters;
+      ...(action && { action }),
+      'expired-callback': expiredCallback,
+      'error-callback': errorCallback,
+      size,
+      theme
+    } satisfies GoogleReCaptcha.Parameters;
 
-    if (action) {
-      render(checkbox, { ...params, action });
-    } else render(checkbox, params);
+    render(checkbox, params);
 
     if (googleReCaptchaCheckboxContainerRef.current) {
       googleReCaptchaCheckboxContainerRef.current.appendChild(checkbox);
@@ -65,7 +69,7 @@ export const GoogleReCaptchaCheckbox: React.FC<GoogleReCaptchaCheckboxProps> = (
     return () => {
       removeGoogleReCaptchaContainer(id);
     };
-  }, [render, language, onChange, id, siteKey, props.size, action, props.theme]);
+  }, [render, language, onChange, id, siteKey, size, action, theme]);
 
   return <div id={id} ref={googleReCaptchaCheckboxContainerRef} {...props} />;
 };
