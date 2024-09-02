@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import type { ContainerId, GoogleReCaptcha } from '@google-recaptcha/core';
 import {
   checkGoogleReCaptchaInjected,
@@ -9,7 +9,6 @@ import {
   removeGoogleReCaptchaContainer,
   removeGoogleReCaptchaScript
 } from '@google-recaptcha/core';
-import { useIsomorphicLayoutEffect } from '@siberiacancode/reactuse';
 
 import { GoogleReCaptchaContextProvider } from './GoogleReCaptchaContext';
 
@@ -87,7 +86,7 @@ export const GoogleReCaptchaProvider = ({
   const [googleReCaptchaInstance, setGoogleReCaptchaInstance] =
     useState<GoogleReCaptcha.Instance>();
 
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     const scriptId = scriptProps?.id ?? 'google-recaptcha-script';
     const isGoogleReCaptchaInjected = checkGoogleReCaptchaInjected(scriptId);
 

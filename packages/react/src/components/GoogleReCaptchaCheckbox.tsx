@@ -1,8 +1,7 @@
 import type { ComponentProps } from 'react';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import type { GoogleReCaptcha } from '@google-recaptcha/core';
 import { removeGoogleReCaptchaContainer } from '@google-recaptcha/core';
-import { useIsomorphicLayoutEffect } from '@siberiacancode/reactuse';
 
 import { useGoogleReCaptcha } from '../context/useGoogleReCaptcha';
 
@@ -45,7 +44,7 @@ export const GoogleReCaptchaCheckbox = ({
   const { siteKey, render, language: hl } = useGoogleReCaptcha();
   const googleReCaptchaCheckboxContainerRef = useRef<HTMLDivElement>(null);
 
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     if (!render) return;
     const checkbox = document.createElement('div');
 
