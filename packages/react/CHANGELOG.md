@@ -1,8 +1,16 @@
 # Change Log - @google-recaptcha/react
 
-This log was last generated on Mon, 02 Sep 2024 11:16:21 GMT and should not be manually modified.
+This log was last generated on Mon, 02 Sep 2024 11:50:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.2.1
+
+Mon, 02 Sep 2024 11:50:55 GMT
+
+### Patches
+
+- release/1.2.1 🧊 delete package (dmitriybabinup@gmail.com)
 
 ## 1.0.5
 
