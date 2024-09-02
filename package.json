@@ -31,7 +31,7 @@
     "pretty": "turbo run pretty",
     "change": "beachball change --no-commit",
     "release": "beachball publish --yes",
-    "prepare": "husky && npm run build"
+    "prepare": "husky && yarn build"
   },
   "devDependencies": {
     "beachball": "^2.43.1",
