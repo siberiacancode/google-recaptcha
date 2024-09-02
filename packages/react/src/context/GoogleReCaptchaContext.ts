@@ -26,19 +26,19 @@ export const GoogleReCaptchaContext = createContext<GoogleReCaptchaContextProps>
   language: '',
   isLoading: true,
   executeV3: () => {
-    throw Error(contextError);
+    throw new Error(contextError);
   },
   executeV2Invisible: () => {
-    throw Error(contextError);
+    throw new Error(contextError);
   },
   reset: () => {
-    throw Error(contextError);
+    throw new Error(contextError);
   },
   getResponse: () => {
-    throw Error(contextError);
+    throw new Error(contextError);
   },
   render: () => {
-    throw Error(contextError);
+    throw new Error(contextError);
   }
 });
 

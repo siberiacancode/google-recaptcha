@@ -36,11 +36,11 @@ export namespace GoogleReCaptcha {
   }
 
   export interface Instance {
-    render(container: Container, parameters?: Parameters, inherit?: boolean): number;
-    reset(opt_widget_id?: OptWidgetId): void;
-    getResponse(opt_widget_id?: OptWidgetId): string;
-    execute(opt_widget_id?: OptWidgetId): Promise<void>;
-    execute(siteKey: string, action: Action): Promise<string>;
-    ready(callback: () => void): void;
+    render: (container: Container, parameters?: Parameters, inherit?: boolean) => number;
+    reset: (opt_widget_id?: OptWidgetId) => void;
+    getResponse: (opt_widget_id?: OptWidgetId) => string;
+    execute: (opt_widget_id?: OptWidgetId) => Promise<void>;
+    execute: (siteKey: string, action: Action) => Promise<string>;
+    ready: (callback: () => void) => void;
   }
 }

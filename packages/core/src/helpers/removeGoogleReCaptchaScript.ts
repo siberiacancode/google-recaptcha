@@ -7,7 +7,6 @@ export const GSTATIC_URL = 'https://www.gstatic.com/recaptcha/releases';
  * @return {void} This function does not return a value.
  */
 export const removeGoogleReCaptchaScript = (scriptId: string) => {
-  // eslint-disable-next-line no-underscore-dangle
   (window as any).___grecaptcha_cfg = undefined;
 
   const googleReCaptchaScript = document.querySelector(`#${scriptId}`);

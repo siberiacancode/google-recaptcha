@@ -17,17 +17,6 @@
     }
   ],
   "license": "MIT",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/index.d.ts",
-  "keywords": [
-    "google recaptcha core",
-    "google recaptcha",
-    "recaptcha v3",
-    "recaptcha v2 checkbox",
-    "recaptcha v2 invisible",
-    "recaptcha enterprise"
-  ],
   "homepage": "https://github.com/siberiacancode/google-recaptcha",
   "repository": {
     "type": "git",
@@ -36,6 +25,17 @@
   "bugs": {
     "url": "https://github.com/siberiacancode/google-recaptcha/issues"
   },
+  "keywords": [
+    "google recaptcha core",
+    "google recaptcha",
+    "recaptcha v3",
+    "recaptcha v2 checkbox",
+    "recaptcha v2 invisible",
+    "recaptcha enterprise"
+  ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist/**/*"
   ],
@@ -45,10 +45,20 @@
   "scripts": {
     "prepare": "husky install && npm run build",
     "build": "shx rm -rf dist && rollup -c --bundleConfigAsCjs",
-    "lint": "eslint . --ext ts --ext js --no-error-on-unmatched-pattern --fix",
+    "lint": "eslint . --fix",
     "format": "prettier --write **/*.{ts,js}",
     "type": "tsc --noEmit",
     "pretty": "yarn type && yarn format && yarn lint"
+  },
+  "devDependencies": {
+    "@siberiacancode/builder": "^1.3.10",
+    "@siberiacancode/eslint": "^2.1.0",
+    "@siberiacancode/prettier": "^1.1.1",
+    "husky": "^9.1.4",
+    "lint-staged": "^15.2.9",
+    "prettier": "^3.3.3",
+    "shx": "^0.3.4",
+    "typescript": "^5.5.4"
   },
   "lint-staged": {
     "*.js": "prettier --write",
@@ -56,15 +66,5 @@
       "prettier --write",
       "eslint --no-error-on-unmatched-pattern --fix"
     ]
-  },
-  "devDependencies": {
-    "@siberiacancode/builder": "^1.3.1",
-    "@siberiacancode/eslint": "^1.1.1",
-    "@siberiacancode/prettier": "^1.1.1",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.7",
-    "prettier": "^3.3.2",
-    "shx": "^0.3.4",
-    "typescript": "^5.5.2"
   }
 }

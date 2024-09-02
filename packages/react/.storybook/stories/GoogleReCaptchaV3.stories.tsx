@@ -1,5 +1,5 @@
-import type { StoryObj, Meta } from '@storybook/react';
 import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { GoogleReCaptchaProvider } from '../../src/context';
 

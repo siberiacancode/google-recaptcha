@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react';
 import React from 'react';
 
 import type { GoogleReCaptchaContextProps } from './GoogleReCaptchaContext';
@@ -8,7 +9,7 @@ export interface WithGoogleReCaptchaParams {
 }
 
 export const withGoogleReCaptcha = <OwnProps,>(
-  Component: React.ComponentType<OwnProps & WithGoogleReCaptchaParams>
+  Component: ComponentType<OwnProps & WithGoogleReCaptchaParams>
 ) => {
   const WithGoogleReCaptchaComponent = (props: OwnProps & Partial<WithGoogleReCaptchaParams>) => (
     <GoogleReCaptchaContextConsumer>

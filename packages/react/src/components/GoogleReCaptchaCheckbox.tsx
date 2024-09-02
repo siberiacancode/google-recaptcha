@@ -25,7 +25,7 @@ const CHECKBOX_CONTAINER_ID = 'google-recaptcha-checkbox-container';
  *
  * @param {GoogleReCaptchaCheckboxProps} props - The props for the component.
  * @param {string} props.id - The ID of the checkbox container.
- * @param {function} props.onChange - The callback function triggered when the checkbox value changes.
+ * @param {Function} props.onChange - The callback function triggered when the checkbox value changes.
  * @param {string} props.action - The action to be performed when the checkbox is clicked.
  * @param {string} props.language - The language for the reCAPTCHA widget.
  * @return {ReactElement} The rendered Google reCAPTCHA checkbox component.

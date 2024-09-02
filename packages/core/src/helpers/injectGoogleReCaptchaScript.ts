@@ -16,8 +16,8 @@ interface InjectGoogleReCaptchaScriptParams extends GoogleReCaptcha.Script {
  *
  * @param {InjectGoogleReCaptchaScriptParams} params - The parameters for injecting the script.
  * @param {Function} params.onload - The callback function to execute when the script has finished loading.
- * @param {string} [params.appendTo='head'] - The element to which the script should be appended.
- * @param {boolean} [params.isEnterprise=false] - Indicates whether the ReCaptcha is an enterprise version.
+ * @param {string} [params.appendTo] - The element to which the script should be appended.
+ * @param {boolean} [params.isEnterprise] - Indicates whether the ReCaptcha is an enterprise version.
  * @param {string} [params.host] - The host URL for the ReCaptcha.
  * @param {string} [params.render] - The rendering method for the ReCaptcha.
  * @param {string} [params.badge] - The badge position for the ReCaptcha.
