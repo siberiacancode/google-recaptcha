@@ -1,5 +1,5 @@
-import type { FC, ReactNode } from 'react';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import type { ReactNode } from 'react';
+import React, { useMemo, useState } from 'react';
 import type { ContainerId, GoogleReCaptcha } from '@google-recaptcha/core';
 import {
   checkGoogleReCaptchaInjected,
@@ -9,6 +9,7 @@ import {
   removeGoogleReCaptchaContainer,
   removeGoogleReCaptchaScript
 } from '@google-recaptcha/core';
+import { useIsomorphicLayoutEffect } from '@siberiacancode/reactuse';
 
 import { GoogleReCaptchaContextProvider } from './GoogleReCaptchaContext';
 
@@ -70,7 +71,7 @@ const containerId = 'google-recaptcha-container';
  * @param {GoogleReCaptchaProviderProps} props - The props for the GoogleReCaptchaProvider component.
  * @return {ReactElement} The rendered GoogleReCaptchaProvider component.
  */
-export const GoogleReCaptchaProvider: FC<GoogleReCaptchaProviderProps> = ({
+export const GoogleReCaptchaProvider = ({
   type,
   siteKey,
   language,
@@ -81,16 +82,12 @@ export const GoogleReCaptchaProvider: FC<GoogleReCaptchaProviderProps> = ({
   explicit,
   onLoad,
   onError
-}) => {
+}: GoogleReCaptchaProviderProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [googleReCaptchaInstance, setGoogleReCaptchaInstance] =
     useState<GoogleReCaptcha.Instance>();
 
-  useEffect(() => {
-    if (!siteKey) {
-      throw new Error('Google ReCaptcha site key not provided');
-    }
-
+  useIsomorphicLayoutEffect(() => {
     const scriptId = scriptProps?.id ?? 'google-recaptcha-script';
     const isGoogleReCaptchaInjected = checkGoogleReCaptchaInjected(scriptId);
 
@@ -126,18 +123,13 @@ export const GoogleReCaptchaProvider: FC<GoogleReCaptchaProviderProps> = ({
           const isV3AndV2OptWidgetHidden =
             (type === 'v3' || type === 'v2-invisible') && explicit?.badge === 'hidden';
 
-          if (isV3AndV2OptWidgetHidden) {
-            hideGoogleReCaptchaBadge();
-          }
+          if (isV3AndV2OptWidgetHidden) hideGoogleReCaptchaBadge();
         }
 
         googleReCaptcha.ready(async () => {
-          if (explicit.container) {
+          if (explicit.container)
             googleReCaptcha.render(explicit.container, params, !!explicit.inherit);
-          }
-
           setGoogleReCaptchaInstance(googleReCaptcha);
-
           if (onLoad) await onLoad(googleReCaptcha);
           setIsLoading(true);
         });
@@ -168,37 +160,24 @@ export const GoogleReCaptchaProvider: FC<GoogleReCaptchaProviderProps> = ({
     }
 
     return () => {
-      googleReCaptchaInstance?.reset();
-      if (!checkGoogleReCaptchaInjected(scriptId)) removeGoogleReCaptchaScript(scriptId);
+      if (checkGoogleReCaptchaInjected(scriptId)) removeGoogleReCaptchaScript(scriptId);
       if ((type === 'v3' || type === 'v2-invisible') && !explicit?.container && explicit?.badge) {
         removeGoogleReCaptchaContainer(containerId);
       } else {
         removeGoogleReCaptchaBadge();
       }
     };
-  }, [isEnterprise, language, host]);
+  }, [isEnterprise, language, host, siteKey]);
 
-  const executeV3 = useCallback(
-    (action: GoogleReCaptcha.Action['action']) => {
-      if (!googleReCaptchaInstance?.execute) {
-        throw new Error('Google ReCaptcha has not been loaded');
-      }
+  const executeV3 = (action: GoogleReCaptcha.Action['action']) => {
+    if (!googleReCaptchaInstance?.execute) throw new Error('Google ReCaptcha has not been loaded');
+    return googleReCaptchaInstance.execute(siteKey, { action });
+  };
 
-      return googleReCaptchaInstance.execute(siteKey, { action });
-    },
-    [googleReCaptchaInstance]
-  );
-
-  const executeV2Invisible = useCallback(
-    (optWidgetId?: GoogleReCaptcha.OptWidgetId) => {
-      if (!googleReCaptchaInstance?.execute) {
-        throw new Error('Google ReCaptcha has not been loaded');
-      }
-
-      return googleReCaptchaInstance.execute(optWidgetId);
-    },
-    [googleReCaptchaInstance]
-  );
+  const executeV2Invisible = (optWidgetId?: GoogleReCaptcha.OptWidgetId) => {
+    if (!googleReCaptchaInstance?.execute) throw new Error('Google ReCaptcha has not been loaded');
+    return googleReCaptchaInstance.execute(optWidgetId);
+  };
 
   const value = useMemo(
     () => ({
@@ -212,7 +191,7 @@ export const GoogleReCaptchaProvider: FC<GoogleReCaptchaProviderProps> = ({
       render: googleReCaptchaInstance?.render,
       ...(language && { language })
     }),
-    [siteKey, googleReCaptchaInstance, isLoading, language]
+    [googleReCaptchaInstance, siteKey, isLoading, language]
   );
 
   return <GoogleReCaptchaContextProvider value={value}>{children}</GoogleReCaptchaContextProvider>;

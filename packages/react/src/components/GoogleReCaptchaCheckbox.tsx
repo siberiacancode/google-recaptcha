@@ -1,10 +1,10 @@
 import type { ComponentProps } from 'react';
-import React from 'react';
+import React, { useRef } from 'react';
 import type { GoogleReCaptcha } from '@google-recaptcha/core';
 import { removeGoogleReCaptchaContainer } from '@google-recaptcha/core';
+import { useIsomorphicLayoutEffect } from '@siberiacancode/reactuse';
 
 import { useGoogleReCaptcha } from '../context/useGoogleReCaptcha';
-import { useIsomorphicLayoutEffect } from '../utils';
 
 export interface GoogleReCaptchaCheckboxProps extends Omit<ComponentProps<'div'>, 'onChange'> {
   id?: string;
@@ -31,7 +31,7 @@ const CHECKBOX_CONTAINER_ID = 'google-recaptcha-checkbox-container';
  * @return {ReactElement} The rendered Google reCAPTCHA checkbox component.
  */
 
-export const GoogleReCaptchaCheckbox: React.FC<GoogleReCaptchaCheckboxProps> = ({
+export const GoogleReCaptchaCheckbox = ({
   id = CHECKBOX_CONTAINER_ID,
   onChange,
   action,
@@ -41,9 +41,9 @@ export const GoogleReCaptchaCheckbox: React.FC<GoogleReCaptchaCheckboxProps> = (
   theme,
   language,
   ...props
-}) => {
+}: GoogleReCaptchaCheckboxProps) => {
   const { siteKey, render, language: hl } = useGoogleReCaptcha();
-  const googleReCaptchaCheckboxContainerRef = React.useRef<HTMLDivElement>(null);
+  const googleReCaptchaCheckboxContainerRef = useRef<HTMLDivElement>(null);
 
   useIsomorphicLayoutEffect(() => {
     if (!render) return;
@@ -69,7 +69,7 @@ export const GoogleReCaptchaCheckbox: React.FC<GoogleReCaptchaCheckboxProps> = (
     return () => {
       removeGoogleReCaptchaContainer(id);
     };
-  }, [render, language, onChange, id, siteKey, size, action, theme]);
+  }, [render, language, hl, onChange, id, siteKey, size, action, theme]);
 
   return <div id={id} ref={googleReCaptchaCheckboxContainerRef} {...props} />;
 };
