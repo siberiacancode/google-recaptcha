@@ -2,6 +2,21 @@
   "name": "@google-recaptcha/react",
   "entries": [
     {
+      "date": "Tue, 03 Sep 2024 05:34:22 GMT",
+      "version": "1.2.3",
+      "tag": "@google-recaptcha/react_v1.2.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "dmitriybabinup@gmail.com",
+            "package": "@google-recaptcha/react",
+            "commit": "not available",
+            "comment": "release/1.2.3 🧊 optional id deleted"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 02 Sep 2024 11:50:55 GMT",
       "version": "1.2.1",
       "tag": "@google-recaptcha/react_v1.2.1",
