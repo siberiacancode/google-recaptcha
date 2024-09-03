@@ -88,7 +88,7 @@ export const GoogleReCaptchaProvider = ({
 
   useEffect(() => {
     const scriptId = scriptProps?.id ?? 'google-recaptcha-script';
-    const isGoogleReCaptchaInjected = checkGoogleReCaptchaInjected(scriptId);
+    const isGoogleReCaptchaInjected = checkGoogleReCaptchaInjected();
 
     const onload = () => {
       const googleReCaptcha: GoogleReCaptcha.Instance = isEnterprise
@@ -159,7 +159,7 @@ export const GoogleReCaptchaProvider = ({
     }
 
     return () => {
-      if (checkGoogleReCaptchaInjected(scriptId)) removeGoogleReCaptchaScript(scriptId);
+      if (checkGoogleReCaptchaInjected()) removeGoogleReCaptchaScript();
       if ((type === 'v3' || type === 'v2-invisible') && !explicit?.container && explicit?.badge) {
         removeGoogleReCaptchaContainer(containerId);
       } else {
