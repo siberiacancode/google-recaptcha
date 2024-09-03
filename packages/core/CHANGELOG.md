@@ -1,8 +1,16 @@
 # Change Log - @google-recaptcha/core
 
-This log was last generated on Mon, 02 Sep 2024 06:09:56 GMT and should not be manually modified.
+This log was last generated on Tue, 03 Sep 2024 05:23:51 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.4
+
+Tue, 03 Sep 2024 05:23:51 GMT
+
+### Patches
+
+- release/1.2.2 🧊 optional id (dmitriybabinup@gmail.com)
 
 ## 1.0.3
 
