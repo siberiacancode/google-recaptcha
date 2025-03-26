@@ -1,6 +1,6 @@
+import type { Container, GoogleReCaptcha } from '@google-recaptcha/core';
 import type { ReactNode } from 'react';
-import React, { useEffect, useMemo, useState } from 'react';
-import type { ContainerId, GoogleReCaptcha } from '@google-recaptcha/core';
+
 import {
   checkGoogleReCaptchaInjected,
   hideGoogleReCaptchaBadge,
@@ -9,24 +9,25 @@ import {
   removeGoogleReCaptchaContainer,
   removeGoogleReCaptchaScript
 } from '@google-recaptcha/core';
+import React, { useEffect, useMemo, useState } from 'react';
 
-import { GoogleReCaptchaContextProvider } from './GoogleReCaptchaContext';
+import { GoogleReCaptchaContext } from './GoogleReCaptchaContext';
 
-interface GoogleReCaptchaDefaultProviderProps {
-  siteKey: string;
-  language?: string;
-  isEnterprise?: boolean;
-  onLoad?: (googleReCaptcha: GoogleReCaptcha.Instance) => Promise<void> | void;
-  onError?: () => Promise<void>;
-  host?: GoogleReCaptcha.Host;
+export interface GoogleReCaptchaDefaultProviderProps {
   children?: ReactNode;
+  host?: GoogleReCaptcha.Host;
+  isEnterprise?: boolean;
+  language?: string;
   scriptProps?: GoogleReCaptcha.Script;
+  siteKey: string;
+  onError?: () => Promise<void>;
+  onLoad?: (googleReCaptcha: GoogleReCaptcha.Instance) => Promise<void> | void;
 }
 
-interface Explicit {
-  container?: ContainerId | HTMLElement;
-  tabIndex?: number;
+export interface Explicit {
+  container?: Container;
   inherit?: boolean;
+  tabIndex?: number;
   callback?: (token: string) => void;
   errorCallback?: () => void;
   expiredCallback?: () => void;
@@ -43,7 +44,7 @@ export interface GoogleReCaptchaV2CheckBoxProviderProps
   extends GoogleReCaptchaDefaultProviderProps {
   type: Extract<GoogleReCaptcha.Type, 'v2-checkbox'>;
   explicit?: Explicit & {
-    container: ContainerId | HTMLElement;
+    container: Container;
     action?: GoogleReCaptcha.Action['action'];
     theme?: GoogleReCaptcha.Theme;
     size?: GoogleReCaptcha.Size['v2-checkbox'];
@@ -57,18 +58,28 @@ export interface GoogleReCaptchaV3ProviderProps extends GoogleReCaptchaDefaultPr
 }
 
 export type GoogleReCaptchaProviderProps =
-  | GoogleReCaptchaV3ProviderProps
+  | GoogleReCaptchaV2CheckBoxProviderProps
   | GoogleReCaptchaV2InvisibleProviderProps
-  | GoogleReCaptchaV2CheckBoxProviderProps;
+  | GoogleReCaptchaV3ProviderProps;
 
 const onLoadCallbackName = 'onGoogleReCaptchaLoad';
 const containerId = 'google-recaptcha-container';
 
 /**
- * Renders the Google ReCaptcha component and handles the loading and initialization of the ReCaptcha script.
+/**
+ * Google reCAPTCHA provider component
  *
- * @param {GoogleReCaptchaProviderProps} props - The props for the GoogleReCaptchaProvider component.
- * @return {ReactElement} The rendered GoogleReCaptchaProvider component.
+ * @param {GoogleReCaptcha.Type} props.type - The reCAPTCHA type (v2-checkbox, v2-invisible, or v3)
+ * @param {string} props.siteKey - The site key for Google reCAPTCHA
+ * @param {string} [props.language] - The language for the reCAPTCHA widget
+ * @param {GoogleReCaptcha.Script} [props.scriptProps] - Additional script properties
+ * @param {boolean} [props.isEnterprise] - Whether to use reCAPTCHA Enterprise
+ * @param {string} [props.host] - Custom host for the reCAPTCHA script
+ * @param {object} [props.explicit] - Configuration for explicit rendering
+ * @param {Function} [props.onLoad] - Callback function when reCAPTCHA is loaded
+ * @param {Function} [props.onError] - Callback function when an error occurs
+ * 
+ * @returns The provider component with its children
  */
 export const GoogleReCaptchaProvider = ({
   type,
@@ -87,7 +98,7 @@ export const GoogleReCaptchaProvider = ({
     useState<GoogleReCaptcha.Instance>();
 
   useEffect(() => {
-    const scriptId = scriptProps?.id ?? 'google-recaptcha-script';
+    const scriptId = scriptProps?.id ?? `google-recaptcha-${type}-script`;
     const isGoogleReCaptchaInjected = checkGoogleReCaptchaInjected();
 
     const onload = () => {
@@ -134,7 +145,7 @@ export const GoogleReCaptchaProvider = ({
         });
       }
     };
-    (window as unknown as { [key: string]: () => void })[onLoadCallbackName] = onload;
+    (window as any)[onLoadCallbackName] = onload;
 
     if (isGoogleReCaptchaInjected) {
       onload();
@@ -193,5 +204,5 @@ export const GoogleReCaptchaProvider = ({
     [googleReCaptchaInstance, siteKey, isLoading, language]
   );
 
-  return <GoogleReCaptchaContextProvider value={value}>{children}</GoogleReCaptchaContextProvider>;
+  return <GoogleReCaptchaContext value={value}>{children}</GoogleReCaptchaContext>;
 };

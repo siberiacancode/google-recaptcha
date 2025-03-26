@@ -6,7 +6,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "types": ["@testing-library/jest-dom", "vitest/globals"],
+    "types": ["vitest/globals"],
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,

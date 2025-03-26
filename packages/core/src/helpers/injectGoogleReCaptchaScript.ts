@@ -3,12 +3,12 @@ import type { GoogleReCaptcha } from '../types';
 import { generateGoogleReCaptchaScriptSrc } from './generateGoogleReCaptchaScriptSrc';
 
 interface InjectGoogleReCaptchaScriptParams extends GoogleReCaptcha.Script {
-  isEnterprise?: boolean;
-  onload: () => void;
+  badge?: Exclude<GoogleReCaptcha.Badge, 'hidden'>;
   hl?: string;
   host?: GoogleReCaptcha.Host;
-  badge?: Exclude<GoogleReCaptcha.Badge, 'hidden'>;
+  isEnterprise?: boolean;
   render: string;
+  onload: () => void;
 }
 
 /**

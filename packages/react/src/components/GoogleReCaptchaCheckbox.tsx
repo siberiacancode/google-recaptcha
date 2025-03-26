@@ -1,65 +1,67 @@
-import type { ComponentProps } from 'react';
-import React, { useEffect, useRef } from 'react';
 import type { GoogleReCaptcha } from '@google-recaptcha/core';
+import type { ComponentProps } from 'react';
+
 import { removeGoogleReCaptchaContainer } from '@google-recaptcha/core';
+import React, { useEffect, useRef } from 'react';
 
 import { useGoogleReCaptcha } from '../context/useGoogleReCaptcha';
 
 export interface GoogleReCaptchaCheckboxProps extends Omit<ComponentProps<'div'>, 'onChange'> {
-  id?: string;
   action?: string;
-  className?: string;
-  errorCallback?: () => void;
-  expiredCallback?: () => void;
   language?: GoogleReCaptcha.Language;
-  theme?: GoogleReCaptcha.Theme;
   size?: GoogleReCaptcha.Size['v2-checkbox'];
+  theme?: GoogleReCaptcha.Theme;
   onChange?: (token: string) => void;
+  onError?: () => void;
+  onExpired?: () => void;
 }
 
 const CHECKBOX_CONTAINER_ID = 'google-recaptcha-checkbox-container';
 
 /**
- * Renders a Google reCAPTCHA checkbox component.
+ * Google reCAPTCHA checkbox component
  *
- * @param {GoogleReCaptchaCheckboxProps} props - The props for the component.
- * @param {string} props.id - The ID of the checkbox container.
- * @param {Function} props.onChange - The callback function triggered when the checkbox value changes.
- * @param {string} props.action - The action to be performed when the checkbox is clicked.
- * @param {string} props.language - The language for the reCAPTCHA widget.
- * @return {ReactElement} The rendered Google reCAPTCHA checkbox component.
+ * @param {string} [props.id] - The ID of the checkbox container
+ * @param {(token: string) => void} [props.onChange] - Callback function when verification is successful
+ * @param {string} [props.action] - The action name for analytics
+ * @param {GoogleReCaptcha.Language} [props.language] - The language for the reCAPTCHA widget
+ * @param {GoogleReCaptcha.Theme} [props.theme] - The color theme of the widget
+ * @param {GoogleReCaptcha.Size['v2-checkbox']} [props.size] - The size of the widget
+ * @param {() => void} [props.onError] - Callback function when reCAPTCHA encounters an error
+ * @param {() => void} [props.onExpired] - Callback function when the reCAPTCHA response expires
+ *
+ * @returns The rendered Google reCAPTCHA checkbox component
  */
-
 export const GoogleReCaptchaCheckbox = ({
   id = CHECKBOX_CONTAINER_ID,
   onChange,
   action,
-  errorCallback,
-  expiredCallback,
+  onError,
+  onExpired,
   size,
   theme,
   language,
   ...props
 }: GoogleReCaptchaCheckboxProps) => {
-  const { siteKey, render, language: hl } = useGoogleReCaptcha();
+  const googleReCaptcha = useGoogleReCaptcha();
   const googleReCaptchaCheckboxContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!render) return;
+    if (!googleReCaptcha.render) return;
     const checkbox = document.createElement('div');
 
     const params = {
-      sitekey: siteKey,
+      sitekey: googleReCaptcha.siteKey,
       callback: onChange,
-      ...((language ?? hl) && { hl: language ?? hl }),
+      ...((language ?? googleReCaptcha.language) && { hl: language ?? googleReCaptcha.language }),
       ...(action && { action }),
-      'expired-callback': expiredCallback,
-      'error-callback': errorCallback,
+      'expired-callback': onExpired,
+      'error-callback': onError,
       size,
       theme
     } satisfies GoogleReCaptcha.Parameters;
 
-    render(checkbox, params);
+    googleReCaptcha.render(checkbox, params);
 
     if (googleReCaptchaCheckboxContainerRef.current) {
       googleReCaptchaCheckboxContainerRef.current.appendChild(checkbox);
@@ -68,9 +70,18 @@ export const GoogleReCaptchaCheckbox = ({
     return () => {
       removeGoogleReCaptchaContainer(id);
     };
-  }, [render, language, hl, onChange, id, siteKey, size, action, theme]);
+  }, [
+    googleReCaptcha.siteKey,
+    googleReCaptcha.render,
+    googleReCaptcha.language,
+    onChange,
+    id,
+    size,
+    action,
+    theme
+  ]);
 
-  return <div id={id} ref={googleReCaptchaCheckboxContainerRef} {...props} />;
+  return <div ref={googleReCaptchaCheckboxContainerRef} id={id} {...props} />;
 };
 
 export default GoogleReCaptchaCheckbox;

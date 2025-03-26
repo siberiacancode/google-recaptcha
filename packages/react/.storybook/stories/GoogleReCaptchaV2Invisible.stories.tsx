@@ -1,5 +1,6 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import React from 'react';
 
 import { GoogleReCaptchaProvider } from '../../src/context';
 
@@ -31,5 +32,13 @@ Explicit.args = {
 
 export default {
   component: GoogleReCaptchaProvider,
-  title: 'google recaptcha v2-invisible'
+  title: 'google recaptcha v2-invisible',
+  parameters: {
+    docs: {
+      story: {
+        inlineStories: false,
+        iframeHeight: 500
+      }
+    }
+  }
 } as Meta<typeof GoogleReCaptchaProvider>;

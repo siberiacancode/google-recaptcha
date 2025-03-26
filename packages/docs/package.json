@@ -1,0 +1,59 @@
+{
+  "name": "@google-recaptcha/docs",
+  "version": "1.0.0",
+  "description": "Tool that easily and quickly add Google ReCaptcha for your website or application",
+  "author": {
+    "name": "SIBERIA CAN CODE 🧊",
+    "url": "https://github.com/siberiacancode"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/siberiacancode/google-recaptcha",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/siberiacancode/google-recaptcha.git",
+    "directory": "packages/docs"
+  },
+  "bugs": "https://github.com/siberiacancode/google-recaptcha/issues",
+  "keywords": [
+    "google recaptcha",
+    "react recaptcha",
+    "recaptcha v3",
+    "recaptcha v2 checkbox",
+    "recaptcha v2 invisible",
+    "react recaptcha v3",
+    "react recaptcha v2 checkbox",
+    "react recaptcha v2 invisible",
+    "recaptcha enterprise",
+    "react recaptcha enterprise"
+  ],
+  "scripts": {
+    "dev": "vitepress dev app",
+    "build": "vitepress build app",
+    "preview": "vitepress preview app",
+    "lint": "eslint . --fix",
+    "lint-inspector": "npx @eslint/config-inspector@latest",
+    "format": "prettier --write .",
+    "type": "tsc --noEmit",
+    "pretty": "yarn type && yarn lint && yarn format",
+    "lint-staged": "lint-staged"
+  },
+  "dependencies": {
+    "@google-recaptcha/core": "*",
+    "@google-recaptcha/react": "*"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.0.7",
+    "tailwindcss": "4.0.7",
+    "vitepress": "^1.6.3"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+}

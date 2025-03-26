@@ -1,7 +1,8 @@
-import React from 'react';
 import { render } from '@testing-library/react';
+import React from 'react';
 
 import type { GoogleReCaptchaProviderProps } from './GoogleReCaptchaProvider';
+
 import { GoogleReCaptchaProvider } from './GoogleReCaptchaProvider';
 
 const googleReCaptchaProviderProps = {
@@ -100,8 +101,8 @@ describe('Google ReCaptcha v2', () => {
     render(
       <GoogleReCaptchaProvider
         {...googleReCaptchaProviderProps}
-        type='v2-invisible'
         language='ru'
+        type='v2-invisible'
       />
     );
 
@@ -120,8 +121,8 @@ describe('Google ReCaptcha v2', () => {
         <div id='container' />
         <GoogleReCaptchaProvider
           {...googleReCaptchaProviderProps}
-          type='v2-invisible'
           explicit={{ container: 'container' }}
+          type='v2-invisible'
         />
       </>
     );

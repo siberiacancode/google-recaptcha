@@ -1,3 +1,7 @@
+# vite press
+**/.vitepress/cache
+**/.vitepress/dist
+
 # Microsoft Azure Build Output
 csx/
 *.build.csdef
@@ -203,12 +207,5 @@ build/Release
 **/playwright/report
 
 # Gatsby
-public
 .cache
 gatsby-types.d.ts
-
-# Card standard
-generated
-
-# Turbo
-.turbo

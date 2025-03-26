@@ -1,20 +1,26 @@
 import type { ComponentType } from 'react';
+
 import React from 'react';
 
 import type { GoogleReCaptchaContextProps } from './GoogleReCaptchaContext';
-import { GoogleReCaptchaContextConsumer } from './GoogleReCaptchaContext';
+
+import { GoogleReCaptchaContext } from './GoogleReCaptchaContext';
 
 export interface WithGoogleReCaptchaParams {
   googleReCaptcha: GoogleReCaptchaContextProps;
 }
 
-export const withGoogleReCaptcha = <OwnProps,>(
-  Component: ComponentType<OwnProps & WithGoogleReCaptchaParams>
-) => {
-  const WithGoogleReCaptchaComponent = (props: OwnProps & Partial<WithGoogleReCaptchaParams>) => (
-    <GoogleReCaptchaContextConsumer>
+/**
+ * Higher-order component that provides the GoogleReCaptchaContext to a component
+ *
+ * @param {ComponentType<Props>} Component - The component to wrap with GoogleReCaptchaContext
+ * @returns A new component that passes the GoogleReCaptchaContext to the wrapped component
+ */
+export const withGoogleReCaptcha = <Props extends object>(Component: ComponentType<Props>) => {
+  const WithGoogleReCaptchaComponent = (props: Props & Partial<WithGoogleReCaptchaParams>) => (
+    <GoogleReCaptchaContext.Consumer>
       {(value) => <Component {...props} googleReCaptcha={value} />}
-    </GoogleReCaptchaContextConsumer>
+    </GoogleReCaptchaContext.Consumer>
   );
 
   WithGoogleReCaptchaComponent.displayName = `withGoogleReCaptcha(${

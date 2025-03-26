@@ -1,7 +1,7 @@
 {
   "name": "@google-recaptcha/react",
   "version": "1.2.2",
-  "description": "Tool that easily and quickly add Google ReCaptcha for your website or application\n",
+  "description": "Tool that easily and quickly add Google ReCaptcha for your website or application",
   "author": {
     "name": "SIBERIA CAN CODE 🧊",
     "url": "https://github.com/siberiacancode"
@@ -20,7 +20,8 @@
   "homepage": "https://github.com/siberiacancode/google-recaptcha",
   "repository": {
     "type": "git",
-    "url": "https://github.com/siberiacancode/google-recaptcha"
+    "url": "https://github.com/siberiacancode/google-recaptcha",
+    "directory": "packages/react"
   },
   "bugs": {
     "url": "https://github.com/siberiacancode/google-recaptcha/issues"
@@ -39,7 +40,7 @@
   ],
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "files": [
     "dist/**/*"
   ],
@@ -47,18 +48,19 @@
     "node": ">=14"
   },
   "scripts": {
-    "prepare": "husky && npm run build",
-    "build": "shx rm -rf dist && rollup -c --bundleConfigAsCjs",
+    "prepublishOnly": "pnpm unit-test run && pnpm build",
+    "build": "shx rm -rf dist && vite build",
     "lint": "eslint . --fix",
-    "format": "prettier --write **/*.{ts,tsx,js,jsx}",
-    "type": "tsc --noEmit",
-    "pretty": "yarn type && yarn format && yarn lint",
+    "lint-inspector": "npx @eslint/config-inspector@latest",
+    "format": "prettier --write .",
+    "pretty": "pnpm lint && pnpm format",
     "unit-test": "vitest",
+    "lint-staged": "lint-staged",
     "storybook": "storybook dev -p 6010"
   },
   "peerDependencies": {
-    "@types/react": "^18.0.0",
-    "react": "^17.0.2 || ^18.0.0"
+    "@types/react": "^17.0.2 || ^18.0.0 || ^19.0.0",
+    "react": "^17.0.2 || ^18.0.0 || ^19.0.0"
   },
   "peerDependenciesMeta": {
     "@types/react": {
@@ -69,37 +71,33 @@
     "@google-recaptcha/core": "*"
   },
   "devDependencies": {
-    "@siberiacancode/builder": "^1.3.10",
-    "@siberiacancode/eslint": "^2.1.0",
-    "@siberiacancode/prettier": "^1.1.1",
-    "@siberiacancode/vitest": "^1.2.4",
-    "@storybook/addon-actions": "^8.2.9",
-    "@storybook/addon-essentials": "^8.2.9",
-    "@storybook/addon-interactions": "^8.2.9",
-    "@storybook/addon-links": "^8.2.9",
-    "@storybook/react": "^8.2.9",
-    "@storybook/react-vite": "^8.2.9",
-    "@testing-library/react": "^16.0.0",
-    "@types/react": "18.3.3",
-    "husky": "^9.1.4",
-    "jest-environment-jsdom": "^29.7.0",
-    "lint-staged": "^15.2.9",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "shx": "^0.3.4",
-    "storybook": "^8.2.9",
-    "ts-loader": "^9.5.1",
-    "typescript": "^5.5.4",
-    "vite": "^5.4.1"
-  },
-  "resolutions": {
-    "jackspeak": "2.1.1"
+    "@siberiacancode/vitest": "^2.1.0",
+    "@storybook/addon-actions": "^8.6.9",
+    "@storybook/addon-essentials": "^8.6.9",
+    "@storybook/addon-interactions": "^8.6.9",
+    "@storybook/addon-links": "^8.6.9",
+    "@storybook/react": "^8.6.9",
+    "@storybook/react-vite": "^8.6.9",
+    "@testing-library/react": "^16.2.0",
+    "@types/react": "19.0.12",
+    "@vitejs/plugin-react": "^4.3.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "shx": "^0.4.0",
+    "storybook": "^8.6.9",
+    "ts-loader": "^9.5.2",
+    "vite": "^6.2.3",
+    "vite-plugin-dts": "^4.5.3",
+    "vitest": "^3.0.9"
   },
   "lint-staged": {
-    "*.js": "prettier --write",
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
     "*.{ts,tsx}": [
-      "prettier --write",
-      "eslint --no-error-on-unmatched-pattern --fix"
+      "eslint --fix",
+      "prettier --write"
     ]
   }
 }
