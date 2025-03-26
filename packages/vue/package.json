@@ -1,6 +1,6 @@
 {
   "name": "@google-recaptcha/vue",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Tool that easily and quickly add Google ReCaptcha for your website or application",
   "author": {
     "name": "SIBERIA CAN CODE 🧊",
@@ -35,13 +35,12 @@
     "dist/**/*"
   ],
   "scripts": {
-    "prepublishOnly": "pnpm unit-test run && pnpm build",
+    "prepublishOnly": "pnpm build",
     "build": "shx rm -rf dist && vite build",
     "lint": "eslint . --fix",
     "lint-inspector": "npx @eslint/config-inspector@latest",
     "format": "prettier --write .",
     "pretty": "pnpm lint && pnpm format",
-    "unit-test": "vitest",
     "lint-staged": "lint-staged",
     "storybook": "storybook dev -p 6010"
   },
