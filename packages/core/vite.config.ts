@@ -27,14 +27,14 @@ export default defineConfig({
           dir: 'dist/esm',
           preserveModules: true,
           preserveModulesRoot: 'src',
-          entryFileNames: '[name].js'
+          entryFileNames: '[name].mjs'
         },
         {
           format: 'cjs',
           dir: 'dist/cjs',
           preserveModules: true,
           preserveModulesRoot: 'src',
-          entryFileNames: '[name].js',
+          entryFileNames: '[name].cjs',
           exports: 'named'
         }
       ]

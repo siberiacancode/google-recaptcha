@@ -28,5 +28,5 @@ features:
     details: Works perfectly with server-side rendering/generation
   - icon: 🌱
     title: Fully tree shakeable
-    details: Only take what you want
+    details: Only import what you need, reducing bundle size for optimal performance
 ---

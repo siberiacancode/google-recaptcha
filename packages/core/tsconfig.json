@@ -5,7 +5,6 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "types": ["@testing-library/jest-dom"],
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,

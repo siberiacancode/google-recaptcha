@@ -66,20 +66,15 @@ export default async () => {
                 { text: 'Vue', link: '/vue/introduction' },
                 { text: 'Core', link: '/core/introduction' }
               ]
-            },
-
+            }
           ],
           sidebar: {
             '/react/': [
               { text: 'Introduction', link: '/react/introduction' },
               ...reactSidebarItems
             ],
-            '/vue/': [
-              { text: 'Introduction', link: '/core/introduction' }
-            ],
-            '/core/': [
-              { text: 'Introduction', link: '/core/introduction' }
-            ],
+            '/vue/': [{ text: 'Introduction', link: '/core/introduction' }],
+            '/core/': [{ text: 'Introduction', link: '/core/introduction' }],
             '/': [
               { text: 'Introduction', link: '/introduction' },
               {
