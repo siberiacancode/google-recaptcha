@@ -115,7 +115,7 @@ export const GoogleReCaptchaProvider = ({
         googleReCaptcha.ready(async () => {
           setGoogleReCaptchaInstance(googleReCaptcha);
           if (onLoad) await onLoad(googleReCaptcha);
-          setIsLoading(true);
+          setIsLoading(false);
         });
       }
 
@@ -141,7 +141,7 @@ export const GoogleReCaptchaProvider = ({
             googleReCaptcha.render(explicit.container, params, !!explicit.inherit);
           setGoogleReCaptchaInstance(googleReCaptcha);
           if (onLoad) await onLoad(googleReCaptcha);
-          setIsLoading(true);
+          setIsLoading(false);
         });
       }
     };
@@ -155,12 +155,12 @@ export const GoogleReCaptchaProvider = ({
         host,
         ...((type === 'v3' || type === 'v2-invisible') &&
           explicit?.badge && {
-            badge: explicit?.badge === 'hidden' ? 'bottomright' : explicit?.badge
-          }),
+          badge: explicit?.badge === 'hidden' ? 'bottomright' : explicit?.badge
+        }),
         ...(language && { hl: language }),
         render:
           ((type === 'v3' || type === 'v2-invisible') && explicit?.container) ||
-          type === 'v2-checkbox'
+            type === 'v2-checkbox'
             ? 'explicit'
             : siteKey,
         ...scriptProps,
