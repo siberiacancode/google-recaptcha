@@ -6,6 +6,8 @@ tool that easily and quickly add Google ReCaptcha for your website or applicatio
 
 - [core](https://github.com/siberiacancode/google-recaptcha/tree/main/packages/core)
 - [react](https://github.com/siberiacancode/google-recaptcha/tree/main/packages/react)
+- [vue](https://github.com/siberiacancode/google-recaptcha/tree/main/packages/vue)
+- [docs](https://github.com/siberiacancode/google-recaptcha/tree/main/packages/docs)
 
 ## 🦉 Philosophy
 
