@@ -34,6 +34,9 @@
   "files": [
     "dist/**/*"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "prepublishOnly": "pnpm build",
     "build": "shx rm -rf dist && vite build",

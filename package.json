@@ -22,6 +22,7 @@
     "packages/*"
   ],
   "scripts": {
+    "docs:build": "pnpm --filter @google-recaptcha/docs build",
     "lint": "pnpm --recursive lint",
     "format": "prettier --write .",
     "unit-test": "pnpm --recursive run unit-test",
