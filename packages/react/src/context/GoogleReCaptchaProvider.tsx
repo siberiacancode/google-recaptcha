@@ -177,7 +177,7 @@ export const GoogleReCaptchaProvider = ({
         removeGoogleReCaptchaBadge();
       }
     };
-  }, [isEnterprise, language, host, siteKey]);
+  }, [isEnterprise, language, host, siteKey, type]);
 
   const executeV3 = (action: GoogleReCaptcha.Action['action']) => {
     if (!googleReCaptchaInstance?.execute) throw new Error('Google ReCaptcha has not been loaded');

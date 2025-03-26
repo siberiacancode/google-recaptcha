@@ -1,16 +1,17 @@
 {
   "name": "@google-recaptcha/vue",
-  "version": "1.0.1",
+  "version": "1.0.0",
+  "type": "module",
   "description": "Tool that easily and quickly add Google ReCaptcha for your website or application",
   "author": {
     "name": "SIBERIA CAN CODE 🧊",
     "url": "https://github.com/siberiacancode"
   },
   "license": "MIT",
-  "homepage": "https://github.com/siberiacancode/google-recaptcha",
+  "homepage": "https://siberiacancode.github.io/google-recaptcha/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/siberiacancode/google-recaptcha",
+    "url": "git+https://github.com/siberiacancode/google-recaptcha.git",
     "directory": "packages/vue"
   },
   "bugs": {
@@ -28,9 +29,9 @@
     "recaptcha enterprise",
     "vue recaptcha enterprise"
   ],
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist/**/*"
   ],

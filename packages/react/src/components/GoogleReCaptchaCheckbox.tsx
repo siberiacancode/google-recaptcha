@@ -46,6 +46,8 @@ export const GoogleReCaptchaCheckbox = ({
   const googleReCaptcha = useGoogleReCaptcha();
   const googleReCaptchaCheckboxContainerRef = useRef<HTMLDivElement>(null);
 
+  const hl = language ?? googleReCaptcha.language;
+
   useEffect(() => {
     if (!googleReCaptcha.render) return;
     const checkbox = document.createElement('div');
@@ -53,7 +55,7 @@ export const GoogleReCaptchaCheckbox = ({
     const params = {
       sitekey: googleReCaptcha.siteKey,
       callback: onChange,
-      ...((language ?? googleReCaptcha.language) && { hl: language ?? googleReCaptcha.language }),
+      ...(hl && { hl }),
       ...(action && { action }),
       'expired-callback': onExpired,
       'error-callback': onError,
@@ -70,16 +72,7 @@ export const GoogleReCaptchaCheckbox = ({
     return () => {
       removeGoogleReCaptchaContainer(id);
     };
-  }, [
-    googleReCaptcha.siteKey,
-    googleReCaptcha.render,
-    googleReCaptcha.language,
-    onChange,
-    id,
-    size,
-    action,
-    theme
-  ]);
+  }, [googleReCaptcha.siteKey, googleReCaptcha.render, hl, onChange, id, size, action, theme]);
 
   return <div ref={googleReCaptchaCheckboxContainerRef} id={id} {...props} />;
 };

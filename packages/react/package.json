@@ -10,7 +10,7 @@
   "homepage": "https://siberiacancode.github.io/google-recaptcha/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/siberiacancode/google-recaptcha",
+    "url": "git+https://github.com/siberiacancode/google-recaptcha.git",
     "directory": "packages/react"
   },
   "bugs": {
@@ -28,6 +28,7 @@
     "recaptcha enterprise",
     "react recaptcha enterprise"
   ],
+  "sideEffects": false,
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",

@@ -10,7 +10,7 @@ export default defineConfig({
     vue(),
     dts({
       entryRoot: 'src',
-      outDir: 'dist/types'
+      outDir: 'dist'
     })
   ],
   build: {
@@ -27,18 +27,10 @@ export default defineConfig({
       output: [
         {
           format: 'es',
-          dir: 'dist/esm',
+          dir: 'dist',
           preserveModules: true,
           preserveModulesRoot: 'src',
           entryFileNames: '[name].js'
-        },
-        {
-          format: 'cjs',
-          dir: 'dist/cjs',
-          preserveModules: true,
-          preserveModulesRoot: 'src',
-          entryFileNames: '[name].js',
-          exports: 'named'
         }
       ]
     },

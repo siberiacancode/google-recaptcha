@@ -7,12 +7,10 @@
     "url": "https://github.com/siberiacancode"
   },
   "license": "MIT",
-  
-  
   "homepage": "https://siberiacancode.github.io/google-recaptcha/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/siberiacancode/google-recaptcha",
+    "url": "git+https://github.com/siberiacancode/google-recaptcha.git",
     "directory": "packages/core"
   },
   "bugs": {
@@ -26,6 +24,7 @@
     "recaptcha v2 invisible",
     "recaptcha enterprise"
   ],
+  "sideEffects": false,
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",

@@ -7,12 +7,10 @@
     "url": "https://github.com/siberiacancode"
   },
   "license": "MIT",
-  
-  
   "homepage": "https://siberiacancode.github.io/google-recaptcha/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/siberiacancode/google-recaptcha.git",
+    "url": "git+https://github.com/siberiacancode/google-recaptcha.git",
     "directory": "packages/docs"
   },
   "bugs": "https://github.com/siberiacancode/google-recaptcha/issues",

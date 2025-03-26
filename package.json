@@ -2,21 +2,17 @@
   "name": "google-recaptcha",
   "license": "MIT",
   "version": "0.0.0",
-  "keywords": [
-    "google-recaptcha",
-    "react google-recaptcha",
-    "core google-recaptcha"
-  ],
   "private": true,
   "author": {
     "name": "SIBERIA CAN CODE 🧊",
     "url": "https://github.com/siberiacancode"
   },
   "bugs": {
-    "url": "https://github.com/siberiacancode/core/issues"
+    "url": "https://github.com/siberiacancode/google-recaptcha/issues"
   },
   "repository": {
-    "url": "https://github.com/siberiacancode/core"
+    "type": "git",
+    "url": "git+https://github.com/siberiacancode/google-recaptcha.git"
   },
   "workspaces": [
     "packages/*"

@@ -2,11 +2,11 @@
 import type { GoogleReCaptcha } from '@google-recaptcha/core';
 
 import { removeGoogleReCaptchaContainer } from '@google-recaptcha/core';
-import { onMounted, onUnmounted, ref, useAttrs, watch } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 
 import { useGoogleReCaptcha } from '../composables/useGoogleReCaptcha';
 
-const { action, language, size, theme } = defineProps<GoogleReCaptchaCheckboxProps>();
+const props = defineProps<GoogleReCaptchaCheckboxProps>();
 
 const emit = defineEmits<{
   (event: 'change', token: string): void;
@@ -18,16 +18,16 @@ const CHECKBOX_CONTAINER_ID = 'google-recaptcha-checkbox-container';
 
 export interface GoogleReCaptchaCheckboxProps {
   action?: string;
+  id: string;
   language?: GoogleReCaptcha.Language;
   size?: GoogleReCaptcha.Size['v2-checkbox'];
   theme?: GoogleReCaptcha.Theme;
 }
 
-const attrs = useAttrs();
-const id = (attrs.id as string | undefined) ?? CHECKBOX_CONTAINER_ID;
-
+const id = props.id ?? CHECKBOX_CONTAINER_ID;
 const googleReCaptchaCheckboxContainerRef = ref<HTMLDivElement | null>(null);
 const googleReCaptcha = useGoogleReCaptcha();
+const hl = computed(() => props.language ?? googleReCaptcha.language);
 
 const renderCaptcha = () => {
   if (!googleReCaptcha.render) return;
@@ -36,14 +36,14 @@ const renderCaptcha = () => {
   const params = {
     sitekey: googleReCaptcha.siteKey,
     callback: (token: string) => emit('change', token),
-    ...((language ?? googleReCaptcha.language) && {
-      hl: language ?? googleReCaptcha.language
+    ...((props.language ?? googleReCaptcha.language) && {
+      hl: props.language ?? googleReCaptcha.language
     }),
-    ...(action && { action }),
+    ...(props.action && { action: props.action }),
     'expired-callback': () => emit('expired'),
     'error-callback': () => emit('error'),
-    size,
-    theme
+    size: props.size,
+    theme: props.theme
   } as GoogleReCaptcha.Parameters;
 
   googleReCaptcha.render(checkbox, params);
@@ -64,14 +64,13 @@ watch(
   () => [
     googleReCaptcha.siteKey,
     googleReCaptcha.render,
-    googleReCaptcha.language,
-    id,
-    size,
-    action,
-    theme
+    hl,
+    props.size,
+    props.action,
+    props.theme,
+    props.id
   ],
-  renderCaptcha,
-  { deep: true }
+  renderCaptcha
 );
 </script>
 
