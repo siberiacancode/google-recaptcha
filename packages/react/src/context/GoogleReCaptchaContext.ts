@@ -1,23 +1,24 @@
-import { createContext } from 'react';
 import type { Container, GoogleReCaptcha } from '@google-recaptcha/core';
+
+import { createContext } from 'react';
 
 export interface GoogleReCaptchaContextProps {
   googleReCaptcha: any;
-  siteKey: string;
   isLoading: boolean;
   language?: GoogleReCaptcha.Language;
-  executeV3?: (action: GoogleReCaptcha.Action['action']) => Promise<string>;
+  siteKey: string;
   executeV2Invisible?: (optWidgetId?: GoogleReCaptcha.OptWidgetId) => Promise<void>;
-  reset?: (optWidgetId?: GoogleReCaptcha.OptWidgetId) => void;
+  executeV3?: (action: GoogleReCaptcha.Action['action']) => Promise<string>;
   getResponse?: (optWidgetId?: GoogleReCaptcha.OptWidgetId) => void;
   render?: (
     container: Container,
     parameters?: GoogleReCaptcha.Parameters,
     inherit?: boolean
   ) => void;
+  reset?: (optWidgetId?: GoogleReCaptcha.OptWidgetId) => void;
 }
 
-const contextError =
+const CONTEXT_ERROR =
   'GoogleReCaptcha Context has not yet been implemented, if you are using useGoogleReCaptcha hook, make sure the hook is called inside component wrapped by GoogleRecaptchaProvider';
 
 export const GoogleReCaptchaContext = createContext<GoogleReCaptchaContextProps>({
@@ -26,23 +27,18 @@ export const GoogleReCaptchaContext = createContext<GoogleReCaptchaContextProps>
   language: '',
   isLoading: true,
   executeV3: () => {
-    throw new Error(contextError);
+    throw new Error(CONTEXT_ERROR);
   },
   executeV2Invisible: () => {
-    throw new Error(contextError);
+    throw new Error(CONTEXT_ERROR);
   },
   reset: () => {
-    throw new Error(contextError);
+    throw new Error(CONTEXT_ERROR);
   },
   getResponse: () => {
-    throw new Error(contextError);
+    throw new Error(CONTEXT_ERROR);
   },
   render: () => {
-    throw new Error(contextError);
+    throw new Error(CONTEXT_ERROR);
   }
 });
-
-export const {
-  Provider: GoogleReCaptchaContextProvider,
-  Consumer: GoogleReCaptchaContextConsumer
-} = GoogleReCaptchaContext;

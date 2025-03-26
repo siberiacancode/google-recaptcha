@@ -1,7 +1,8 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { GoogleReCaptchaCheckbox } from '../../src/components/GoogleReCaptchaCheckbox';
+import React from 'react';
+
+import { GoogleReCaptchaCheckbox } from '../../src/components';
 import { GoogleReCaptchaProvider } from '../../src/context';
 
 type Story = StoryObj<typeof GoogleReCaptchaCheckbox>;
@@ -14,8 +15,8 @@ export const Playground = {
   decorators: [
     (Story: any) => (
       <GoogleReCaptchaProvider
-        type='v2-checkbox'
         siteKey='6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+        type='v2-checkbox'
       >
         <Story />
       </GoogleReCaptchaProvider>

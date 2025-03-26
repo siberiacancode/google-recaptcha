@@ -1,11 +1,11 @@
 import type { GoogleReCaptcha } from '../types';
 
 interface GenerateGoogleReCaptchaSrcParams {
+  badge?: Exclude<GoogleReCaptcha.Badge, 'hidden'>;
+  hl?: string;
   host?: GoogleReCaptcha.Host;
   isEnterprise?: boolean;
   render: string;
-  hl?: string;
-  badge?: Exclude<GoogleReCaptcha.Badge, 'hidden'>;
 }
 
 /**
