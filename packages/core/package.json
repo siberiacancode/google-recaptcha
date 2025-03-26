@@ -1,21 +1,11 @@
 {
   "name": "@google-recaptcha/core",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Tool that easily and quickly add Google ReCaptcha for your website or application",
   "author": {
     "name": "SIBERIA CAN CODE 🧊",
     "url": "https://github.com/siberiacancode"
   },
-  "contributors": [
-    {
-      "name": "Dmitry Babin",
-      "url": "https://github.com/debabin"
-    },
-    {
-      "name": "Alexander Vasilchuk",
-      "url": "https://github.com/anv296"
-    }
-  ],
   "license": "MIT",
   "homepage": "https://github.com/siberiacancode/google-recaptcha",
   "repository": {
@@ -36,7 +26,7 @@
   ],
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "files": [
     "dist/**/*"
   ],

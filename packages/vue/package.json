@@ -6,16 +6,6 @@
     "name": "SIBERIA CAN CODE 🧊",
     "url": "https://github.com/siberiacancode"
   },
-  "contributors": [
-    {
-      "name": "Dmitry Babin",
-      "url": "https://github.com/debabin"
-    },
-    {
-      "name": "Alexander Vasilchuk",
-      "url": "https://github.com/anv296"
-    }
-  ],
   "license": "MIT",
   "homepage": "https://github.com/siberiacancode/google-recaptcha",
   "repository": {

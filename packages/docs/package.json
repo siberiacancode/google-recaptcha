@@ -1,6 +1,6 @@
 {
   "name": "@google-recaptcha/docs",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Tool that easily and quickly add Google ReCaptcha for your website or application",
   "author": {
     "name": "SIBERIA CAN CODE 🧊",
@@ -14,18 +14,6 @@
     "directory": "packages/docs"
   },
   "bugs": "https://github.com/siberiacancode/google-recaptcha/issues",
-  "keywords": [
-    "google recaptcha",
-    "react recaptcha",
-    "recaptcha v3",
-    "recaptcha v2 checkbox",
-    "recaptcha v2 invisible",
-    "react recaptcha v3",
-    "react recaptcha v2 checkbox",
-    "react recaptcha v2 invisible",
-    "recaptcha enterprise",
-    "react recaptcha enterprise"
-  ],
   "scripts": {
     "dev": "vitepress dev app",
     "build": "vitepress build app",
@@ -36,10 +24,6 @@
     "type": "tsc --noEmit",
     "pretty": "yarn type && yarn lint && yarn format",
     "lint-staged": "lint-staged"
-  },
-  "dependencies": {
-    "@google-recaptcha/core": "*",
-    "@google-recaptcha/react": "*"
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.0.7",
