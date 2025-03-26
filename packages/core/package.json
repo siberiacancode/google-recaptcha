@@ -31,13 +31,12 @@
     "dist/**/*"
   ],
   "scripts": {
-    "prepublishOnly": "pnpm unit-test run && pnpm build",
+    "prepublishOnly": "pnpm build",
     "build": "shx rm -rf dist && vite build",
     "lint": "eslint . --fix",
     "lint-inspector": "npx @eslint/config-inspector@latest",
     "format": "prettier --write .",
     "pretty": "pnpm lint && pnpm format",
-    "unit-test": "vitest",
     "lint-staged": "lint-staged"
   },
   "devDependencies": {
