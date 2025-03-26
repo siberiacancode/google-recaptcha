@@ -9,6 +9,7 @@ export default defineConfig({
   plugins: [
     react(),
     dts({
+      exclude: ['**/*.test.{ts,tsx}', '**/*.stories.{ts,tsx}'],
       entryRoot: 'src',
       outDir: 'dist/types'
     })
@@ -25,7 +26,8 @@ export default defineConfig({
       },
       external: [
         ...Object.keys(pkg.dependencies || {}),
-        ...Object.keys(pkg.peerDependencies || {})
+        ...Object.keys(pkg.peerDependencies || {}),
+        'react/jsx-runtime'
       ],
       output: [
         {

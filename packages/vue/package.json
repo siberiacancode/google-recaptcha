@@ -54,7 +54,6 @@
   "devDependencies": {
     "@rollup/plugin-virtual": "^3.0.2",
     "@siberiacancode/builder": "^1.4.0",
-    "@siberiacancode/vitest": "^2.1.0",
     "@storybook/addon-actions": "^8.6.9",
     "@storybook/addon-essentials": "^8.6.9",
     "@storybook/addon-interactions": "^8.6.9",

@@ -37,13 +37,6 @@ importers:
         version: 4.5.3(@types/node@22.13.13)(rollup@4.37.0)(typescript@5.8.2)(vite@6.2.3(@types/node@22.13.13)(jiti@2.4.2)(lightningcss@1.29.3)(terser@5.39.0)(yaml@2.7.0))
 
   packages/docs:
-    dependencies:
-      '@google-recaptcha/core':
-        specifier: '*'
-        version: 1.0.5
-      '@google-recaptcha/react':
-        specifier: '*'
-        version: 1.2.3(react@19.0.0)
     devDependencies:
       '@tailwindcss/vite':
         specifier: 4.0.7
@@ -53,7 +46,7 @@ importers:
         version: 4.0.7
       vitepress:
         specifier: ^1.6.3
-        version: 1.6.3(@algolia/client-search@5.22.0)(@types/node@22.13.13)(lightningcss@1.29.3)(postcss@8.5.3)(react@19.0.0)(search-insights@2.17.3)(terser@5.39.0)(typescript@5.8.2)
+        version: 1.6.3(@algolia/client-search@5.22.0)(@types/node@22.13.13)(lightningcss@1.29.3)(postcss@8.5.3)(search-insights@2.17.3)(terser@5.39.0)(typescript@5.8.2)
 
   packages/react:
     dependencies:
@@ -82,6 +75,9 @@ importers:
       '@storybook/react-vite':
         specifier: ^8.6.9
         version: 8.6.9(@storybook/test@8.6.9(storybook@8.6.9(prettier@3.5.3)))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.37.0)(storybook@8.6.9(prettier@3.5.3))(typescript@5.8.2)(vite@6.2.3(@types/node@22.13.13)(jiti@2.4.2)(lightningcss@1.29.3)(terser@5.39.0)(yaml@2.7.0))
+      '@testing-library/jest-dom':
+        specifier: ^6.6.3
+        version: 6.6.3
       '@testing-library/react':
         specifier: ^16.2.0
         version: 16.2.0(@testing-library/dom@10.4.0)(@types/react@19.0.12)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -105,7 +101,7 @@ importers:
         version: 8.6.9(prettier@3.5.3)
       ts-loader:
         specifier: ^9.5.2
-        version: 9.5.2(typescript@5.8.2)(webpack@5.98.0)
+        version: 9.5.2(typescript@5.8.2)(webpack@5.98.0(esbuild@0.25.1))
       vite:
         specifier: ^6.2.3
         version: 6.2.3(@types/node@22.13.13)(jiti@2.4.2)(lightningcss@1.29.3)(terser@5.39.0)(yaml@2.7.0)
@@ -128,9 +124,6 @@ importers:
       '@siberiacancode/builder':
         specifier: ^1.4.0
         version: 1.4.0(@types/babel__core@7.20.5)(tslib@2.8.1)(typescript@5.8.2)
-      '@siberiacancode/vitest':
-        specifier: ^2.1.0
-        version: 2.1.0(jsdom@20.0.3)(vitest@3.0.9(@types/debug@4.1.12)(@types/node@22.13.13)(jiti@2.4.2)(jsdom@20.0.3)(lightningcss@1.29.3)(terser@5.39.0)(yaml@2.7.0))
       '@storybook/addon-actions':
         specifier: ^8.6.9
         version: 8.6.9(storybook@8.6.9(prettier@3.5.3))
@@ -1297,16 +1290,6 @@ packages:
     resolution: {integrity: sha512-PDkw/Q4V4qBKS9cOKRxdK6Ern4l4slondjKYqrJRBMMsMNIPfh87EHRT1YqxtzaMgH9HVRxxI7EUS1NB5z6/Cg==}
     engines: {node: '>=14'}
 
-  '@google-recaptcha/react@1.2.3':
-    resolution: {integrity: sha512-o+iuo2kX3HBcrcelycTz3IOXQ7zC9YkP6EWcQb6fimoFjKDeSx4WDrkP1+9SwnpspO6UJs2VWVKq9HlxNFwG9A==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      '@types/react': ^18.0.0
-      react: ^17.0.2 || ^18.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
     engines: {node: '>=18.18.0'}
@@ -1927,6 +1910,10 @@ packages:
 
   '@testing-library/jest-dom@6.5.0':
     resolution: {integrity: sha512-xGGHpBXYSHUUr6XsKBfs85TWlYKpTc37cSBBVrXcib2MkHLboWlkClhWF37JKlDb9KEq3dHs+f2xR7XJEWGBxA==}
+    engines: {node: '>=14', npm: '>=6', yarn: '>=1'}
+
+  '@testing-library/jest-dom@6.6.3':
+    resolution: {integrity: sha512-IteBhl4XqYNkM54f4ejhLRJiZNqcSCoXUOG2CPK7qbD322KjQozM4kHQOfkG2oln9b9HTYqs+Sae8vBATubxxA==}
     engines: {node: '>=14', npm: '>=6', yarn: '>=1'}
 
   '@testing-library/react@16.2.0':
@@ -6501,9 +6488,9 @@ snapshots:
 
   '@docsearch/css@3.8.2': {}
 
-  '@docsearch/js@3.8.2(@algolia/client-search@5.22.0)(react@19.0.0)(search-insights@2.17.3)':
+  '@docsearch/js@3.8.2(@algolia/client-search@5.22.0)(search-insights@2.17.3)':
     dependencies:
-      '@docsearch/react': 3.8.2(@algolia/client-search@5.22.0)(react@19.0.0)(search-insights@2.17.3)
+      '@docsearch/react': 3.8.2(@algolia/client-search@5.22.0)(search-insights@2.17.3)
       preact: 10.26.4
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -6512,14 +6499,13 @@ snapshots:
       - react-dom
       - search-insights
 
-  '@docsearch/react@3.8.2(@algolia/client-search@5.22.0)(react@19.0.0)(search-insights@2.17.3)':
+  '@docsearch/react@3.8.2(@algolia/client-search@5.22.0)(search-insights@2.17.3)':
     dependencies:
       '@algolia/autocomplete-core': 1.17.7(@algolia/client-search@5.22.0)(algoliasearch@5.22.0)(search-insights@2.17.3)
       '@algolia/autocomplete-preset-algolia': 1.17.7(@algolia/client-search@5.22.0)(algoliasearch@5.22.0)
       '@docsearch/css': 3.8.2
       algoliasearch: 5.22.0
     optionalDependencies:
-      react: 19.0.0
       search-insights: 2.17.3
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -6861,11 +6847,6 @@ snapshots:
       levn: 0.4.1
 
   '@google-recaptcha/core@1.0.5': {}
-
-  '@google-recaptcha/react@1.2.3(react@19.0.0)':
-    dependencies:
-      '@google-recaptcha/core': 1.0.5
-      react: 19.0.0
 
   '@humanfs/core@0.19.1': {}
 
@@ -7599,6 +7580,16 @@ snapshots:
       pretty-format: 27.5.1
 
   '@testing-library/jest-dom@6.5.0':
+    dependencies:
+      '@adobe/css-tools': 4.4.2
+      aria-query: 5.3.2
+      chalk: 3.0.0
+      css.escape: 1.5.1
+      dom-accessibility-api: 0.6.3
+      lodash: 4.17.21
+      redent: 3.0.0
+
+  '@testing-library/jest-dom@6.6.3':
     dependencies:
       '@adobe/css-tools': 4.4.2
       aria-query: 5.3.2
@@ -11426,14 +11417,16 @@ snapshots:
 
   tapable@2.2.1: {}
 
-  terser-webpack-plugin@5.3.14(webpack@5.98.0):
+  terser-webpack-plugin@5.3.14(esbuild@0.25.1)(webpack@5.98.0(esbuild@0.25.1)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
       schema-utils: 4.3.0
       serialize-javascript: 6.0.2
       terser: 5.39.0
-      webpack: 5.98.0
+      webpack: 5.98.0(esbuild@0.25.1)
+    optionalDependencies:
+      esbuild: 0.25.1
 
   terser@5.39.0:
     dependencies:
@@ -11490,7 +11483,7 @@ snapshots:
 
   ts-dedent@2.2.0: {}
 
-  ts-loader@9.5.2(typescript@5.8.2)(webpack@5.98.0):
+  ts-loader@9.5.2(typescript@5.8.2)(webpack@5.98.0(esbuild@0.25.1)):
     dependencies:
       chalk: 4.1.2
       enhanced-resolve: 5.18.1
@@ -11498,7 +11491,7 @@ snapshots:
       semver: 7.7.1
       source-map: 0.7.4
       typescript: 5.8.2
-      webpack: 5.98.0
+      webpack: 5.98.0(esbuild@0.25.1)
 
   ts-map@1.0.3: {}
 
@@ -11717,10 +11710,10 @@ snapshots:
       terser: 5.39.0
       yaml: 2.7.0
 
-  vitepress@1.6.3(@algolia/client-search@5.22.0)(@types/node@22.13.13)(lightningcss@1.29.3)(postcss@8.5.3)(react@19.0.0)(search-insights@2.17.3)(terser@5.39.0)(typescript@5.8.2):
+  vitepress@1.6.3(@algolia/client-search@5.22.0)(@types/node@22.13.13)(lightningcss@1.29.3)(postcss@8.5.3)(search-insights@2.17.3)(terser@5.39.0)(typescript@5.8.2):
     dependencies:
       '@docsearch/css': 3.8.2
-      '@docsearch/js': 3.8.2(@algolia/client-search@5.22.0)(react@19.0.0)(search-insights@2.17.3)
+      '@docsearch/js': 3.8.2(@algolia/client-search@5.22.0)(search-insights@2.17.3)
       '@iconify-json/simple-icons': 1.2.29
       '@shikijs/core': 2.5.0
       '@shikijs/transformers': 2.5.0
@@ -11879,7 +11872,7 @@ snapshots:
 
   webpack-virtual-modules@0.6.2: {}
 
-  webpack@5.98.0:
+  webpack@5.98.0(esbuild@0.25.1):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.7
@@ -11901,7 +11894,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.14(webpack@5.98.0)
+      terser-webpack-plugin: 5.3.14(esbuild@0.25.1)(webpack@5.98.0(esbuild@0.25.1))
       watchpack: 2.4.2
       webpack-sources: 3.2.3
     transitivePeerDependencies:

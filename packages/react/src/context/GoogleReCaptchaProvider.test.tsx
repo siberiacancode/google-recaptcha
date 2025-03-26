@@ -15,7 +15,7 @@ describe('Google ReCaptcha', () => {
   it('Should inject google recatcha script', () => {
     render(<GoogleReCaptchaProvider {...googleReCaptchaProviderProps} />);
 
-    const script = document.querySelector('#google-recaptcha-script');
+    const script = document.querySelector('#google-recaptcha-v3-script');
 
     expect(script).toHaveAttribute(
       'src',
@@ -40,7 +40,7 @@ describe('Google ReCaptcha', () => {
   it('Should inject google recatcha enterprise script', () => {
     render(<GoogleReCaptchaProvider {...googleReCaptchaProviderProps} isEnterprise />);
 
-    const script = document.querySelector('#google-recaptcha-script');
+    const script = document.querySelector('#google-recaptcha-v3-script');
 
     expect(script).toHaveAttribute(
       'src',
@@ -52,7 +52,7 @@ describe('Google ReCaptcha', () => {
   it('Should inject google recatcha script with host', () => {
     render(<GoogleReCaptchaProvider {...googleReCaptchaProviderProps} host='recaptcha.net' />);
 
-    const script = document.querySelector('#google-recaptcha-script');
+    const script = document.querySelector('#google-recaptcha-v3-script');
 
     expect(script).toHaveAttribute(
       'src',
@@ -66,7 +66,7 @@ describe('Google ReCaptcha v3', () => {
   it('Should inject google recatcha script with language', () => {
     render(<GoogleReCaptchaProvider {...googleReCaptchaProviderProps} language='ru' />);
 
-    const script = document.querySelector('#google-recaptcha-script');
+    const script = document.querySelector('#google-recaptcha-v3-script');
 
     expect(script).toHaveAttribute(
       'src',
@@ -86,7 +86,7 @@ describe('Google ReCaptcha v3', () => {
       </>
     );
 
-    const script = document.querySelector('#google-recaptcha-script');
+    const script = document.querySelector('#google-recaptcha-v3-script');
 
     expect(script).toHaveAttribute(
       'src',
@@ -106,7 +106,7 @@ describe('Google ReCaptcha v2', () => {
       />
     );
 
-    const script = document.querySelector('#google-recaptcha-script');
+    const script = document.querySelector('#google-recaptcha-v2-invisible-script');
 
     expect(script).toHaveAttribute(
       'src',
@@ -127,7 +127,7 @@ describe('Google ReCaptcha v2', () => {
       </>
     );
 
-    const script = document.querySelector('#google-recaptcha-script');
+    const script = document.querySelector('#google-recaptcha-v2-invisible-script');
 
     expect(script).toHaveAttribute(
       'src',
