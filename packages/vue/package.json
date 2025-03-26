@@ -1,6 +1,6 @@
 {
   "name": "@google-recaptcha/vue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "Tool that easily and quickly add Google ReCaptcha for your website or application",
   "author": {
