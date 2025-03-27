@@ -103,6 +103,7 @@ const renderCaptcha = () => {
   const isGoogleReCaptchaInjected = checkGoogleReCaptchaInjected();
 
   const onload = () => {
+    isLoading.value = true;
     const googleReCaptcha: GoogleReCaptcha.Instance = props.isEnterprise
       ? (window as any).grecaptcha?.enterprise
       : (window as any).grecaptcha;

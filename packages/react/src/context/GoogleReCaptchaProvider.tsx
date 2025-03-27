@@ -102,6 +102,7 @@ export const GoogleReCaptchaProvider = ({
     const isGoogleReCaptchaInjected = checkGoogleReCaptchaInjected();
 
     const onload = () => {
+      setIsLoading(true);
       const googleReCaptcha: GoogleReCaptcha.Instance = isEnterprise
         ? (window as any).grecaptcha?.enterprise
         : (window as any).grecaptcha;
@@ -155,12 +156,12 @@ export const GoogleReCaptchaProvider = ({
         host,
         ...((type === 'v3' || type === 'v2-invisible') &&
           explicit?.badge && {
-          badge: explicit?.badge === 'hidden' ? 'bottomright' : explicit?.badge
-        }),
+            badge: explicit?.badge === 'hidden' ? 'bottomright' : explicit?.badge
+          }),
         ...(language && { hl: language }),
         render:
           ((type === 'v3' || type === 'v2-invisible') && explicit?.container) ||
-            type === 'v2-checkbox'
+          type === 'v2-checkbox'
             ? 'explicit'
             : siteKey,
         ...scriptProps,
