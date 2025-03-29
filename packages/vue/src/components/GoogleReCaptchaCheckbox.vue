@@ -12,6 +12,7 @@ const emit = defineEmits<{
   (event: 'change', token: string): void;
   (event: 'error'): void;
   (event: 'expired'): void;
+  (event: 'update:token', token: string): void;
 }>();
 
 const CHECKBOX_CONTAINER_ID = 'google-recaptcha-checkbox-container';
@@ -35,7 +36,10 @@ const renderCaptcha = () => {
 
   const params = {
     sitekey: googleReCaptcha.siteKey,
-    callback: (token: string) => emit('change', token),
+    callback: (token: string) => {
+      emit('change', token);
+      emit('update:token', token);
+    },
     ...((props.language ?? googleReCaptcha.language) && {
       hl: props.language ?? googleReCaptcha.language
     }),

@@ -330,28 +330,3 @@ The function `generateGoogleReCaptchaScriptSrc` function may be needed for appli
 ### generateGoogleReCaptchaHiddenBadgeStyles
 
 The function `generateGoogleReCaptchaHiddenBadgeStyles` function returns [hidden styles](https://developers.google.com/recaptcha/docs/faq) for Google ReCaptcha badge.
-
-## ✨ Contributors
-
-<table>
-  <tr>
-    <td align="center" style="word-wrap: break-word; width: 100; height: 100">
-        <a href="https://github.com/debabin">
-            <img src="https://avatars.githubusercontent.com/u/45297354?v=4"
-            width="100;"
-            alt="debabin" />
-            <br />
-            <sub style="font-size:13px"><b>☄️ debabin</b></sub>
-        </a>
-    </td>
-    <td align="center" style="word-wrap: break-word; width: 100.0; height: 100.0">
-        <a href="https://github.com/anv296">
-            <img src="https://avatars.githubusercontent.com/u/39154399?s=400&u=7c4fcc6d120f4b13ccbd03a9a384622b6523c376&v=4"
-            width="100;"
-            alt="anv296" />
-            <br />
-            <sub style="font-size:13px"><b>🎱️ anv296</b></sub>
-        </a>
-    </td>
-  </tr>
-</table>

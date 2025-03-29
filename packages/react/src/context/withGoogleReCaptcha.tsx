@@ -2,12 +2,12 @@ import type { ComponentType } from 'react';
 
 import React from 'react';
 
-import type { GoogleReCaptchaContextProps } from './GoogleReCaptchaContext';
+import type { GoogleReCaptchaContextParams } from './GoogleReCaptchaContext';
 
 import { GoogleReCaptchaContext } from './GoogleReCaptchaContext';
 
 export interface WithGoogleReCaptchaParams {
-  googleReCaptcha: GoogleReCaptchaContextProps;
+  googleReCaptcha: GoogleReCaptchaContextParams;
 }
 
 /**
@@ -23,9 +23,8 @@ export const withGoogleReCaptcha = <Props extends object>(Component: ComponentTy
     </GoogleReCaptchaContext.Consumer>
   );
 
-  WithGoogleReCaptchaComponent.displayName = `withGoogleReCaptcha(${
-    Component.displayName || Component.name || 'Component'
-  })`;
+  WithGoogleReCaptchaComponent.displayName = `withGoogleReCaptcha(${Component.displayName || Component.name || 'Component'
+    })`;
 
   return WithGoogleReCaptchaComponent;
 };

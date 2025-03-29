@@ -25,7 +25,6 @@ export default defineConfig({
         index: path.resolve(__dirname, 'src/index.ts')
       },
       external: [
-        ...Object.keys(pkg.dependencies || {}),
         ...Object.keys(pkg.peerDependencies || {}),
         'react/jsx-runtime'
       ],

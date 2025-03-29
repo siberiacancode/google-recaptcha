@@ -11,7 +11,7 @@ import {
 } from '@google-recaptcha/core';
 import { onMounted, onUnmounted, provide, reactive, readonly, ref, watch } from 'vue';
 
-import { RECAPTCHA_KEY } from '../plugins/google-recaptcha-plugin';
+import { GoogleReCaptchaState, RECAPTCHA_KEY } from '../plugins/google-recaptcha-plugin';
 
 export interface GoogleReCaptchaDefaultProviderProps {
   host?: GoogleReCaptcha.Host;
@@ -86,10 +86,12 @@ const executeV2Invisible = (optWidgetId?: GoogleReCaptcha.OptWidgetId) => {
   return googleReCaptchaInstance.value.execute(optWidgetId);
 };
 
-const state = reactive({
-  googleReCaptcha: googleReCaptchaInstance,
+const state = reactive<GoogleReCaptchaState>({
+  get instance() {
+    return googleReCaptchaInstance.value;
+  },
   siteKey: props.siteKey,
-  isLoading,
+  isLoading: isLoading.value,
   language: props.language,
   executeV3,
   executeV2Invisible,

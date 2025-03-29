@@ -156,12 +156,12 @@ export const GoogleReCaptchaProvider = ({
         host,
         ...((type === 'v3' || type === 'v2-invisible') &&
           explicit?.badge && {
-            badge: explicit?.badge === 'hidden' ? 'bottomright' : explicit?.badge
-          }),
+          badge: explicit?.badge === 'hidden' ? 'bottomright' : explicit?.badge
+        }),
         ...(language && { hl: language }),
         render:
           ((type === 'v3' || type === 'v2-invisible') && explicit?.container) ||
-          type === 'v2-checkbox'
+            type === 'v2-checkbox'
             ? 'explicit'
             : siteKey,
         ...scriptProps,
@@ -192,7 +192,7 @@ export const GoogleReCaptchaProvider = ({
 
   const value = useMemo(
     () => ({
-      googleReCaptcha: googleReCaptchaInstance,
+      instance: googleReCaptchaInstance,
       siteKey,
       isLoading,
       executeV2Invisible,

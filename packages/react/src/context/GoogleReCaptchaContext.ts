@@ -2,8 +2,8 @@ import type { Container, GoogleReCaptcha } from '@google-recaptcha/core';
 
 import { createContext } from 'react';
 
-export interface GoogleReCaptchaContextProps {
-  googleReCaptcha: any;
+export interface GoogleReCaptchaContextParams {
+  instance?: GoogleReCaptcha.Instance;
   isLoading: boolean;
   language?: GoogleReCaptcha.Language;
   siteKey: string;
@@ -21,8 +21,8 @@ export interface GoogleReCaptchaContextProps {
 const CONTEXT_ERROR =
   'GoogleReCaptcha Context has not yet been implemented, if you are using useGoogleReCaptcha hook, make sure the hook is called inside component wrapped by GoogleRecaptchaProvider';
 
-export const GoogleReCaptchaContext = createContext<GoogleReCaptchaContextProps>({
-  googleReCaptcha: {},
+export const GoogleReCaptchaContext = createContext<GoogleReCaptchaContextParams>({
+  instance: undefined,
   siteKey: '',
   language: '',
   isLoading: true,

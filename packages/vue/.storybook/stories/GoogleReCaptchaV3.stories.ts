@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import { GoogleReCaptchaProvider } from '../../src/components';
+import { GoogleReCaptchaProvider, GoogleReCaptchaV3 } from '../../src/components';
+import { ref } from 'vue';
 
 const meta: Meta<typeof GoogleReCaptchaProvider> = {
   title: 'google recaptcha v3',
@@ -29,13 +30,13 @@ export const Playground: Story = {
   }),
   args: {
     type: 'v3',
-    siteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+    siteKey: '6LejC9kZAAAAAFQyq2IjCq0eK4g88GkixXr4_BGs'
   }
 };
 
 export const Explicit: Story = {
   render: (args) => ({
-    components: { GoogleReCaptchaProvider },
+    components: { GoogleReCaptchaProvider, GoogleReCaptchaV3 },
     setup() {
       return { args };
     },
@@ -47,7 +48,36 @@ export const Explicit: Story = {
   }),
   args: {
     type: 'v3',
-    siteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
+    siteKey: '6LejC9kZAAAAAFQyq2IjCq0eK4g88GkixXr4_BGs',
     explicit: { container: 'container', badge: 'inline' }
+  }
+};
+
+export const WithComponent: Story = {
+  render: (args) => ({
+    components: { GoogleReCaptchaProvider, GoogleReCaptchaV3 },
+    setup() {
+      const token = ref('');
+      return { args, token };
+    },
+    template: `
+      <div>
+        <GoogleReCaptchaProvider v-bind="args">
+          <GoogleReCaptchaV3
+            action="homepage"
+            v-model="token"
+          >
+            <div>
+              <button>Execute reCAPTCHA</button>
+              <p v-if="token">Token: {{ token.substring(0, 15) }}...</p>
+            </div>
+          </GoogleReCaptchaV3>
+        </GoogleReCaptchaProvider>
+      </div>
+    `
+  }),
+  args: {
+    type: 'v3',
+    siteKey: '6LejC9kZAAAAAFQyq2IjCq0eK4g88GkixXr4_BGs'
   }
 };

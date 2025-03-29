@@ -14,7 +14,6 @@ const PROVIDER_ERROR =
  */
 export const useGoogleReCaptcha = () => {
   const googleReCaptchaState = inject<GoogleReCaptchaState>(RECAPTCHA_KEY);
-  console.log(googleReCaptchaState, googleReCaptchaState);
   if (!googleReCaptchaState) throw new Error(PROVIDER_ERROR);
   return googleReCaptchaState;
 };

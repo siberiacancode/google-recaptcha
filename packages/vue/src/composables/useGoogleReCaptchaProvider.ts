@@ -1,6 +1,4 @@
 import type { Container, GoogleReCaptcha } from '@google-recaptcha/core';
-import type { App, InjectionKey } from 'vue';
-
 import {
   checkGoogleReCaptchaInjected,
   hideGoogleReCaptchaBadge,
@@ -9,23 +7,7 @@ import {
   removeGoogleReCaptchaContainer,
   removeGoogleReCaptchaScript
 } from '@google-recaptcha/core';
-import { reactive, readonly, ref } from 'vue';
-
-export interface GoogleReCaptchaState {
-  instance?: GoogleReCaptcha.Instance;
-  isLoading: boolean;
-  language?: GoogleReCaptcha.Language;
-  siteKey: string;
-  executeV2Invisible: (optWidgetId?: GoogleReCaptcha.OptWidgetId) => Promise<void>;
-  executeV3: (action: GoogleReCaptcha.Action['action']) => Promise<string>;
-  getResponse?: (optWidgetId?: GoogleReCaptcha.OptWidgetId) => string;
-  render?: (
-    container: Container,
-    parameters?: GoogleReCaptcha.Parameters,
-    inherit?: boolean
-  ) => number;
-  reset?: (optWidgetId?: GoogleReCaptcha.OptWidgetId) => void;
-}
+import { onMounted, onUnmounted, reactive, readonly, ref, watch } from 'vue';
 
 export interface GoogleReCaptchaDefaultOptions {
   host?: GoogleReCaptcha.Host;
@@ -33,8 +15,6 @@ export interface GoogleReCaptchaDefaultOptions {
   language?: string;
   scriptProps?: GoogleReCaptcha.Script;
   siteKey: string;
-  onError?: () => Promise<void>;
-  onLoad?: (googleReCaptcha: GoogleReCaptcha.Instance) => Promise<void> | void;
 }
 
 export interface Explicit {
@@ -52,6 +32,7 @@ export interface GoogleReCaptchaV2InvisibleOptions extends GoogleReCaptchaDefaul
     badge?: GoogleReCaptcha.Badge;
   };
 }
+
 export interface GoogleReCaptchaV2CheckBoxOptions extends GoogleReCaptchaDefaultOptions {
   type: Extract<GoogleReCaptcha.Type, 'v2-checkbox'>;
   explicit?: Explicit & {
@@ -61,6 +42,7 @@ export interface GoogleReCaptchaV2CheckBoxOptions extends GoogleReCaptchaDefault
     size?: GoogleReCaptcha.Size['v2-checkbox'];
   };
 }
+
 export interface GoogleReCaptchaV3Options extends GoogleReCaptchaDefaultOptions {
   type: Extract<GoogleReCaptcha.Type, 'v3'>;
   explicit?: Explicit & {
@@ -73,71 +55,75 @@ export type GoogleReCaptchaOptions =
   | GoogleReCaptchaV2InvisibleOptions
   | GoogleReCaptchaV3Options;
 
-export const RECAPTCHA_KEY: InjectionKey<Readonly<GoogleReCaptchaState>> =
-  Symbol('google-recaptcha-plugin');
+export interface GoogleReCaptchaState {
+  googleReCaptcha?: GoogleReCaptcha.Instance;
+  isLoading: boolean;
+  language?: GoogleReCaptcha.Language;
+  siteKey: string;
+  executeV2Invisible: (optWidgetId?: GoogleReCaptcha.OptWidgetId) => Promise<void>;
+  executeV3: (action: GoogleReCaptcha.Action['action']) => Promise<string>;
+  getResponse?: (optWidgetId?: GoogleReCaptcha.OptWidgetId) => string;
+  render?: (
+    container: Container,
+    parameters?: GoogleReCaptcha.Parameters,
+    inherit?: boolean
+  ) => number;
+  reset?: (optWidgetId?: GoogleReCaptcha.OptWidgetId) => void;
+}
 
-const onLoadCallbackName = 'onGoogleReCaptchaLoad';
-const containerId = 'google-recaptcha-container';
+export const useGoogleReCaptchaProvider = (options: GoogleReCaptchaOptions) => {
+  const { type, siteKey, language, scriptProps, isEnterprise = false, host, explicit } = options;
 
-export const googleReCaptcha = {
-  install(app: App, options: GoogleReCaptchaOptions) {
-    const {
-      type,
-      siteKey,
-      language,
-      scriptProps,
-      isEnterprise = false,
-      host,
-      explicit,
-      onLoad,
-      onError
-    } = options;
+  const onLoadCallbackName = 'onGoogleReCaptchaLoad';
+  const containerId = 'google-recaptcha-container';
 
-    const googleReCaptchaInstance = ref<GoogleReCaptcha.Instance>();
+  const isLoading = ref(true);
+  const googleReCaptchaInstance = ref<GoogleReCaptcha.Instance>();
 
-    const state = reactive<GoogleReCaptchaState>({
-      get instance() {
-        return googleReCaptchaInstance.value;
-      },
-      siteKey,
-      isLoading: true,
-      language: language as GoogleReCaptcha.Language,
-      executeV3: (action: GoogleReCaptcha.Action['action']) => {
-        if (!googleReCaptchaInstance.value?.execute)
-          throw new Error('Google ReCaptcha has not been loaded');
-        return googleReCaptchaInstance.value.execute(siteKey, { action });
-      },
-      executeV2Invisible: (optWidgetId?: GoogleReCaptcha.OptWidgetId) => {
-        if (!googleReCaptchaInstance.value?.execute)
-          throw new Error('Google ReCaptcha has not been loaded');
-        return googleReCaptchaInstance.value.execute(optWidgetId);
-      }
-    });
+  const executeV3 = (action: GoogleReCaptcha.Action['action']) => {
+    if (!googleReCaptchaInstance.value?.execute)
+      throw new Error('Google ReCaptcha has not been loaded');
+    return googleReCaptchaInstance.value.execute(siteKey, { action });
+  };
 
+  const executeV2Invisible = (optWidgetId?: GoogleReCaptcha.OptWidgetId) => {
+    if (!googleReCaptchaInstance.value?.execute)
+      throw new Error('Google ReCaptcha has not been loaded');
+    return googleReCaptchaInstance.value.execute(optWidgetId);
+  };
+
+  const state = reactive({
+    get instance() {
+      return googleReCaptchaInstance.value;
+    },
+    siteKey,
+    isLoading,
+    language: language as GoogleReCaptcha.Language,
+    executeV3,
+    executeV2Invisible,
+    reset: googleReCaptchaInstance.value?.reset,
+    getResponse: googleReCaptchaInstance.value?.getResponse,
+    render: googleReCaptchaInstance.value?.render
+  });
+
+  const renderCaptcha = () => {
     const scriptId = scriptProps?.id ?? `google-recaptcha-${type}-script`;
     const isGoogleReCaptchaInjected = checkGoogleReCaptchaInjected();
 
     const onload = () => {
-      state.isLoading = true;
+      isLoading.value = true;
       const googleReCaptcha: GoogleReCaptcha.Instance = isEnterprise
         ? (window as any).grecaptcha?.enterprise
         : (window as any).grecaptcha;
 
-      if (!googleReCaptcha) {
-        if (onError) onError();
-        return;
-      }
-
       if (!explicit) {
         googleReCaptcha.ready(async () => {
           googleReCaptchaInstance.value = googleReCaptcha;
-          state.instance = googleReCaptcha;
           state.reset = googleReCaptcha.reset;
           state.getResponse = googleReCaptcha.getResponse;
           state.render = googleReCaptcha.render;
 
-          if (onLoad) await onLoad(googleReCaptcha);
-          state.isLoading = false;
+          isLoading.value = false;
         });
       }
 
@@ -163,13 +149,11 @@ export const googleReCaptcha = {
             googleReCaptcha.render(explicit.container, params, !!explicit.inherit);
 
           googleReCaptchaInstance.value = googleReCaptcha;
-          state.instance = googleReCaptcha;
           state.reset = googleReCaptcha.reset;
           state.getResponse = googleReCaptcha.getResponse;
           state.render = googleReCaptcha.render;
 
-          if (onLoad) await onLoad(googleReCaptcha);
-          state.isLoading = false;
+          isLoading.value = false;
         });
       }
     };
@@ -196,16 +180,20 @@ export const googleReCaptcha = {
         id: scriptId
       });
     }
+  };
 
-    app.config.globalProperties.$onUnmounted = () => {
-      if (checkGoogleReCaptchaInjected()) removeGoogleReCaptchaScript();
-      if ((type === 'v3' || type === 'v2-invisible') && !explicit?.container && explicit?.badge) {
-        removeGoogleReCaptchaContainer(containerId);
-      } else {
-        removeGoogleReCaptchaBadge();
-      }
-    };
+  onMounted(renderCaptcha);
 
-    app.provide(RECAPTCHA_KEY, readonly(state));
-  }
+  watch(() => [siteKey, type, isEnterprise, language, host], renderCaptcha);
+
+  onUnmounted(() => {
+    if (checkGoogleReCaptchaInjected()) removeGoogleReCaptchaScript();
+    if ((type === 'v3' || type === 'v2-invisible') && !explicit?.container && explicit?.badge) {
+      removeGoogleReCaptchaContainer(containerId);
+    } else {
+      removeGoogleReCaptchaBadge();
+    }
+  });
+
+  return readonly(state);
 };
