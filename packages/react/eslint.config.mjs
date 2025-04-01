@@ -5,5 +5,11 @@ export default eslint(
   {
     name: '@google-recaptcha/react/ignores',
     ignores: ['*md']
+  },
+  {
+    name: '@google-recaptcha/react/rewrites',
+    rules: {
+      'react/no-context-provider': 'off'
+    }
   }
 );
