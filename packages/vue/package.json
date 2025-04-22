@@ -1,7 +1,7 @@
 {
   "name": "@google-recaptcha/vue",
-  "version": "1.1.0",
   "type": "module",
+  "version": "1.2.0",
   "description": "Tool that easily and quickly add Google ReCaptcha for your website or application",
   "author": {
     "name": "SIBERIA CAN CODE 🧊",
@@ -30,8 +30,9 @@
     "vue recaptcha enterprise"
   ],
   "sideEffects": false,
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
   "files": [
     "dist/**/*"
   ],
@@ -49,28 +50,31 @@
     "storybook": "storybook dev -p 6010"
   },
   "peerDependencies": {
-    "vue": "^3.0.0"
+    "@nuxt/kit": "^3",
+    "vue": "^3"
   },
   "dependencies": {
     "@google-recaptcha/core": "*"
   },
   "devDependencies": {
+    "@nuxt/kit": "^3.16.2",
+    "@nuxt/schema": "^3.16.2",
     "@rollup/plugin-virtual": "^3.0.2",
     "@siberiacancode/builder": "^1.4.0",
-    "@storybook/addon-actions": "^8.6.9",
-    "@storybook/addon-essentials": "^8.6.9",
-    "@storybook/addon-interactions": "^8.6.9",
-    "@storybook/addon-links": "^8.6.9",
-    "@storybook/vue3": "^8.6.9",
-    "@storybook/vue3-vite": "^8.6.9",
-    "@testing-library/vue": "^8.0.1",
+    "@storybook/addon-actions": "^8.6.12",
+    "@storybook/addon-essentials": "^8.6.12",
+    "@storybook/addon-interactions": "^8.6.12",
+    "@storybook/addon-links": "^8.6.12",
+    "@storybook/vue3": "^8.6.12",
+    "@storybook/vue3-vite": "^8.6.12",
+    "@testing-library/vue": "^8.1.0",
     "@vitejs/plugin-vue": "^5.2.3",
-    "rollup": "^4.37.0",
+    "nuxt": "^3.16.2",
     "shx": "^0.4.0",
-    "storybook": "^8.6.9",
-    "vite": "^6.2.3",
+    "storybook": "^8.6.12",
+    "vite": "^6.3.2",
     "vite-plugin-dts": "^4.5.3",
-    "vitest": "^3.0.9",
+    "vitest": "^3.1.2",
     "vue": "^3.5.13"
   },
   "lint-staged": {
