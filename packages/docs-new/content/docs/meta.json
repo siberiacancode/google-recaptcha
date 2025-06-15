@@ -1,0 +1,13 @@
+{
+  "title": "Display Name",
+  "icon": "MyIcon",
+  "pages": [
+    "---getting started---",
+    "index",
+    "basic usage",
+    "---Packages---",
+    "packages/core",
+    "packages/react",
+    "packages/vue"
+  ]
+}

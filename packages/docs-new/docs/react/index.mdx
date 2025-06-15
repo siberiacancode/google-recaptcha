@@ -1,0 +1,79 @@
+---
+title: React Package
+description: React hooks and components for Google reCAPTCHA integration
+---
+
+# @google-recaptcha/react
+
+React hooks and components for seamless Google reCAPTCHA integration in React applications.
+
+## Installation
+
+Install the React package using your preferred package manager:
+
+<Tabs items={['npm', 'yarn', 'pnpm']}>
+  <Tab value='npm'>```bash npm install @google-recaptcha/react ```</Tab>
+  <Tab value='yarn'>```bash yarn add @google-recaptcha/react ```</Tab>
+  <Tab value='pnpm'>```bash pnpm add @google-recaptcha/react ```</Tab>
+</Tabs>
+
+## Overview
+
+The React package provides a complete solution for integrating Google reCAPTCHA into React applications with minimal setup and maximum flexibility.
+
+## Key Features
+
+- **⚛️ React Native** - Built specifically for React applications
+- **🪝 Custom Hooks** - Easy-to-use hooks for reCAPTCHA functionality
+- **🧩 Ready Components** - Pre-built components for common use cases
+- **🔄 Context Provider** - Centralized reCAPTCHA management
+- **📦 TypeScript Support** - Full type definitions included
+- **🚀 SSR Ready** - Works with Next.js and other SSR frameworks
+- **🏢 Enterprise Support** - Built-in enterprise mode support
+
+## Core Components
+
+### GoogleReCaptchaProvider
+
+The main provider component that manages reCAPTCHA initialization and provides context to child components.
+
+### GoogleReCaptchaCheckbox
+
+A pre-built checkbox component for v2 checkbox reCAPTCHA implementation.
+
+## Custom Hooks
+
+### useGoogleReCaptcha
+
+Main hook for executing reCAPTCHA verification.
+
+### useGoogleReCaptchaCheckbox
+
+Hook specifically designed for v2 checkbox interactions.
+
+## Quick Start
+
+Here's a simple example to get you started:
+
+```jsx
+import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
+
+function App() {
+  return (
+    <GoogleReCaptchaProvider type='v3' siteKey='your-site-key'>
+      <YourComponent />
+    </GoogleReCaptchaProvider>
+  );
+}
+```
+
+## When to Use React Package
+
+The React package is perfect when:
+
+- Building React or Next.js applications
+- You want React-specific optimizations
+- You prefer component-based architecture
+- You need hooks for reCAPTCHA functionality
+
+For other frameworks, check out our [Vue package](/docs/vue) or [core utilities](/docs/core).

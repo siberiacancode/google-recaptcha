@@ -1,0 +1,380 @@
+---
+title: API Reference
+description: Complete API reference for all Google reCAPTCHA packages
+---
+
+# API Reference
+
+Complete API reference documentation for all Google reCAPTCHA packages, including types, hooks, components, and utilities.
+
+## 📦 Package References
+
+<Cards>
+  <Card title='Core API' href='/docs/reference/core' description='Core utilities and types' />
+  <Card
+    title='React API'
+    href='/docs/reference/react'
+    description='React hooks, components, and providers'
+  />
+  <Card
+    title='Vue API'
+    href='/docs/reference/vue'
+    description='Vue composables, components, and plugins'
+  />
+</Cards>
+
+## Common Types
+
+These types are shared across all packages:
+
+### ReCaptchaType
+
+```typescript
+type ReCaptchaType = 'v3' | 'v2-invisible' | 'v2-checkbox';
+```
+
+The type of reCAPTCHA to use:
+
+- `v3` - Invisible with risk scoring
+- `v2-invisible` - Background verification
+- `v2-checkbox` - Interactive checkbox
+
+### ReCaptchaTheme
+
+```typescript
+type ReCaptchaTheme = 'light' | 'dark';
+```
+
+Visual theme for reCAPTCHA components.
+
+### ReCaptchaSize
+
+```typescript
+type ReCaptchaSize = 'compact' | 'normal';
+```
+
+Size variant for v2 checkbox components.
+
+### ReCaptchaBadgePosition
+
+```typescript
+type ReCaptchaBadgePosition = 'bottomright' | 'bottomleft' | 'inline' | 'hidden';
+```
+
+Position of the reCAPTCHA badge for v3 and v2-invisible.
+
+### ReCaptchaLanguage
+
+```typescript
+type ReCaptchaLanguage =
+  | 'en'
+  | 'ar'
+  | 'af'
+  | 'am'
+  | 'hy'
+  | 'az'
+  | 'eu'
+  | 'bn'
+  | 'bg'
+  | 'ca'
+  | 'zh-CN'
+  | 'zh-TW'
+  | 'hr'
+  | 'cs'
+  | 'da'
+  | 'nl'
+  | 'et'
+  | 'fil'
+  | 'fi'
+  | 'fr'
+  | 'gl'
+  | 'ka'
+  | 'de'
+  | 'el'
+  | 'gu'
+  | 'iw'
+  | 'hi'
+  | 'hu'
+  | 'is'
+  | 'id'
+  | 'it'
+  | 'ja'
+  | 'kn'
+  | 'ko'
+  | 'lo'
+  | 'lv'
+  | 'lt'
+  | 'ms'
+  | 'ml'
+  | 'mr'
+  | 'mn'
+  | 'my'
+  | 'no'
+  | 'fa'
+  | 'pl'
+  | 'pt'
+  | 'pt-BR'
+  | 'ro'
+  | 'ru'
+  | 'sr'
+  | 'si'
+  | 'sk'
+  | 'sl'
+  | 'es'
+  | 'sw'
+  | 'sv'
+  | 'ta'
+  | 'te'
+  | 'th'
+  | 'tr'
+  | 'uk'
+  | 'ur'
+  | 'vi'
+  | 'zu';
+```
+
+Supported language codes for reCAPTCHA interface.
+
+## Configuration Types
+
+### BaseReCaptchaConfig
+
+```typescript
+interface BaseReCaptchaConfig {
+  siteKey: string;
+  language?: ReCaptchaLanguage;
+  isEnterprise?: boolean;
+  host?: 'google.com' | 'recaptcha.net';
+  scriptProps?: React.ScriptHTMLAttributes<HTMLScriptElement>;
+  onLoad?(): void;
+  onError?(): void;
+}
+```
+
+Base configuration shared across all reCAPTCHA types.
+
+### V3Config
+
+```typescript
+interface V3Config extends BaseReCaptchaConfig {
+  type: 'v3';
+  explicit?: {
+    badge?: ReCaptchaBadgePosition;
+    container?: string | HTMLElement;
+    tabIndex?: number;
+    inherit?: boolean;
+    callback?(token: string): void;
+    errorCallback?(): void;
+    expiredCallback?(): void;
+  };
+}
+```
+
+Configuration specific to reCAPTCHA v3.
+
+### V2InvisibleConfig
+
+```typescript
+interface V2InvisibleConfig extends BaseReCaptchaConfig {
+  type: 'v2-invisible';
+  explicit?: {
+    badge?: ReCaptchaBadgePosition;
+    container?: string | HTMLElement;
+    tabIndex?: number;
+    inherit?: boolean;
+    callback?(token: string): void;
+    errorCallback?(): void;
+    expiredCallback?(): void;
+  };
+}
+```
+
+Configuration for reCAPTCHA v2 invisible.
+
+### V2CheckboxConfig
+
+```typescript
+interface V2CheckboxConfig extends BaseReCaptchaConfig {
+  type: 'v2-checkbox';
+  explicit?: {
+    theme?: ReCaptchaTheme;
+    size?: ReCaptchaSize;
+    tabIndex?: number;
+    callback?(token: string): void;
+    errorCallback?(): void;
+    expiredCallback?(): void;
+  };
+}
+```
+
+Configuration for reCAPTCHA v2 checkbox.
+
+## Response Types
+
+### ReCaptchaResponse
+
+```typescript
+interface ReCaptchaResponse {
+  success: boolean;
+  challenge_ts?: string;
+  hostname?: string;
+  score?: number; // Only for v3
+  action?: string; // Only for v3
+  'error-codes'?: string[];
+}
+```
+
+Server-side verification response from Google.
+
+### ReCaptchaError
+
+```typescript
+interface ReCaptchaError {
+  code: string;
+  message: string;
+  details?: any;
+}
+```
+
+Error object returned by reCAPTCHA operations.
+
+## Utility Types
+
+### ExecuteFunction
+
+```typescript
+type ExecuteFunction = (action?: string) => Promise<string>;
+```
+
+Function type for executing reCAPTCHA verification.
+
+### CallbackFunction
+
+```typescript
+type CallbackFunction = (token: string | null | Error) => void;
+```
+
+Callback function type for reCAPTCHA events.
+
+## Constants
+
+### Default Values
+
+```typescript
+export const RECAPTCHA_DEFAULTS = {
+  type: 'v3' as const,
+  language: 'en' as const,
+  isEnterprise: false,
+  host: 'google.com' as const,
+  badge: 'bottomright' as const,
+  theme: 'light' as const,
+  size: 'normal' as const,
+  tabIndex: 0
+};
+```
+
+### Error Codes
+
+```typescript
+export const RECAPTCHA_ERROR_CODES = {
+  MISSING_INPUT_SECRET: 'missing-input-secret',
+  INVALID_INPUT_SECRET: 'invalid-input-secret',
+  MISSING_INPUT_RESPONSE: 'missing-input-response',
+  INVALID_INPUT_RESPONSE: 'invalid-input-response',
+  BAD_REQUEST: 'bad-request',
+  TIMEOUT_OR_DUPLICATE: 'timeout-or-duplicate'
+} as const;
+```
+
+## Environment Variables
+
+For secure configuration, use these environment variables:
+
+```bash
+# Site keys (public)
+NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your_site_key
+VITE_RECAPTCHA_SITE_KEY=your_site_key
+
+# Secret keys (server-side only)
+RECAPTCHA_SECRET_KEY=your_secret_key
+
+# Enterprise configuration
+RECAPTCHA_IS_ENTERPRISE=true
+RECAPTCHA_PROJECT_ID=your_project_id
+```
+
+## Testing
+
+### Test Keys
+
+Google provides test keys for development:
+
+```typescript
+export const RECAPTCHA_TEST_KEYS = {
+  siteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
+  secretKey: '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'
+};
+```
+
+These keys always return successful verification but should never be used in production.
+
+## Browser Support
+
+### Minimum Requirements
+
+- **Modern Browsers**: Chrome 60+, Firefox 60+, Safari 12+, Edge 79+
+- **JavaScript**: ES2018+ features required
+- **TypeScript**: 4.5+ for full type support
+
+### Polyfills
+
+For older browser support, ensure these APIs are available:
+
+- `Promise`
+- `fetch` (or use a polyfill)
+- `async/await` syntax support
+
+## Migration Guide
+
+### From v1 to v2
+
+Key breaking changes:
+
+1. **Provider Props**: Changed from `reCaptchaKey` to `siteKey`
+2. **Hook Returns**: Added loading states and error handling
+3. **Type Safety**: Improved TypeScript definitions
+
+```tsx
+// v1 (deprecated)
+<GoogleReCaptchaProvider reCaptchaKey="key">
+
+// v2 (current)
+<GoogleReCaptchaProvider siteKey="key" type="v3">
+```
+
+### Configuration Updates
+
+```tsx
+// Old configuration
+const config = {
+  sitekey: 'key',
+  theme: 'light'
+};
+
+// New configuration
+const config = {
+  siteKey: 'key',
+  type: 'v3',
+  explicit: {
+    theme: 'light'
+  }
+};
+```
+
+## Next Steps
+
+Explore package-specific APIs:
+
+- [Core API Reference](/docs/reference/core) - Utility functions and types
+- [React API Reference](/docs/reference/react) - Hooks and components
+- [Vue API Reference](/docs/reference/vue) - Composables and components

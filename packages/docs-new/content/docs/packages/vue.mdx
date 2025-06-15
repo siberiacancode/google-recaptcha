@@ -1,0 +1,175 @@
+---
+title: Vue
+description: Vue integration for Google reCAPTCHA with composables and components
+---
+
+The Vue package provides a comprehensive solution for integrating Google reCAPTCHA into Vue applications. Built specifically for Vue 3, it offers composables, components, and providers that seamlessly integrate with the Vue Composition API while supporting all reCAPTCHA versions including v3, v2-invisible, and v2-checkbox.
+
+## Installation
+
+Install the Vue package using your preferred package manager:
+
+```package-install
+npm install @google-recaptcha/vue
+```
+
+## Provider Setup
+
+Vue reCAPTCHA can be integrated in three different ways depending on your needs and application structure: **Plugin**, **Provider Component**, **Composable**
+
+```ts tab="Plugin" title="main.ts"
+import { createApp } from 'vue';
+import { googleReCaptcha } from '@google-recaptcha/vue';
+
+import App from './App.vue';
+
+const app = createApp(App);
+
+app.use(googleReCaptcha, {
+  type: 'v3',
+  siteKey: 'your_site_key'
+});
+app.mount('#app');
+```
+
+```vue tab="Provider Component"
+<template>
+  <GoogleReCaptchaProvider type="v3" site-key="your_site_key">
+    <slot />
+  </GoogleReCaptchaProvider>
+</template>
+
+<script setup>
+import { GoogleReCaptchaProvider } from '@google-recaptcha/vue';
+</script>
+```
+
+```vue tab="Composable"
+<script setup>
+import { useGoogleReCaptchaProvider } from '@google-recaptcha/vue';
+
+useGoogleReCaptchaProvider({
+  type: 'v3',
+  siteKey: 'your_site_key'
+});
+</script>
+```
+
+## Usage Examples
+
+### V3
+
+[Google ReCaptcha v3](https://developers.google.com/recaptcha/docs/v3) returns a score for each request without user friction. The score is based on interactions with your site and enables you to take an appropriate action for your site.
+
+```vue tab="Composable"
+<script setup>
+import { useGoogleReCaptcha } from '@google-recaptcha/vue';
+
+const googleReCaptcha = useGoogleReCaptcha();
+
+const onReCaptchaVerify = async () => {
+  if (!googleReCaptcha.executeV3) {
+    console.log('Execute recaptcha not available');
+    return;
+  }
+
+  // [!code word:executeV3()]
+  const token = await googleReCaptcha.executeV3();
+  ...
+};
+</script>
+
+<template>
+  <button @click="onReCaptchaVerify">Verify</button>
+</template>
+```
+
+```vue tab="Component"
+<script setup>
+import { GoogleReCaptchaV3 } from '@google-recaptcha/vue';
+
+const token = ref('');
+</script>
+
+<template>
+  <GoogleReCaptchaV3 v-model="token">
+    <button>Verify</button>
+  </GoogleReCaptchaV3>
+</template>
+```
+
+### V2 invisible
+
+[Google ReCaptcha v2 invisible](https://developers.google.com/recaptcha/docs/display) does not require users to solve any puzzles or enter any codes. Instead, it runs in the background and analyzes user behavior on the web page to determine if they are genuine users or potential bots.
+
+```vue
+<script setup>
+import { useGoogleReCaptcha } from '@google-recaptcha/vue';
+
+const googleReCaptcha = useGoogleReCaptcha();
+
+const onReCaptchaVerify = async () => {
+  if (!googleReCaptcha.executeV2Invisible) {
+    console.log('Execute recaptcha not available');
+    return;
+  }
+
+  // [!code word:executeV2Invisible()]
+  const token = await googleReCaptcha.executeV2Invisible();
+  ...
+};
+</script>
+
+<template>
+  <button @click="onReCaptchaVerify">Verify</button>
+</template>
+```
+
+### V2 checkbox
+
+When a user interacts with the [Google ReCaptcha v2 checkbox](https://developers.google.com/recaptcha/docs/display), advanced algorithms analyze their behavior to distinguish between humans and bots. If the system suspects suspicious activity, additional challenges may be presented, such as image selections or puzzle-solving tasks.
+
+```vue
+<script setup>
+import { GoogleReCaptchaCheckbox } from '@google-recaptcha/vue';
+
+const onChange = (token) => console.log(token);
+</script>
+
+<template>
+  <GoogleReCaptchaCheckbox @change="onChange" />
+</template>
+```
+
+## Enterprise Mode
+
+Google reCAPTCHA Enterprise provides enhanced security features, advanced analytics, and better customization options for businesses. It offers improved bot detection, detailed risk analysis, and enterprise-grade support.
+
+```vue
+<script setup>
+import { GoogleReCaptchaProvider } from '@google-recaptcha/vue';
+</script>
+
+<template>
+  <!-- [!code word:is-enterprise] -->
+  <GoogleReCaptchaProvider type="v3" site-key="your_enterprise_site_key" is-enterprise>
+    ...
+  </GoogleReCaptchaProvider>
+</template>
+```
+
+Enterprise mode supports custom actions for better risk assessment and provides detailed analytics on user interactions.
+
+```vue
+<script setup>
+import { useGoogleReCaptcha } from '@google-recaptcha/vue';
+
+const googleReCaptcha = useGoogleReCaptcha();
+
+  const onClick = async () => {
+    // [!code word:'action']
+    const token = await googleReCaptcha.executeV3('action');
+    ...
+  };
+</script>
+```

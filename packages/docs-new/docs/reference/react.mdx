@@ -1,0 +1,486 @@
+---
+title: React API Reference
+description: Complete API reference for @google-recaptcha/react
+---
+
+# React API Reference
+
+Complete API reference for the `@google-recaptcha/react` package, including components, hooks, and types.
+
+## Components
+
+### GoogleReCaptchaProvider
+
+The main provider component that manages reCAPTCHA initialization and provides context.
+
+```tsx
+import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
+
+<GoogleReCaptchaProvider
+  type='v3'
+  siteKey='your-site-key'
+  // ... other props
+>
+  <YourApp />
+</GoogleReCaptchaProvider>;
+```
+
+#### Props
+
+| Prop           | Type                                            | Required | Default        | Description                 |
+| -------------- | ----------------------------------------------- | -------- | -------------- | --------------------------- |
+| `type`         | `'v3' \| 'v2-invisible' \| 'v2-checkbox'`       | ✅       | -              | reCAPTCHA version to use    |
+| `siteKey`      | `string`                                        | ✅       | -              | Your reCAPTCHA site key     |
+| `language`     | `ReCaptchaLanguage`                             | ❌       | `'en'`         | Interface language          |
+| `isEnterprise` | `boolean`                                       | ❌       | `false`        | Enable enterprise mode      |
+| `host`         | `'google.com' \| 'recaptcha.net'`               | ❌       | `'google.com'` | Host to load from           |
+| `scriptProps`  | `React.ScriptHTMLAttributes<HTMLScriptElement>` | ❌       | `{}`           | Additional script tag props |
+| `onLoad`       | `() => void`                                    | ❌       | -              | Callback when script loads  |
+| `onError`      | `() => void`                                    | ❌       | -              | Callback on script error    |
+| `explicit`     | `ExplicitConfig`                                | ❌       | `{}`           | Advanced configuration      |
+
+#### Explicit Configuration (V3 & V2 Invisible)
+
+```tsx
+interface ExplicitConfig {
+  badge?: 'bottomright' | 'bottomleft' | 'inline' | 'hidden';
+  container?: string | HTMLElement;
+  tabIndex?: number;
+  inherit?: boolean;
+  callback?(token: string): void;
+  errorCallback?(): void;
+  expiredCallback?(): void;
+}
+```
+
+#### Explicit Configuration (V2 Checkbox)
+
+```tsx
+interface V2CheckboxExplicitConfig {
+  theme?: 'light' | 'dark';
+  size?: 'compact' | 'normal';
+  tabIndex?: number;
+  callback?(token: string): void;
+  errorCallback?(): void;
+  expiredCallback?(): void;
+}
+```
+
+### GoogleReCaptchaCheckbox
+
+Pre-built checkbox component for v2 checkbox reCAPTCHA.
+
+```tsx
+import { GoogleReCaptchaCheckbox } from '@google-recaptcha/react';
+
+<GoogleReCaptchaCheckbox
+  onChange={(token) => console.log('Token:', token)}
+  theme='light'
+  size='normal'
+/>;
+```
+
+#### Props
+
+| Prop              | Type                              | Required | Default    | Description            |
+| ----------------- | --------------------------------- | -------- | ---------- | ---------------------- |
+| `id`              | `string`                          | ❌       | -          | Element ID             |
+| `className`       | `string`                          | ❌       | -          | CSS class name         |
+| `action`          | `string`                          | ❌       | -          | Enterprise action name |
+| `container`       | `string \| HTMLElement`           | ❌       | -          | Container for badge    |
+| `theme`           | `'light' \| 'dark'`               | ❌       | `'light'`  | Visual theme           |
+| `size`            | `'compact' \| 'normal'`           | ❌       | `'normal'` | Component size         |
+| `language`        | `ReCaptchaLanguage`               | ❌       | -          | Override language      |
+| `callback`        | `(token: string) => void`         | ❌       | -          | Success callback       |
+| `errorCallback`   | `() => void`                      | ❌       | -          | Error callback         |
+| `expiredCallback` | `() => void`                      | ❌       | -          | Expiration callback    |
+| `onChange`        | `(token: string \| null) => void` | ❌       | -          | Change handler         |
+
+## Hooks
+
+### useGoogleReCaptcha
+
+Main hook for executing reCAPTCHA verification.
+
+```tsx
+import { useGoogleReCaptcha } from '@google-recaptcha/react';
+
+function MyComponent() {
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
+  const handleClick = async () => {
+    if (executeRecaptcha) {
+      const token = await executeRecaptcha('my_action');
+      console.log('Token:', token);
+    }
+  };
+
+  return <button onClick={handleClick}>Verify</button>;
+}
+```
+
+#### Returns
+
+```tsx
+interface UseGoogleReCaptchaReturn {
+  executeRecaptcha: ((action?: string) => Promise<string>) | null;
+}
+```
+
+| Property           | Type                                             | Description                                          |
+| ------------------ | ------------------------------------------------ | ---------------------------------------------------- |
+| `executeRecaptcha` | `((action?: string) => Promise<string>) \| null` | Function to execute reCAPTCHA. `null` when not ready |
+
+#### Parameters
+
+- `action` (optional): Action name for v3 reCAPTCHA (used for analytics)
+
+#### Example with Error Handling
+
+```tsx
+const { executeRecaptcha } = useGoogleReCaptcha();
+
+const handleSubmit = async () => {
+  if (!executeRecaptcha) {
+    console.log('reCAPTCHA not ready');
+    return;
+  }
+
+  try {
+    const token = await executeRecaptcha('form_submit');
+    // Process token
+  } catch (error) {
+    console.error('reCAPTCHA failed:', error);
+  }
+};
+```
+
+### useGoogleReCaptchaCheckbox
+
+Hook for v2 checkbox reCAPTCHA with state management.
+
+```tsx
+import { useGoogleReCaptchaCheckbox } from '@google-recaptcha/react';
+
+function CheckboxForm() {
+  const { ref, isLoading, isVerified, token, error } = useGoogleReCaptchaCheckbox({
+    onChange: (token) => console.log('Token:', token),
+    onError: () => console.log('Error occurred'),
+    onExpired: () => console.log('Verification expired')
+  });
+
+  return (
+    <div>
+      <div ref={ref} />
+      {isLoading && <p>Loading...</p>}
+      {error && <p>Error: {error.message}</p>}
+      {isVerified && <p>✅ Verified!</p>}
+    </div>
+  );
+}
+```
+
+#### Parameters
+
+```tsx
+interface UseGoogleReCaptchaCheckboxOptions {
+  onChange?(token: string | null): void;
+  onError?(error: Error): void;
+  onExpired?(): void;
+  theme?: 'light' | 'dark';
+  size?: 'compact' | 'normal';
+  tabIndex?: number;
+}
+```
+
+#### Returns
+
+```tsx
+interface UseGoogleReCaptchaCheckboxReturn {
+  ref: React.RefObject<HTMLDivElement>;
+  isLoading: boolean;
+  isVerified: boolean;
+  token: string | null;
+  error: Error | null;
+  reset(): void;
+  execute(): void;
+}
+```
+
+| Property     | Type                              | Description                        |
+| ------------ | --------------------------------- | ---------------------------------- |
+| `ref`        | `React.RefObject<HTMLDivElement>` | Ref to attach to container element |
+| `isLoading`  | `boolean`                         | Whether reCAPTCHA is loading       |
+| `isVerified` | `boolean`                         | Whether verification is complete   |
+| `token`      | `string \| null`                  | Current verification token         |
+| `error`      | `Error \| null`                   | Current error state                |
+| `reset`      | `() => void`                      | Reset the reCAPTCHA widget         |
+| `execute`    | `() => void`                      | Manually trigger verification      |
+
+## Context
+
+### GoogleReCaptchaContext
+
+The context used internally by the provider and hooks.
+
+```tsx
+import { useContext } from 'react';
+import { GoogleReCaptchaContext } from '@google-recaptcha/react';
+
+// Generally not needed - use useGoogleReCaptcha instead
+const context = useContext(GoogleReCaptchaContext);
+```
+
+#### Context Value
+
+```tsx
+interface GoogleReCaptchaContextValue {
+  executeRecaptcha: ((action?: string) => Promise<string>) | null;
+  container: string | HTMLElement | null;
+  isReady: boolean;
+  isLoading: boolean;
+  error: Error | null;
+}
+```
+
+## Types
+
+### Configuration Types
+
+```tsx
+// Base configuration
+interface BaseReCaptchaConfig {
+  siteKey: string;
+  language?: ReCaptchaLanguage;
+  isEnterprise?: boolean;
+  host?: 'google.com' | 'recaptcha.net';
+  scriptProps?: React.ScriptHTMLAttributes<HTMLScriptElement>;
+  onLoad?(): void;
+  onError?(): void;
+}
+
+// V3 specific configuration
+interface V3Config extends BaseReCaptchaConfig {
+  type: 'v3';
+  explicit?: {
+    badge?: ReCaptchaBadgePosition;
+    container?: string | HTMLElement;
+    tabIndex?: number;
+    inherit?: boolean;
+    callback?(token: string): void;
+    errorCallback?(): void;
+    expiredCallback?(): void;
+  };
+}
+```
+
+### Event Handler Types
+
+```tsx
+type TokenCallback = (token: string) => void;
+type ErrorCallback = () => void;
+type ExpiredCallback = () => void;
+type ChangeHandler = (token: string | null) => void;
+```
+
+### Component Prop Types
+
+```tsx
+// Provider props for different versions
+type GoogleReCaptchaProviderProps = V3Config | V2InvisibleConfig | V2CheckboxConfig;
+
+// Checkbox component props
+interface GoogleReCaptchaCheckboxProps {
+  id?: string;
+  className?: string;
+  action?: string;
+  container?: string | HTMLElement;
+  theme?: 'light' | 'dark';
+  size?: 'compact' | 'normal';
+  language?: ReCaptchaLanguage;
+  callback?(token: string): void;
+  errorCallback?(): void;
+  expiredCallback?(): void;
+  onChange?(token: string | null): void;
+}
+```
+
+## Error Handling
+
+### Common Error Patterns
+
+```tsx
+// 1. Hook not ready
+const { executeRecaptcha } = useGoogleReCaptcha();
+
+if (!executeRecaptcha) {
+  // reCAPTCHA not loaded yet
+  return <div>Loading reCAPTCHA...</div>;
+}
+
+// 2. Execution error
+try {
+  const token = await executeRecaptcha('action');
+} catch (error) {
+  if (error instanceof Error) {
+    console.error('reCAPTCHA error:', error.message);
+  }
+}
+
+// 3. Network/timeout errors
+const handleSubmit = async () => {
+  try {
+    const token = await executeRecaptcha('submit');
+    // Success
+  } catch (error) {
+    // Handle specific error types
+    if (error.message.includes('timeout')) {
+      showMessage('Request timed out. Please try again.');
+    } else {
+      showMessage('Verification failed. Please try again.');
+    }
+  }
+};
+```
+
+### Error Types
+
+```tsx
+interface ReCaptchaError extends Error {
+  code?: string;
+  details?: any;
+}
+
+// Common error codes
+const ERROR_CODES = {
+  NETWORK_ERROR: 'network-error',
+  TIMEOUT: 'timeout',
+  INVALID_SITE_KEY: 'invalid-site-key',
+  MISSING_INPUT: 'missing-input'
+} as const;
+```
+
+## Best Practices
+
+### 1. Provider Placement
+
+```tsx
+// ✅ Good - High in component tree
+function App() {
+  return (
+    <GoogleReCaptchaProvider type='v3' siteKey='key'>
+      <Router>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/contact' element={<Contact />} />
+        </Routes>
+      </Router>
+    </GoogleReCaptchaProvider>
+  );
+}
+
+// ❌ Bad - Multiple providers
+function Contact() {
+  return (
+    <GoogleReCaptchaProvider type='v3' siteKey='key'>
+      <ContactForm />
+    </GoogleReCaptchaProvider>
+  );
+}
+```
+
+### 2. Conditional Execution
+
+```tsx
+const { executeRecaptcha } = useGoogleReCaptcha();
+
+// ✅ Good - Always check readiness
+const handleSubmit = async () => {
+  if (!executeRecaptcha) {
+    console.log('reCAPTCHA not ready');
+    return;
+  }
+
+  const token = await executeRecaptcha('submit');
+  // Process token
+};
+
+// ❌ Bad - No readiness check
+const handleSubmit = async () => {
+  const token = await executeRecaptcha('submit'); // May throw error
+};
+```
+
+### 3. Error Boundaries
+
+```tsx
+import { ErrorBoundary } from 'react-error-boundary';
+
+function ReCaptchaErrorFallback({ error }) {
+  return (
+    <div>
+      <h2>reCAPTCHA Error</h2>
+      <p>Verification is temporarily unavailable.</p>
+      <button onClick={() => window.location.reload()}>Retry</button>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <ErrorBoundary FallbackComponent={ReCaptchaErrorFallback}>
+      <GoogleReCaptchaProvider type='v3' siteKey='key'>
+        <MyApp />
+      </GoogleReCaptchaProvider>
+    </ErrorBoundary>
+  );
+}
+```
+
+## Performance Considerations
+
+### 1. Lazy Loading
+
+```tsx
+import { lazy, Suspense } from 'react';
+
+const ReCaptchaForm = lazy(() => import('./ReCaptchaForm'));
+
+function App() {
+  return (
+    <GoogleReCaptchaProvider type='v3' siteKey='key'>
+      <Suspense fallback={<div>Loading...</div>}>
+        <ReCaptchaForm />
+      </Suspense>
+    </GoogleReCaptchaProvider>
+  );
+}
+```
+
+### 2. Memoization
+
+```tsx
+import { memo, useCallback } from 'react';
+
+const ContactForm = memo(() => {
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
+  const handleSubmit = useCallback(
+    async (data) => {
+      if (!executeRecaptcha) return;
+
+      const token = await executeRecaptcha('contact');
+      await submitForm({ ...data, token });
+    },
+    [executeRecaptcha]
+  );
+
+  return <form onSubmit={handleSubmit}>...</form>;
+});
+```
+
+## Next Steps
+
+- [View usage examples](/docs/react/basic-usage)
+- [Explore implementation guides](/docs/guides)
+- [Check Vue API reference](/docs/reference/vue)

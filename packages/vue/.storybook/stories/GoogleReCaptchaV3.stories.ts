@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import { GoogleReCaptchaProvider, GoogleReCaptchaV3 } from '../../src/components';
 import { ref } from 'vue';
+
+import { GoogleReCaptchaProvider, GoogleReCaptchaV3 } from '../../src/components';
 
 const meta: Meta<typeof GoogleReCaptchaProvider> = {
   title: 'google recaptcha v3',
@@ -64,7 +65,7 @@ export const WithComponent: Story = {
       <div>
         <GoogleReCaptchaProvider v-bind="args">
           <GoogleReCaptchaV3
-            action="homepage"
+            action="action"
             v-model="token"
           >
             <div>

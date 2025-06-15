@@ -1,0 +1,442 @@
+---
+title: Basic Usage
+description: Learn how to use Vue composables and components for Google reCAPTCHA
+---
+
+# Basic Usage
+
+Learn how to integrate Google reCAPTCHA into your Vue applications using our composables and components.
+
+## Setup Provider
+
+First, wrap your application with the `GoogleReCaptchaProvider`:
+
+```vue
+<template>
+  <GoogleReCaptchaProvider type="v3" site-key="your-site-key">
+    <YourAppContent />
+  </GoogleReCaptchaProvider>
+</template>
+
+<script setup>
+import { GoogleReCaptchaProvider } from '@google-recaptcha/vue';
+</script>
+```
+
+## V3 Implementation
+
+reCAPTCHA v3 runs in the background and provides a score based on user interactions:
+
+```vue
+<template>
+  <form @submit.prevent="handleSubmit">
+    <!-- Your form fields -->
+    <button type="submit" :disabled="loading">
+      {{ loading ? 'Submitting...' : 'Submit' }}
+    </button>
+  </form>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { useGoogleReCaptcha } from '@google-recaptcha/vue';
+
+const { executeRecaptcha, isLoading } = useGoogleReCaptcha();
+const loading = ref(false);
+
+const handleSubmit = async () => {
+  if (!executeRecaptcha) {
+    console.log('reCAPTCHA not loaded');
+    return;
+  }
+
+  loading.value = true;
+
+  try {
+    const token = await executeRecaptcha('contact_form');
+    console.log('reCAPTCHA token:', token);
+
+    // Send form data with token to your server
+    await submitForm({ ...formData, recaptchaToken: token });
+  } catch (error) {
+    console.error('reCAPTCHA error:', error);
+  } finally {
+    loading.value = false;
+  }
+};
+</script>
+```
+
+### Provider Configuration for V3
+
+```vue
+<template>
+  <GoogleReCaptchaProvider
+    type="v3"
+    site-key="your-v3-site-key"
+    language="en"
+    :explicit="{
+      badge: 'bottomright',
+      container: 'recaptcha-container'
+    }"
+  >
+    <App />
+  </GoogleReCaptchaProvider>
+</template>
+```
+
+## V2 Invisible Implementation
+
+reCAPTCHA v2 invisible runs challenges only when suspicious activity is detected:
+
+```vue
+<template>
+  <button @click="handleLogin" :disabled="isLoading">
+    {{ isLoading ? 'Logging in...' : 'Login' }}
+  </button>
+</template>
+
+<script setup>
+import { useGoogleReCaptcha } from '@google-recaptcha/vue';
+
+const { executeRecaptcha, isLoading } = useGoogleReCaptcha();
+
+const handleLogin = async () => {
+  if (!executeRecaptcha) return;
+
+  try {
+    const token = await executeRecaptcha();
+    // Process login with token
+    await authenticateUser({ ...credentials, recaptchaToken: token });
+  } catch (error) {
+    console.error('Login failed:', error);
+  }
+};
+</script>
+```
+
+### Provider Configuration for V2 Invisible
+
+```vue
+<template>
+  <GoogleReCaptchaProvider
+    type="v2-invisible"
+    site-key="your-v2-invisible-site-key"
+    :explicit="{
+      badge: 'hidden',
+      callback: handleCallback,
+      errorCallback: handleError,
+      expiredCallback: handleExpired
+    }"
+  >
+    <App />
+  </GoogleReCaptchaProvider>
+</template>
+
+<script setup>
+const handleCallback = (token) => console.log('Token received:', token);
+const handleError = () => console.log('reCAPTCHA error');
+const handleExpired = () => console.log('reCAPTCHA expired');
+</script>
+```
+
+## V2 Checkbox Implementation
+
+reCAPTCHA v2 checkbox shows the familiar "I'm not a robot" challenge:
+
+### Using the Checkbox Component
+
+```vue
+<template>
+  <form @submit.prevent="handleSubmit">
+    <!-- Form fields -->
+
+    <GoogleReCaptchaCheckbox @change="handleRecaptchaChange" theme="light" size="normal" />
+
+    <button type="submit" :disabled="!isValid">Register</button>
+  </form>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { GoogleReCaptchaCheckbox } from '@google-recaptcha/vue';
+
+const recaptchaToken = ref(null);
+const isValid = ref(false);
+
+const handleRecaptchaChange = (token) => {
+  recaptchaToken.value = token;
+  isValid.value = !!token;
+};
+
+const handleSubmit = async () => {
+  if (!isValid.value) {
+    alert('Please complete the reCAPTCHA');
+    return;
+  }
+
+  // Submit form with token
+  await registerUser({ ...formData, recaptchaToken: recaptchaToken.value });
+};
+</script>
+```
+
+### Provider Configuration for V2 Checkbox
+
+```vue
+<template>
+  <GoogleReCaptchaProvider type="v2-checkbox" site-key="your-v2-checkbox-site-key" language="en">
+    <App />
+  </GoogleReCaptchaProvider>
+</template>
+```
+
+### Using the Checkbox Composable
+
+```vue
+<template>
+  <div>
+    <div ref="recaptchaRef" />
+    <p v-if="isLoading">Loading reCAPTCHA...</p>
+    <p v-if="error">Error: {{ error.message }}</p>
+    <p v-if="isVerified">✅ Verified!</p>
+  </div>
+</template>
+
+<script setup>
+import { useGoogleReCaptchaCheckbox } from '@google-recaptcha/vue';
+
+const {
+  ref: recaptchaRef,
+  isLoading,
+  isVerified,
+  token,
+  error
+} = useGoogleReCaptchaCheckbox({
+  onChange: (token) => console.log('Token:', token),
+  onError: () => console.log('Error occurred'),
+  onExpired: () => console.log('Verification expired')
+});
+</script>
+```
+
+## Enterprise Mode
+
+Enable enterprise features by setting the `isEnterprise` prop:
+
+```vue
+<template>
+  <GoogleReCaptchaProvider type="v3" site-key="your-enterprise-site-key" :is-enterprise="true">
+    <App />
+  </GoogleReCaptchaProvider>
+</template>
+```
+
+### Enterprise with Custom Actions
+
+```vue
+<template>
+  <div>
+    <button @click="handleLogin">Login</button>
+    <button @click="handlePurchase">Purchase</button>
+  </div>
+</template>
+
+<script setup>
+import { useGoogleReCaptcha } from '@google-recaptcha/vue';
+
+const { executeRecaptcha } = useGoogleReCaptcha();
+
+const handlePurchase = async () => {
+  const token = await executeRecaptcha('purchase');
+  // Process enterprise token
+};
+
+const handleLogin = async () => {
+  const token = await executeRecaptcha('login');
+  // Process enterprise token
+};
+</script>
+```
+
+## Error Handling
+
+Handle reCAPTCHA errors gracefully using reactive state:
+
+```vue
+<template>
+  <div>
+    <div v-if="error" class="error">{{ error }}</div>
+    <button @click="handleSubmit" :disabled="isLoading">
+      {{ isLoading ? 'Submitting...' : 'Submit' }}
+    </button>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { useGoogleReCaptcha } from '@google-recaptcha/vue';
+
+const { executeRecaptcha, isLoading } = useGoogleReCaptcha();
+const error = ref(null);
+
+const handleSubmit = async () => {
+  error.value = null;
+
+  if (!executeRecaptcha) {
+    error.value = 'reCAPTCHA not available';
+    return;
+  }
+
+  try {
+    const token = await executeRecaptcha('form_submit');
+    await submitForm(token);
+  } catch (err) {
+    error.value = 'reCAPTCHA verification failed';
+    console.error('reCAPTCHA error:', err);
+  }
+};
+</script>
+```
+
+## Nuxt.js Integration
+
+For Nuxt.js applications, create a plugin:
+
+```js
+// plugins/recaptcha.client.js
+import { createGoogleReCaptcha } from '@google-recaptcha/vue';
+
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.vueApp.use(
+    createGoogleReCaptcha({
+      type: 'v3',
+      siteKey: process.env.RECAPTCHA_SITE_KEY
+    })
+  );
+});
+```
+
+Or use the provider in your layout:
+
+```vue
+<!-- layouts/default.vue -->
+<template>
+  <GoogleReCaptchaProvider type="v3" :site-key="runtimeConfig.public.recaptchaSiteKey">
+    <NuxtPage />
+  </GoogleReCaptchaProvider>
+</template>
+
+<script setup>
+import { GoogleReCaptchaProvider } from '@google-recaptcha/vue';
+
+const { $config } = useNuxtApp();
+const runtimeConfig = useRuntimeConfig();
+</script>
+```
+
+## Reactive State Management
+
+The Vue package provides full reactive state management:
+
+```vue
+<template>
+  <div>
+    <p>Loading: {{ isLoading }}</p>
+    <p>Ready: {{ isReady }}</p>
+    <p>Error: {{ error }}</p>
+    <button @click="verify" :disabled="!isReady || isLoading">Verify</button>
+  </div>
+</template>
+
+<script setup>
+import { useGoogleReCaptcha } from '@google-recaptcha/vue';
+
+const { executeRecaptcha, isLoading, isReady, error } = useGoogleReCaptcha();
+
+const verify = async () => {
+  if (executeRecaptcha) {
+    const token = await executeRecaptcha('verify_action');
+    console.log('Token:', token);
+  }
+};
+</script>
+```
+
+## Composable with Custom Configuration
+
+Create custom composables for specific use cases:
+
+```js
+// composables/useFormRecaptcha.js
+import { useGoogleReCaptcha } from '@google-recaptcha/vue';
+import { ref, computed } from 'vue';
+
+export function useFormRecaptcha(action = 'form_submit') {
+  const { executeRecaptcha, isLoading } = useGoogleReCaptcha();
+  const token = ref(null);
+  const isVerified = computed(() => !!token.value);
+
+  const verify = async () => {
+    if (!executeRecaptcha) return false;
+
+    try {
+      token.value = await executeRecaptcha(action);
+      return true;
+    } catch (error) {
+      console.error('reCAPTCHA verification failed:', error);
+      return false;
+    }
+  };
+
+  const reset = () => {
+    token.value = null;
+  };
+
+  return {
+    token,
+    isVerified,
+    isLoading,
+    verify,
+    reset
+  };
+}
+```
+
+Use the custom composable:
+
+```vue
+<template>
+  <form @submit.prevent="handleSubmit">
+    <!-- Form fields -->
+    <button type="submit" :disabled="!isVerified || isLoading">Submit</button>
+  </form>
+</template>
+
+<script setup>
+import { useFormRecaptcha } from '@/composables/useFormRecaptcha';
+
+const { isVerified, isLoading, verify } = useFormRecaptcha('contact_form');
+
+const handleSubmit = async () => {
+  const success = await verify();
+  if (success) {
+    // Submit form
+  }
+};
+</script>
+```
+
+## Best Practices
+
+1. **Provider Placement**: Place the provider as high as possible in your component tree
+2. **Reactive State**: Leverage Vue's reactivity for loading states and error handling
+3. **Composable Reuse**: Create custom composables for specific use cases
+4. **Error Boundaries**: Use error handling patterns with reactive state
+5. **Performance**: Use `v-if` directives to conditionally render based on state
+
+## Next Steps
+
+- Learn about [advanced configurations](/docs/guides) for different reCAPTCHA versions
+- Explore the [API reference](/docs/reference/vue) for detailed composable documentation
+- Check out [Nuxt.js integration](/docs/guides/nuxt) for server-side rendering

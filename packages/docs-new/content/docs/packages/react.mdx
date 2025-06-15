@@ -1,0 +1,207 @@
+---
+title: React
+description: React integration for Google reCAPTCHA with hooks and components
+---
+
+The React package provides a comprehensive solution for integrating Google reCAPTCHA into React applications. Built specifically for React, it offers hooks, components, and providers that seamlessly integrate with your React workflow while supporting all reCAPTCHA versions including v3, v2-invisible, and v2-checkbox.
+
+## Installation
+
+Install the React package using your preferred package manager:
+
+```package-install
+npm install @google-recaptcha/react
+```
+
+## Provider Setup
+
+All reCAPTCHA functionality requires wrapping your application with the `GoogleReCaptchaProvider`. This provider manages the reCAPTCHA script loading and provides context to child components.
+
+```tsx
+import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
+
+export const App = () => (
+  <GoogleReCaptchaProvider type='v3 | v2-checkbox | v2-invisible' siteKey='your_site_key'>
+    ...
+  </GoogleReCaptchaProvider>
+);
+```
+
+### V3
+
+[Google ReCaptcha v3](https://developers.google.com/recaptcha/docs/v3) returns a score for each request without user friction. The score is based on interactions with your site and enables you to take an appropriate action for your site.
+
+```tsx
+import { useGoogleReCaptcha } from '@google-recaptcha/react';
+
+const App = () => {
+  const googleReCaptcha = useGoogleReCaptcha();
+
+  const onReCaptchaVerify = async () => {
+    if (!googleReCaptcha.executeV3) {
+      console.log('Execute recaptcha not available');
+      return;
+    }
+
+    // [!code word:executeV3]
+    const token = await googleReCaptcha.executeV3();
+    ...
+  };
+
+  return <button onClick={onReCaptchaVerify}>verify</button>;
+};
+```
+
+### V2 invisible
+
+[Google ReCaptcha v2 invisible](https://developers.google.com/recaptcha/docs/display) does not require users to solve any puzzles or enter any codes. Instead, it runs in the background and analyzes user behavior on the web page to determine if they are genuine users or potential bots.
+
+```tsx
+import { useGoogleReCaptcha } from '@google-recaptcha/react';
+
+const App = () => {
+  const googleReCaptcha = useGoogleReCaptcha();
+
+  const onReCaptchaVerify = async () => {
+    if (!googleReCaptcha.executeV2Invisible) {
+      console.log('Execute recaptcha not available');
+      return;
+    }
+
+    // [!code word:executeV2Invisible]
+    const token = await googleReCaptcha.executeV2Invisible();
+    ...
+  };
+
+  return <button onClick={onReCaptchaVerify}>verify</button>;
+};
+```
+
+### V2 checkbox
+
+When a user interacts with the [Google ReCaptcha v2 checkbox](https://developers.google.com/recaptcha/docs/display), advanced algorithms analyze their behavior to distinguish between humans and bots. If the system suspects suspicious activity, additional challenges may be presented, such as image selections or puzzle-solving tasks.
+
+```tsx
+import { GoogleReCaptchaCheckbox } from '@google-recaptcha/react';
+
+const App = () => <GoogleReCaptchaCheckbox onChange={(token) => console.log(token)} />;
+```
+
+## Enterprise Mode
+
+Google reCAPTCHA Enterprise provides enhanced security features, advanced analytics, and better customization options for businesses. It offers improved bot detection, detailed risk analysis, and enterprise-grade support.
+
+```tsx
+// [!code word:isEnterprise]
+<GoogleReCaptchaProvider type='v3' siteKey='your_enterprise_site_key' isEnterprise>
+  <App />
+</GoogleReCaptchaProvider>
+```
+
+Enterprise mode supports custom actions for better risk assessment and provides detailed analytics on user interactions.
+
+```ts
+const googleReCaptcha = useGoogleReCaptcha();
+
+const onClick = async () => {
+  // [!code word:'action']
+  const token = await googleReCaptcha.executeV3('action');
+  ...
+};
+```
+
+## Next.js Integration
+
+For Next.js applications, you have few options for reCAPTCHA integration, but first you need create client provider component
+
+```tsx title="app/google-recaptcha-provider.tsx"
+'use client';
+import type { ComponentProps } from 'react';
+
+import { GoogleReCaptchaProvider as _GoogleReCaptchaProvider } from '@google-recaptcha/react';
+
+export type ReCaptchaProviderProps = ComponentProps<typeof _GoogleReCaptchaProvider>;
+
+export const GoogleReCaptchaProvider = (props) => <_GoogleReCaptchaProvider {...props} />;
+```
+
+Add provider to your layout component
+
+```tsx title="app/layout.tsx"
+import { GoogleReCaptchaProvider } from './google-recaptcha-provider'; // [!code highlight]
+
+interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
+const RootLayout = ({ children }: RootLayoutProps) => (
+  <html lang='en'>
+    <body>
+      <main>
+        <GoogleReCaptchaProvider type='v3' siteKey='your_site_key'>
+          {children}
+        </GoogleReCaptchaProvider>
+      </main>
+    </body>
+  </html>
+);
+
+export default RootLayout;
+```
+
+You can optimize performance by pre-loading the reCAPTCHA script using Next.js Script component combined with the core utility function. The `GoogleReCaptchaProvider` automatically detects if the reCAPTCHA script is already loaded and will not add a duplicate script tag
+
+```tsx title="app/layout.tsx"
+import Script from 'next/script';
+
+import { GoogleReCaptchaProvider } from './google-recaptcha-provider';
+
+interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
+const RootLayout = ({ children }: RootLayoutProps) => {
+  // [!code word:generateGoogleReCaptchaScriptSrc]
+  const scriptSrc = generateGoogleReCaptchaScriptSrc({
+    isEnterprise: false,
+    render: 'your_site_key',
+    hl: 'en'
+  });
+
+  return (
+    <html lang='en'>
+      <head>
+        <Script src={scriptSrc} strategy='afterInteractive' />
+      </head>
+      <body>
+        <main>
+          <GoogleReCaptchaProvider type='v3' siteKey='your_site_key'>
+            {children}
+          </GoogleReCaptchaProvider>
+        </main>
+      </body>
+    </html>
+  );
+};
+
+export default RootLayout;
+
+import { generateGoogleReCaptchaScriptSrc } from '@google-recaptcha/core';
+import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <>
+      <GoogleReCaptchaProvider
+        type='v3'
+        siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+        scriptLoadedExternally={true}
+      >
+        <Component {...pageProps} />
+      </GoogleReCaptchaProvider>
+    </>
+  );
+}
+
+export default MyApp;
+```

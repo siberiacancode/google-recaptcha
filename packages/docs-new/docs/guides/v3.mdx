@@ -1,0 +1,456 @@
+---
+title: reCAPTCHA v3 Guide
+description: Complete guide for implementing Google reCAPTCHA v3
+---
+
+# reCAPTCHA v3 Implementation Guide
+
+Complete guide for implementing Google reCAPTCHA v3 with invisible protection and risk scoring.
+
+## Overview
+
+reCAPTCHA v3 provides invisible protection by analyzing user behavior and returning a score between 0.0 (likely bot) and 1.0 (likely human). No user interaction is required, making it perfect for seamless user experiences.
+
+## Key Features
+
+- **Invisible to Users** - No challenges or checkboxes
+- **Risk Scoring** - Returns confidence score (0.0 - 1.0)
+- **Action-based** - Track different user actions
+- **Analytics** - Detailed reporting in reCAPTCHA Admin
+
+## Getting Started
+
+### 1. Get reCAPTCHA Keys
+
+1. Visit [Google reCAPTCHA Admin](https://www.google.com/recaptcha/admin)
+2. Create a new site with **reCAPTCHA v3** type
+3. Add your domains
+4. Copy your **Site Key** and **Secret Key**
+
+### 2. Implementation
+
+<Tabs items={['React', 'Vue', 'Core']}>
+  <Tab value="React">
+    ```jsx
+    import { GoogleReCaptchaProvider, useGoogleReCaptcha } from '@google-recaptcha/react';
+
+    // 1. Wrap your app with provider
+    function App() {
+      return (
+        <GoogleReCaptchaProvider
+          type="v3"
+          siteKey="your-v3-site-key"
+        >
+          <ContactForm />
+        </GoogleReCaptchaProvider>
+      );
+    }
+
+    // 2. Use the hook in your component
+    function ContactForm() {
+      const { executeRecaptcha } = useGoogleReCaptcha();
+
+      const handleSubmit = async (formData) => {
+        if (!executeRecaptcha) return;
+
+        try {
+          const token = await executeRecaptcha('contact_form');
+
+          // Send to your server for verification
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...formData, recaptchaToken: token })
+          });
+
+          if (response.ok) {
+            console.log('Form submitted successfully');
+          }
+        } catch (error) {
+          console.error('reCAPTCHA error:', error);
+        }
+      };
+
+      return (
+        <form onSubmit={handleSubmit}>
+          {/* Your form fields */}
+          <button type="submit">Submit</button>
+        </form>
+      );
+    }
+    ```
+
+  </Tab>
+  <Tab value="Vue">
+    ```vue
+    <template>
+      <!-- 1. Wrap your app with provider -->
+      <GoogleReCaptchaProvider
+        type="v3"
+        site-key="your-v3-site-key"
+      >
+        <ContactForm />
+      </GoogleReCaptchaProvider>
+    </template>
+
+    <script setup>
+    import { GoogleReCaptchaProvider } from '@google-recaptcha/vue';
+    </script>
+    ```
+
+    ```vue
+    <!-- 2. Use the composable in your component -->
+    <template>
+      <form @submit.prevent="handleSubmit">
+        <!-- Your form fields -->
+        <button type="submit" :disabled="isLoading">
+          {{ isLoading ? 'Submitting...' : 'Submit' }}
+        </button>
+      </form>
+    </template>
+
+    <script setup>
+    import { useGoogleReCaptcha } from '@google-recaptcha/vue';
+
+    const { executeRecaptcha, isLoading } = useGoogleReCaptcha();
+
+    const handleSubmit = async () => {
+      if (!executeRecaptcha) return;
+
+      try {
+        const token = await executeRecaptcha('contact_form');
+
+        // Send to your server for verification
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...formData, recaptchaToken: token })
+        });
+
+        if (response.ok) {
+          console.log('Form submitted successfully');
+        }
+      } catch (error) {
+        console.error('reCAPTCHA error:', error);
+      }
+    };
+    </script>
+    ```
+
+  </Tab>
+  <Tab value="Core">
+    ```typescript
+    import { generateGoogleReCaptchaScriptSrc } from '@google-recaptcha/core';
+
+    // 1. Load the reCAPTCHA script
+    const scriptSrc = generateGoogleReCaptchaScriptSrc({
+      isEnterprise: false,
+      render: 'your-v3-site-key'
+    });
+
+    const script = document.createElement('script');
+    script.src = scriptSrc;
+    script.async = true;
+    script.defer = true;
+
+    script.onload = () => {
+      console.log('reCAPTCHA v3 loaded');
+    };
+
+    document.head.appendChild(script);
+
+    // 2. Execute reCAPTCHA when needed
+    async function handleFormSubmit() {
+      try {
+        await grecaptcha.ready();
+        const token = await grecaptcha.execute('your-v3-site-key', {
+          action: 'contact_form'
+        });
+
+        // Send token to your server
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ formData, recaptchaToken: token })
+        });
+
+        if (response.ok) {
+          console.log('Form submitted successfully');
+        }
+      } catch (error) {
+        console.error('reCAPTCHA error:', error);
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+### 3. Server-side Verification
+
+Always verify tokens on your server:
+
+```python
+# Python example
+import requests
+
+def verify_recaptcha(token, secret_key):
+    verify_url = 'https://www.google.com/recaptcha/api/siteverify'
+    data = {
+        'secret': secret_key,
+        'response': token
+    }
+
+    response = requests.post(verify_url, data=data)
+    result = response.json()
+
+    return result.get('success', False), result.get('score', 0.0)
+
+# In your endpoint
+success, score = verify_recaptcha(token, 'your-secret-key')
+
+if success and score >= 0.5:  # Adjust threshold as needed
+    # Process the form
+    pass
+else:
+    # Reject the submission
+    pass
+```
+
+```javascript
+// Node.js example
+async function verifyRecaptcha(token, secretKey) {
+  const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `secret=${secretKey}&response=${token}`
+  });
+
+  const result = await response.json();
+  return {
+    success: result.success,
+    score: result.score || 0
+  };
+}
+
+// In your API route
+const { success, score } = await verifyRecaptcha(token, process.env.RECAPTCHA_SECRET_KEY);
+
+if (success && score >= 0.5) {
+  // Process the form
+} else {
+  // Reject the submission
+}
+```
+
+## Actions and Scoring
+
+### Defining Actions
+
+Actions help you track different user behaviors:
+
+```javascript
+// Different actions for different forms
+await executeRecaptcha('login');
+await executeRecaptcha('register');
+await executeRecaptcha('contact_form');
+await executeRecaptcha('newsletter_signup');
+await executeRecaptcha('purchase');
+```
+
+### Score Interpretation
+
+| Score Range   | Interpretation    | Recommended Action              |
+| ------------- | ----------------- | ------------------------------- |
+| **0.9 - 1.0** | Very likely human | Allow immediately               |
+| **0.7 - 0.8** | Likely human      | Allow with monitoring           |
+| **0.3 - 0.6** | Suspicious        | Require additional verification |
+| **0.0 - 0.2** | Very likely bot   | Block or challenge              |
+
+### Dynamic Threshold Example
+
+```javascript
+function handleRecaptchaScore(score, action) {
+  const thresholds = {
+    login: 0.3, // Lower threshold for login
+    register: 0.7, // Higher threshold for registration
+    contact_form: 0.5, // Medium threshold for contact
+    purchase: 0.8 // High threshold for purchases
+  };
+
+  const threshold = thresholds[action] || 0.5;
+
+  if (score >= threshold) {
+    return 'allow';
+  } else if (score >= 0.3) {
+    return 'challenge'; // Show additional verification
+  } else {
+    return 'block';
+  }
+}
+```
+
+## Advanced Configuration
+
+### Custom Badge Position
+
+```jsx
+<GoogleReCaptchaProvider
+  type='v3'
+  siteKey='your-v3-site-key'
+  explicit={{
+    badge: 'bottomleft' // 'bottomright', 'bottomleft', 'inline', 'hidden'
+  }}
+>
+  <App />
+</GoogleReCaptchaProvider>
+```
+
+### Multiple Actions per Page
+
+```jsx
+function MultiActionForm() {
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
+  const handleLogin = async () => {
+    const token = await executeRecaptcha('login');
+    // Process login
+  };
+
+  const handleRegister = async () => {
+    const token = await executeRecaptcha('register');
+    // Process registration
+  };
+
+  return (
+    <div>
+      <button onClick={handleLogin}>Login</button>
+      <button onClick={handleRegister}>Register</button>
+    </div>
+  );
+}
+```
+
+### Hiding the Badge
+
+<Callout type='warning'>
+  When hiding the reCAPTCHA badge, you must include the reCAPTCHA terms in your privacy policy as
+  required by Google.
+</Callout>
+
+```jsx
+import { generateGoogleReCaptchaHiddenBadgeStyles } from '@google-recaptcha/core';
+
+// Add hidden styles to your CSS
+const hiddenStyles = generateGoogleReCaptchaHiddenBadgeStyles();
+
+// Or configure in provider
+<GoogleReCaptchaProvider type='v3' siteKey='your-v3-site-key' explicit={{ badge: 'hidden' }}>
+  <App />
+</GoogleReCaptchaProvider>;
+```
+
+## Best Practices
+
+### 1. Set Appropriate Thresholds
+
+```javascript
+// Action-specific thresholds
+const SCORE_THRESHOLDS = {
+  high_risk: 0.8, // Account creation, purchases
+  medium_risk: 0.5, // Form submissions, comments
+  low_risk: 0.3 // Newsletter signup, search
+};
+```
+
+### 2. Implement Fallback Strategies
+
+```javascript
+async function submitWithFallback(formData, action) {
+  try {
+    // Try reCAPTCHA v3 first
+    const token = await executeRecaptcha(action);
+    const result = await verifyToken(token);
+
+    if (result.score >= 0.5) {
+      return await submitForm(formData);
+    } else {
+      // Fallback to v2 checkbox or other verification
+      return await showAdditionalVerification(formData);
+    }
+  } catch (error) {
+    // Fallback when reCAPTCHA fails
+    return await showAlternativeVerification(formData);
+  }
+}
+```
+
+### 3. Monitor and Adjust
+
+- Review reCAPTCHA Admin Console regularly
+- Adjust score thresholds based on data
+- Monitor false positive rates
+- Track user experience metrics
+
+### 4. Error Handling
+
+```javascript
+function handleRecaptchaError(error) {
+  console.error('reCAPTCHA error:', error);
+
+  // Log for monitoring
+  analytics.track('recaptcha_error', {
+    error: error.message,
+    timestamp: Date.now()
+  });
+
+  // Show user-friendly message
+  showMessage('Verification temporarily unavailable. Please try again.');
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+**reCAPTCHA not loading**
+
+- Check site key validity
+- Verify domain configuration
+- Check browser console for errors
+
+**Low scores for legitimate users**
+
+- Review user journey and interaction patterns
+- Check for aggressive ad blockers
+- Consider adjusting thresholds
+
+**High false positive rate**
+
+- Lower score thresholds
+- Implement tiered verification
+- Add user feedback mechanism
+
+### Testing
+
+```javascript
+// Test mode configuration
+<GoogleReCaptchaProvider
+  type='v3'
+  siteKey={process.env.NODE_ENV === 'development' ? 'test-site-key' : 'production-site-key'}
+>
+  <App />
+</GoogleReCaptchaProvider>
+```
+
+Use Google's test keys for development:
+
+- **Site key**: `6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI`
+- **Secret key**: `6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe`
+
+## Next Steps
+
+- [Implement server-side verification](/docs/guides/server-verification)
+- [Learn about Enterprise features](/docs/guides/enterprise)
+- [Explore v2 alternatives](/docs/guides/v2-checkbox)
+- [Check API reference](/docs/reference)
