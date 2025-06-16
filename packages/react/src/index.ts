@@ -1,4 +1,4 @@
-export { GoogleReCaptchaCheckbox } from './components/GoogleReCaptchaCheckbox';
+export { GoogleReCaptchaBadge, GoogleReCaptchaCheckbox } from './components';
 export * from './context';
 export {
   generateGoogleReCaptchaHiddenBadgeStyles,
