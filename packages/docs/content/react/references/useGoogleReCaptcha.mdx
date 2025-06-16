@@ -1,0 +1,32 @@
+---
+title: useGoogleReCaptcha
+description: Hook for accessing reCAPTCHA functionality in React components
+---
+
+```tsx
+const {
+  instance,
+  isLoading,
+  language,
+  siteKey,
+  executeV3,
+  executeV2Invisible,
+  reset,
+  getResponse,
+  render
+} = useGoogleReCaptcha();
+```
+
+## Values
+
+| Property             | Type                                   | Description                                                                                              |
+| -------------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `instance`           | `ReCaptchaInstance \| null`            | The reCAPTCHA instance.                                                                                  |
+| `isLoading`          | `boolean`                              | Whether the reCAPTCHA script is still loading.                                                           |
+| `language`           | `string`                               | The language code used for reCAPTCHA.                                                                    |
+| `siteKey`            | `string`                               | The site key used for reCAPTCHA.                                                                         |
+| `executeV3`          | `(action?: string) => Promise<string>` | Executes reCAPTCHA v3 verification. Returns a promise that resolves to the verification token.           |
+| `executeV2Invisible` | `() => Promise<string>`                | Executes reCAPTCHA v2 invisible verification. Returns a promise that resolves to the verification token. |
+| `reset`              | `() => void`                           | Resets the reCAPTCHA widget.                                                                             |
+| `getResponse`        | `() => string`                         | Gets the current reCAPTCHA response token.                                                               |
+| `render`             | `() => void`                           | Renders the reCAPTCHA widget.                                                                            |

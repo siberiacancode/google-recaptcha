@@ -1,23 +1,12 @@
 {
-  "name": "@google-recaptcha/docs",
+  "name": "docs-new",
   "version": "0.0.0",
-  "description": "Tool that easily and quickly add Google ReCaptcha for your website or application",
-  "author": {
-    "name": "SIBERIA CAN CODE 🧊",
-    "url": "https://github.com/siberiacancode"
-  },
-  "license": "MIT",
-  "homepage": "https://siberiacancode.github.io/google-recaptcha/",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/siberiacancode/google-recaptcha.git",
-    "directory": "packages/docs"
-  },
-  "bugs": "https://github.com/siberiacancode/google-recaptcha/issues",
+  "private": true,
   "scripts": {
-    "dev": "vitepress dev app",
-    "build": "vitepress build app",
-    "preview": "vitepress preview app",
+    "build": "next build",
+    "dev": "next dev --turbo",
+    "start": "next start",
+    "postinstall": "fumadocs-mdx",
     "lint": "eslint . --fix",
     "lint-inspector": "npx @eslint/config-inspector@latest",
     "format": "prettier --write .",
@@ -25,17 +14,33 @@
     "pretty": "yarn type && yarn lint && yarn format",
     "lint-staged": "lint-staged"
   },
+  "dependencies": {
+    "@google-recaptcha/core": "1.1.0",
+    "@google-recaptcha/react": "2.2.0",
+    "@siberiacancode/reactuse": "0.2.11",
+    "fumadocs-core": "15.5.1",
+    "fumadocs-docgen": "^2.0.1",
+    "fumadocs-mdx": "11.6.7",
+    "fumadocs-twoslash": "^3.1.4",
+    "fumadocs-ui": "15.5.1",
+    "next": "15.3.3",
+    "next-themes": "^0.4.6",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "twoslash": "^0.3.1"
+  },
   "devDependencies": {
-    "@tailwindcss/vite": "4.0.7",
-    "tailwindcss": "4.0.7",
-    "vitepress": "^1.6.3"
+    "@tailwindcss/postcss": "^4.1.8",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "22.15.28",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.5",
+    "postcss": "^8.5.4",
+    "tailwindcss": "^4.1.8",
+    "typescript": "^5.8.3"
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.ts": [
+    "*.{js,ts,md,mdx,tsx,mjs}": [
       "eslint --fix",
       "prettier --write"
     ]

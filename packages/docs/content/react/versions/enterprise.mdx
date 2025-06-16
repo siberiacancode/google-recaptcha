@@ -1,0 +1,66 @@
+---
+title: Enterprise
+description: The Enterprise mode provides enhanced security features, advanced analytics, and better customization options for businesses
+---
+
+Google reCAPTCHA Enterprise provides enhanced security features, advanced analytics, and better customization options for businesses. It offers improved bot detection, detailed risk analysis, and enterprise-grade support.
+
+## Provider Setup
+
+To use Enterprise features, you need to enable the `isEnterprise` flag in the provider:
+
+```tsx
+import React from 'react';
+import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
+
+export const App = () => (
+  // [!code word:isEnterprise]
+  <GoogleReCaptchaProvider type='v3 | v2-checkbox' siteKey='your_enterprise_site_key' isEnterprise>
+    ...
+  </GoogleReCaptchaProvider>
+);
+```
+
+## Usage
+
+### V3 Enterprise
+
+Enterprise mode enhances v3 reCAPTCHA with additional risk assessment capabilities and detailed analytics:
+
+```tsx twoslash
+import React from 'react';
+import { useGoogleReCaptcha } from '@google-recaptcha/react';
+
+const App = () => {
+  const googleReCaptcha = useGoogleReCaptcha();
+
+  const onReCaptchaVerify = async () => {
+    if (!googleReCaptcha.executeV3) {
+      console.log('Execute recaptcha not available');
+      return;
+    }
+
+    // [!code word:"custom action"]
+    const token = await googleReCaptcha.executeV3('custom action');
+  };
+
+  return <button onClick={onReCaptchaVerify}>verify</button>;
+};
+```
+
+### V2 Checkbox Enterprise
+
+Enterprise mode for v2 checkbox provides enhanced security and analytics:
+
+```tsx twoslash
+import React from 'react';
+import { GoogleReCaptchaCheckbox } from '@google-recaptcha/react';
+
+const App = () => (
+  <GoogleReCaptchaCheckbox
+    // [!code word:"some action"]
+    action='custom action'
+    onChange={(token) => console.log(token)}
+  />
+);
+```

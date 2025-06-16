@@ -1,4 +1,5 @@
 import type { Container, GoogleReCaptcha } from '@google-recaptcha/core';
+
 import {
   checkGoogleReCaptchaInjected,
   hideGoogleReCaptchaBadge,

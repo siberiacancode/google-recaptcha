@@ -1,0 +1,27 @@
+{
+  "title": "React",
+  "icon": "react",
+  "pages": [
+    "index",
+    "---Versions---",
+    "versions/v3",
+    "versions/v2-checkbox",
+    "versions/v2-invisible",
+    "versions/enterprise",
+    "---Integrations---",
+    "integrations/next",
+    "integrations/vite",
+    "---Guides---",
+    "guides/explicit",
+    "guides/theme",
+    "guides/hide-badge",
+    "---References---",
+    "references/GoogleReCaptchaProvider",
+    "references/GoogleReCaptchaCheckbox",
+    "references/GoogleReCaptchaBadge",
+    "references/useGoogleReCaptcha",
+    "references/withGoogleReCaptcha",
+    "references/generateGoogleReCaptchaHiddenBadgeStyles",
+    "references/generateGoogleReCaptchaScriptSrc"
+  ]
+}

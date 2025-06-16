@@ -11,7 +11,9 @@ import {
 } from '@google-recaptcha/core';
 import { onMounted, onUnmounted, provide, reactive, readonly, ref, watch } from 'vue';
 
-import { GoogleReCaptchaState, RECAPTCHA_KEY } from '../plugins/google-recaptcha-plugin';
+import type { GoogleReCaptchaState } from '../plugins/google-recaptcha-plugin';
+
+import { RECAPTCHA_KEY } from '../plugins/google-recaptcha-plugin';
 
 export interface GoogleReCaptchaDefaultProviderProps {
   host?: GoogleReCaptcha.Host;

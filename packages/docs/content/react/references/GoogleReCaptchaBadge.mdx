@@ -1,0 +1,21 @@
+---
+title: GoogleReCaptchaBadge
+description: Pre-built badge component for v2 badge reCAPTCHA
+---
+
+```tsx
+<GoogleReCaptchaBadge badge language theme onChange onError onExpired />
+```
+
+## Return
+
+| Prop        | Type                      | Required | Default                                 | Description                                           |
+| ----------- | ------------------------- | -------- | --------------------------------------- | ----------------------------------------------------- |
+| `id`        | `string`                  | -        | `'google-recaptcha-checkbox-container'` | The ID of the checkbox container                      |
+| `language`  | `string`                  | -        | -                                       | The language for the reCAPTCHA widget                 |
+| `theme`     | `'light' \| 'dark'`       | -        | `'light'`                               | The color theme of the widget                         |
+| `onChange`  | `(token: string) => void` | -        | -                                       | Callback function when verification is successful     |
+| `onError`   | `() => void`              | -        | -                                       | Callback function when reCAPTCHA encounters an error  |
+| `onExpired` | `() => void`              | -        | -                                       | Callback function when the reCAPTCHA response expires |
+
+The component extends the standard `div` props

@@ -1,0 +1,85 @@
+---
+title: v3
+description: The Google reCAPTCHA v3 returns a score for each request without user friction. The score is based on interactions with your site and enables you to take an appropriate action for your site.
+---
+
+import { ReactDemo } from '@/app/(components)/demos';
+
+## Demo
+
+<ReactDemo type='v3' />
+
+## Provider Setup
+
+All reCAPTCHA functionality requires wrapping your application with the `GoogleReCaptchaProvider`. This provider manages the reCAPTCHA script loading and provides context to child components.
+
+```tsx twoslash
+import React from 'react';
+import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
+
+export const App = () => (
+  // [!code word:"v3"]
+  <GoogleReCaptchaProvider type='v3' siteKey='your_site_key'>
+    ...
+  </GoogleReCaptchaProvider>
+);
+```
+
+## Usage
+
+[Google ReCaptcha v3](https://developers.google.com/recaptcha/docs/v3) returns a score for each request without user friction. The score is based on interactions with your site and enables you to take an appropriate action for your site.
+
+```tsx twoslash
+import React from 'react';
+import { useGoogleReCaptcha } from '@google-recaptcha/react';
+
+const App = () => {
+  const googleReCaptcha = useGoogleReCaptcha();
+
+  const onReCaptchaVerify = async () => {
+    if (!googleReCaptcha.executeV3) {
+      console.log('Execute recaptcha not available');
+      return;
+    }
+
+    // [!code word:executeV3]
+    const token = await googleReCaptcha.executeV3('custom action');
+  };
+
+  return <button onClick={onReCaptchaVerify}>verify</button>;
+};
+```
+
+## Enterprise Mode
+
+Google reCAPTCHA Enterprise provides enhanced security features, advanced analytics, and better customization options for businesses. It offers improved bot detection, detailed risk analysis, and enterprise-grade support.
+
+```tsx
+// [!code word:isEnterprise]
+<GoogleReCaptchaProvider type='v3' siteKey='your_enterprise_site_key' isEnterprise>
+  <App />
+</GoogleReCaptchaProvider>
+```
+
+After enabling enterprise mode, you can use the `executeV3` function to set custom actions for better risk assessment.
+
+```tsx twoslash
+import React from 'react';
+import { useGoogleReCaptcha } from '@google-recaptcha/react';
+
+const App = () => {
+  const googleReCaptcha = useGoogleReCaptcha();
+
+  const onReCaptchaVerify = async () => {
+    if (!googleReCaptcha.executeV3) {
+      console.log('Execute recaptcha not available');
+      return;
+    }
+
+    // [!code word:"custom action"]
+    const token = await googleReCaptcha.executeV3('custom action');
+  };
+
+  return <button onClick={onReCaptchaVerify}>verify</button>;
+};
+```

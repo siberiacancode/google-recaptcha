@@ -7,6 +7,7 @@ export interface GoogleReCaptchaContextParams {
   isLoading: boolean;
   language?: GoogleReCaptcha.Language;
   siteKey: string;
+  theme?: GoogleReCaptcha.Theme;
   executeV2Invisible?: (optWidgetId?: GoogleReCaptcha.OptWidgetId) => Promise<void>;
   executeV3?: (action: GoogleReCaptcha.Action['action']) => Promise<string>;
   getResponse?: (optWidgetId?: GoogleReCaptcha.OptWidgetId) => void;

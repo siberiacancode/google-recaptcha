@@ -1,0 +1,84 @@
+---
+title: Theme
+description: Learn how to customize the appearance of reCAPTCHA widgets
+---
+
+The google recaptcha provides two themes: "light" and "dark". We can set the theme in the provider configuration for v3 and v2 invisible or v2 checkbox.
+
+## v3 and v2 Invisible
+
+| Option  | Description                                                                                   |
+| ------- | --------------------------------------------------------------------------------------------- |
+| `badge` | `"bottomright"`, `"bottomleft"`, or `"inline"` - Controls the position of the reCAPTCHA badge |
+| `theme` | `"light"` or `"dark"` - Controls the color scheme of the widget                               |
+| `size`  | `"normal"` or `"compact"` - Controls the size of the widget                                   |
+
+## Basic Theme Configuration
+
+To set a basic theme for v3 or v2 invisible:
+
+```tsx
+<GoogleReCaptchaProvider
+  type='v2-checkbox'
+  siteKey='your_site_key'
+  explicit={{
+    theme: 'dark | light' // [!code highlight]
+  }}
+>
+  {children}
+</GoogleReCaptchaProvider>
+```
+
+### Badge Positioning
+
+For v2 invisible and v3, customize the badge position:
+
+```tsx
+<GoogleReCaptchaProvider
+  type='v3'
+  siteKey='your_site_key'
+  explicit={{
+    badge: 'bottomright | bottomleft | inline', // [!code highlight],
+    size: 'normal | compact' // [!code highlight],
+  }}
+>
+  {children}
+</GoogleReCaptchaProvider>
+```
+
+## Complete Example
+
+Here's a complete example of a themed reCAPTCHA implementation:
+
+```tsx
+import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
+
+function App() {
+  return (
+    <GoogleReCaptchaProvider
+      type='v2-checkbox'
+      siteKey='your_site_key'
+      explicit={{
+        theme: 'dark',
+        size: 'compact',
+        container: 'recaptcha-container'
+      }}
+    >
+      <div className='app'>
+        <form>
+          {/* Your form fields */}
+          <div id='recaptcha-container' />
+          <button type='submit'>Submit</button>
+        </form>
+      </div>
+    </GoogleReCaptchaProvider>
+  );
+}
+```
+
+## Best Practices
+
+1. **Consistency**: Choose a theme that matches your application's design system
+2. **Accessibility**: Ensure the chosen theme provides sufficient contrast for all users
+3. **Mobile**: Test the widget appearance on different screen sizes
+4. **User Experience**: Consider using the compact size for forms where space is limited

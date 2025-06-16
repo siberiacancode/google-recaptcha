@@ -12,7 +12,10 @@ const GoogleReCaptchaV3Template: Story = {
 export const Playground = {
   ...GoogleReCaptchaV3Template
 };
-Playground.args = { type: 'v2-invisible', siteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' };
+Playground.args = {
+  type: 'v2-invisible',
+  siteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+};
 
 export const Explicit = {
   ...GoogleReCaptchaV3Template,

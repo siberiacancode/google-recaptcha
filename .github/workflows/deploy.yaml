@@ -41,13 +41,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build with vitepress
+      - name: Build with fumodocs
         run: pnpm run docs:build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: packages/docs/app/.vitepress/dist
+          path: packages/docs/out
 
   # Deployment job
   deploy:

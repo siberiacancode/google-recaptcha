@@ -1,0 +1,28 @@
+---
+title: Installation
+description: Install the react recaptcha package
+---
+
+The React package provides a comprehensive solution for integrating Google reCAPTCHA into React applications. Built specifically for React, it offers hooks, components, and providers that seamlessly integrate with your React workflow while supporting all reCAPTCHA versions including [v3](./versions/v3), [v2-invisible](./versions/v2-invisible), and [v2-checkbox](./versions/v2-checkbox).
+
+## Installation
+
+Install the React package using your preferred package manager:
+
+```package-install
+npm install @google-recaptcha/react
+```
+
+## Setup
+
+All reCAPTCHA functionality requires wrapping your application with the `GoogleReCaptchaProvider`. This provider manages the reCAPTCHA script loading and provides context to child components.
+
+```tsx
+import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
+
+export const App = () => (
+  <GoogleReCaptchaProvider type='v3 | v2-checkbox | v2-invisible' siteKey='your_site_key'>
+    ...
+  </GoogleReCaptchaProvider>
+);
+```

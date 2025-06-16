@@ -1,0 +1,22 @@
+---
+title: GoogleReCaptchaCheckbox
+description: Pre-built checkbox component for v2 checkbox reCAPTCHA
+---
+
+```tsx
+<GoogleReCaptchaCheckbox action language size theme onChange onError onExpired />
+```
+
+## Return
+
+| Prop        | Type                      | Required | Default    | Description                                                |
+| ----------- | ------------------------- | -------- | ---------- | ---------------------------------------------------------- |
+| `action`    | `string`                  | -        | -          | [The action name for analytics](../versions/enteprise.mdx) |
+| `language`  | `string`                  | -        | -          | The language for the reCAPTCHA widget                      |
+| `size`      | `'compact' \| 'normal'`   | -        | `'normal'` | The size of the widget                                     |
+| `theme`     | `'light' \| 'dark'`       | -        | `'light'`  | The color theme of the widget                              |
+| `onChange`  | `(token: string) => void` | -        | -          | Callback function when verification is successful          |
+| `onError`   | `() => void`              | -        | -          | Callback function when reCAPTCHA encounters an error       |
+| `onExpired` | `() => void`              | -        | -          | Callback function when the reCAPTCHA response expires      |
+
+The component extends the standard `div` props

@@ -9,7 +9,8 @@ export default eslint(
   {
     name: '@google-recaptcha/react/rewrites',
     rules: {
-      'react/no-context-provider': 'off'
+      'react/no-context-provider': 'off',
+      'ts/ban-ts-comment': 'warn'
     }
   }
 );

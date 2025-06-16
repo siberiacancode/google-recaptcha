@@ -39,13 +39,14 @@ export const GoogleReCaptchaCheckbox = ({
   onError,
   onExpired,
   size,
-  theme,
+  theme: externalTheme,
   language,
   ...props
 }: GoogleReCaptchaCheckboxProps) => {
   const googleReCaptcha = useGoogleReCaptcha();
   const googleReCaptchaCheckboxContainerRef = useRef<HTMLDivElement>(null);
 
+  const theme = externalTheme ?? googleReCaptcha.theme;
   const hl = language ?? googleReCaptcha.language;
 
   useEffect(() => {
