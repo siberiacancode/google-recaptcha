@@ -15,9 +15,9 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
-    "@google-recaptcha/core": "1.1.0",
-    "@google-recaptcha/react": "2.3.0",
-    "@google-recaptcha/vue": "1.3.0",
+    "@google-recaptcha/core": "^1.1.0",
+    "@google-recaptcha/react": "^2.3.0",
+    "@google-recaptcha/vue": "^1.3.1",
     "@orama/orama": "^3.1.7",
     "@siberiacancode/reactuse": "0.2.11",
     "fumadocs-core": "15.5.3",

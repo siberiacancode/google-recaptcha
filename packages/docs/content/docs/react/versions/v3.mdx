@@ -43,7 +43,7 @@ const App = () => {
     }
 
     // [!code word:executeV3]
-    const token = await googleReCaptcha.executeV3('custom action');
+    const token = await googleReCaptcha.executeV3('some action');
   };
 
   return <button onClick={onReCaptchaVerify}>verify</button>;
@@ -61,7 +61,7 @@ Google reCAPTCHA Enterprise provides enhanced security features, advanced analyt
 </GoogleReCaptchaProvider>
 ```
 
-After enabling enterprise mode, you can use the `executeV3` function to set custom actions for better risk assessment.
+After enabling enterprise mode, you can use the `executeV3` function to set some actions for better risk assessment.
 
 ```tsx twoslash
 import React from 'react';
@@ -70,16 +70,16 @@ import { useGoogleReCaptcha } from '@google-recaptcha/react';
 const App = () => {
   const googleReCaptcha = useGoogleReCaptcha();
 
-  const onReCaptchaVerify = async () => {
+  const onVerify = async () => {
     if (!googleReCaptcha.executeV3) {
       console.log('Execute recaptcha not available');
       return;
     }
 
-    // [!code word:"custom action"]
-    const token = await googleReCaptcha.executeV3('custom action');
+    // [!code word:"some action"]
+    const token = await googleReCaptcha.executeV3('some action');
   };
 
-  return <button onClick={onReCaptchaVerify}>verify</button>;
+  return <button onClick={onVerify}>verify</button>;
 };
 ```

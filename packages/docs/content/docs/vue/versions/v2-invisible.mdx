@@ -13,39 +13,67 @@ import { ReactDemo } from '@/app/(components)/demos';
 
 All reCAPTCHA functionality requires wrapping your application with the `GoogleReCaptchaProvider`. This provider manages the reCAPTCHA script loading and provides context to child components.
 
-```tsx twoslash
-import React from 'react';
-import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
+```vue tab="Component"
+<script setup>
+import { GoogleReCaptchaProvider } from '@google-recaptcha/vue';
+</script>
 
-export const App = () => (
-  // [!code word:"v2-invisible"]
-  <GoogleReCaptchaProvider type='v2-invisible' siteKey='your_site_key'>
-    ...
+<template>
+  <GoogleReCaptchaProvider type="v2-invisible" siteKey="your_site_key">
+    <slot />
   </GoogleReCaptchaProvider>
-);
+</template>
+```
+
+```vue tab="Composable"
+<script setup>
+import { useGoogleReCaptchaProvider } from '@google-recaptcha/vue';
+
+useGoogleReCaptchaProvider({
+  type: 'v2-invisible',
+  siteKey: 'your_site_key'
+});
+</script>
+```
+
+```vue tab="Plugin"
+<script setup>
+import { createApp } from 'vue';
+import { googleReCaptcha } from '@google-recaptcha/vue';
+
+const app = createApp(App);
+
+app.use(googleReCaptcha, {
+  type: 'v2-invisible',
+  siteKey: 'your_site_key'
+});
+</script>
 ```
 
 ## Usage
 
 [Google ReCaptcha v2 invisible](https://developers.google.com/recaptcha/docs/display) does not require users to solve any puzzles or enter any codes. Instead, it runs in the background and analyzes user behavior on the web page to determine if they are genuine users or potential bots.
 
-```tsx twoslash
-import React from 'react';
-import { useGoogleReCaptcha } from '@google-recaptcha/react';
+### Using Composable
 
-const App = () => {
-  const googleReCaptcha = useGoogleReCaptcha();
+```vue
+<script setup>
+import { useGoogleReCaptcha } from '@google-recaptcha/vue';
 
-  const onReCaptchaVerify = async () => {
-    if (!googleReCaptcha.executeV2Invisible) {
-      console.log('Execute recaptcha not available');
-      return;
-    }
+const googleReCaptcha = useGoogleReCaptcha();
 
-    // [!code word:executeV2Invisible]
-    const token = await googleReCaptcha.executeV2Invisible();
-  };
+const onReCaptchaVerify = async () => {
+  if (!googleReCaptcha.executeV2Invisible) {
+    console.log('Execute recaptcha not available');
+    return;
+  }
 
-  return <button onClick={onReCaptchaVerify}>verify</button>;
+  // [!code word:executeV2Invisible]
+  const token = await googleReCaptcha.executeV2Invisible();
 };
+</script>
+
+<template>
+  <button @click="onReCaptchaVerify">verify</button>
+</template>
 ```

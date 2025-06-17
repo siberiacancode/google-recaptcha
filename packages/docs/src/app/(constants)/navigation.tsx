@@ -1,4 +1,4 @@
-import { GithubIcon, ReactIcon } from '../(components)/icons';
+import { GithubIcon, ReactIcon, VueIcon } from '../(components)/icons';
 import { LINKS } from './links';
 
 export const DEFAULT_SIDEBAR = {
@@ -14,12 +14,13 @@ export const DEFAULT_SIDEBAR = {
       title: 'React',
       description: 'The adapted version for react',
       url: '/docs/react'
+    },
+    {
+      icon: <VueIcon className='size-6' />,
+      title: 'Vue',
+      description: 'In maintenance mode',
+      url: '/docs/vue'
     }
-    // {
-    //   title: "Vue",
-    //   description: "In maintenance mode",
-    //   url: "/docs/vue/getting-started",
-    // },
     // {
     //   title: "Core",
     //   description: "In maintenance mode",

@@ -40,8 +40,8 @@ const App = () => {
       return;
     }
 
-    // [!code word:"custom action"]
-    const token = await googleReCaptcha.executeV3('custom action');
+    // [!code word:"some action"]
+    const token = await googleReCaptcha.executeV3('some action');
   };
 
   return <button onClick={onReCaptchaVerify}>verify</button>;
@@ -59,7 +59,7 @@ import { GoogleReCaptchaCheckbox } from '@google-recaptcha/react';
 const App = () => (
   <GoogleReCaptchaCheckbox
     // [!code word:"some action"]
-    action='custom action'
+    action='some action'
     onChange={(token) => console.log(token)}
   />
 );

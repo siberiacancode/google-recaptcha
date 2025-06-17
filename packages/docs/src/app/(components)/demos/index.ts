@@ -1,2 +1,1 @@
-export * from "./react-demo";
-export * from "./vue-demo";
+export * from './react-demo';

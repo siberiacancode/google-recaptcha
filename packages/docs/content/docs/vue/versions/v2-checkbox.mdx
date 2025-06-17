@@ -13,51 +13,117 @@ import { ReactDemo } from '@/app/(components)/demos';
 
 All reCAPTCHA functionality requires wrapping your application with the `GoogleReCaptchaProvider`. This provider manages the reCAPTCHA script loading and provides context to child components.
 
-```tsx twoslash
-import React from 'react';
-import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
+```vue tab="Component"
+<script setup>
+import { GoogleReCaptchaProvider } from '@google-recaptcha/vue';
+</script>
 
-export const App = () => (
-  // [!code word:"v2-checkbox"]
-  <GoogleReCaptchaProvider type='v2-checkbox' siteKey='your_site_key'>
-    ...
+<template>
+  <GoogleReCaptchaProvider type="v2-checkbox" siteKey="your_site_key">
+    <slot />
   </GoogleReCaptchaProvider>
-);
+</template>
+```
+
+```vue tab="Composable"
+<script setup>
+import { useGoogleReCaptchaProvider } from '@google-recaptcha/vue';
+
+useGoogleReCaptchaProvider({
+  type: 'v2-checkbox',
+  siteKey: 'your_site_key'
+});
+</script>
+```
+
+```vue tab="Plugin"
+<script setup>
+import { createApp } from 'vue';
+import { googleReCaptcha } from '@google-recaptcha/vue';
+
+const app = createApp(App);
+
+app.use(googleReCaptcha, {
+  type: 'v2-checkbox',
+  siteKey: 'your_site_key'
+});
+</script>
 ```
 
 ## Usage
 
 When a user interacts with the [Google ReCaptcha v2 checkbox](https://developers.google.com/recaptcha/docs/display), advanced algorithms analyze their behavior to distinguish between humans and bots. If the system suspects suspicious activity, additional challenges may be presented, such as image selections or puzzle-solving tasks.
 
-```tsx twoslash
-import React from 'react';
-import { GoogleReCaptchaCheckbox } from '@google-recaptcha/react';
+### Using Component
 
-const App = () => <GoogleReCaptchaCheckbox onChange={(token) => console.log(token)} />;
+```vue
+<script setup>
+import { GoogleReCaptchaCheckbox } from '@google-recaptcha/vue';
+
+const onChange = (token) => {
+  console.log(token);
+};
+</script>
+
+<template>
+  <GoogleReCaptchaCheckbox @change="onChange" />
+</template>
 ```
 
 ## Enterprise Mode
 
 Google reCAPTCHA Enterprise provides enhanced security features, advanced analytics, and better customization options for businesses. It offers improved bot detection, detailed risk analysis, and enterprise-grade support.
 
-```tsx
-// [!code word:isEnterprise]
-<GoogleReCaptchaProvider type='v2-checkbox' siteKey='your_enterprise_site_key' isEnterprise>
-  <App />
-</GoogleReCaptchaProvider>
+```vue tab="Component"
+<script setup>
+import { GoogleReCaptchaProvider } from '@google-recaptcha/vue';
+</script>
+
+<template>
+  <GoogleReCaptchaProvider type="v2-checkbox" siteKey="your_enterprise_site_key" isEnterprise>
+    <slot />
+  </GoogleReCaptchaProvider>
+</template>
+```
+
+```vue tab="Composable"
+<script setup>
+import { useGoogleReCaptchaProvider } from '@google-recaptcha/vue';
+
+useGoogleReCaptchaProvider({
+  type: 'v2-checkbox',
+  siteKey: 'your_enterprise_site_key',
+  isEnterprise: true
+});
+</script>
+```
+
+```vue tab="Plugin"
+<script setup>
+import { createApp } from 'vue';
+import { googleReCaptcha } from '@google-recaptcha/vue';
+
+const app = createApp(App);
+
+app.use(googleReCaptcha, {
+  type: 'v2-checkbox',
+  siteKey: 'your_enterprise_site_key',
+  isEnterprise: true
+});
+</script>
 ```
 
 After enabling enterprise mode, you can use the `GoogleReCaptchaCheckbox` component to set the action for the checkbox.
 
-```tsx twoslash
-import React from 'react';
-import { GoogleReCaptchaCheckbox } from '@google-recaptcha/react';
+```vue
+<script setup>
+import { GoogleReCaptchaCheckbox } from '@google-recaptcha/vue';
 
-const App = () => (
-  <GoogleReCaptchaCheckbox
-    // [!code word:"some action"]
-    action='custom action'
-    onChange={(token) => console.log(token)}
-  />
-);
+const onChange = (token) => console.log(token);
+</script>
+
+<template>
+  // [!code word:some action]
+  <GoogleReCaptchaCheckbox action="some action" @change="onChange" />
+</template>
 ```

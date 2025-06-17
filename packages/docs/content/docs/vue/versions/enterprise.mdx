@@ -9,16 +9,43 @@ Google reCAPTCHA Enterprise provides enhanced security features, advanced analyt
 
 To use Enterprise features, you need to enable the `isEnterprise` flag in the provider:
 
-```tsx
-import React from 'react';
-import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
+```vue tab="Plugin"
+<script setup>
+import { createApp } from 'vue';
+import { googleReCaptcha } from '@google-recaptcha/vue';
 
-export const App = () => (
-  // [!code word:isEnterprise]
-  <GoogleReCaptchaProvider type='v3 | v2-checkbox' siteKey='your_enterprise_site_key' isEnterprise>
-    ...
+const app = createApp(App);
+
+app.use(googleReCaptcha, {
+  type: 'v3 | v2-checkbox',
+  siteKey: 'your_enterprise_site_key',
+  isEnterprise: true
+});
+</script>
+```
+
+```vue tab="Component"
+<script setup>
+import { GoogleReCaptchaProvider } from '@google-recaptcha/vue';
+</script>
+
+<template>
+  <GoogleReCaptchaProvider type="v3 | v2-checkbox" siteKey="your_enterprise_site_key" isEnterprise>
+    <slot />
   </GoogleReCaptchaProvider>
-);
+</template>
+```
+
+```vue tab="Composable"
+<script setup>
+import { useGoogleReCaptchaProvider } from '@google-recaptcha/vue';
+
+useGoogleReCaptchaProvider({
+  type: 'v3 | v2-checkbox',
+  siteKey: 'your_enterprise_site_key',
+  isEnterprise: true
+});
+</script>
 ```
 
 ## Usage
@@ -27,40 +54,41 @@ export const App = () => (
 
 Enterprise mode enhances v3 reCAPTCHA with additional risk assessment capabilities and detailed analytics:
 
-```tsx twoslash
-import React from 'react';
-import { useGoogleReCaptcha } from '@google-recaptcha/react';
+```vue
+<script setup>
+import { useGoogleReCaptcha } from '@google-recaptcha/vue';
 
-const App = () => {
-  const googleReCaptcha = useGoogleReCaptcha();
+const googleReCaptcha = useGoogleReCaptcha();
 
-  const onReCaptchaVerify = async () => {
-    if (!googleReCaptcha.executeV3) {
-      console.log('Execute recaptcha not available');
-      return;
-    }
+const onReCaptchaVerify = async () => {
+  if (!googleReCaptcha.executeV3) {
+    console.log('Execute recaptcha not available');
+    return;
+  }
 
-    // [!code word:"custom action"]
-    const token = await googleReCaptcha.executeV3('custom action');
-  };
-
-  return <button onClick={onReCaptchaVerify}>verify</button>;
+  // [!code word:"some action"]
+  const token = await googleReCaptcha.executeV3('some action');
 };
+</script>
+
+<template>
+  <button @click="onReCaptchaVerify">verify</button>
+</template>
 ```
 
 ### V2 Checkbox Enterprise
 
 Enterprise mode for v2 checkbox provides enhanced security and analytics:
 
-```tsx twoslash
-import React from 'react';
-import { GoogleReCaptchaCheckbox } from '@google-recaptcha/react';
+```vue
+<script setup>
+import { GoogleReCaptchaCheckbox } from "@google-recaptcha/vue";
 
-const App = () => (
-  <GoogleReCaptchaCheckbox
-    // [!code word:"some action"]
-    action='custom action'
-    onChange={(token) => console.log(token)}
-  />
-);
+const onChange = (token) => console.log(token);
+</script>
+
+<template>
+  <GoogleReCaptchaCheckbox // [!code word:"some action"] action="some action"
+  @change="onChange" />
+</template>
 ```
