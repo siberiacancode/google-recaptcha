@@ -1,0 +1,19 @@
+{
+  "root": true,
+  "pages": [
+    "index",
+    "---Versions---",
+    "versions/v3",
+    "versions/v2-checkbox",
+    "versions/v2-invisible",
+    "versions/enterprise",
+    "---Integrations---",
+    "integrations/nuxt",
+    "integrations/vite",
+    "---Guides---",
+    "guides/explicit",
+    "guides/theme",
+    "guides/hide-badge",
+    "---References---"
+  ]
+}

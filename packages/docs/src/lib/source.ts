@@ -1,13 +1,8 @@
-import { loader } from 'fumadocs-core/source';
+import { loader } from "fumadocs-core/source";
 
-import { docs, react } from '@/.source';
+import { docs } from "@/.source";
 
-export const frameworkSource = loader({
-  baseUrl: '/docs',
-  source: docs.toFumadocsSource()
-});
-
-export const reactSource = loader({
-  baseUrl: '/docs/react',
-  source: react.toFumadocsSource()
+export const docsSource = loader({
+  baseUrl: "/docs",
+  source: docs.toFumadocsSource(),
 });

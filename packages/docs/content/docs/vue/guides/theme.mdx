@@ -1,0 +1,93 @@
+---
+title: Theme
+description: Learn how to customize the appearance of reCAPTCHA widgets
+---
+
+The google recaptcha provides two themes: "light" and "dark". We can set the theme in the provider configuration for v3 and v2 invisible or v2 checkbox.
+
+```vue tab="Component"
+<GoogleReCaptchaProvider
+  type="v3 | v2-checkbox | v2-invisible"
+  siteKey="your_site_key"
+  theme="dark | light" //[!code highlight]
+>
+  <slot />
+</GoogleReCaptchaProvider>
+```
+
+```vue tab="Composable"
+<script setup>
+import { useGoogleReCaptchaProvider } from '@google-recaptcha/vue';
+
+useGoogleReCaptchaProvider({
+  type: 'v3',
+  siteKey: 'your_site_key',
+  theme: 'dark | light' //[!code highlight]
+});
+</script>
+```
+
+```vue tab="Plugin"
+<script setup>
+import { createApp } from 'vue';
+import { googleReCaptcha } from '@google-recaptcha/vue';
+
+const app = createApp(App);
+
+app.use(googleReCaptcha, {
+  type: 'v3',
+  siteKey: 'your_site_key',
+  theme: 'dark | light' //[!code highlight]
+});
+</script>
+```
+
+### Badge customization
+
+For v2 invisible and v3, customize the badge position and size:
+
+```vue tab="Component"
+<GoogleReCaptchaProvider
+  type="v3 | v2-invisible"
+  siteKey="your_site_key"
+  :explicit="{
+    badge: 'bottomright | bottomleft | inline', //[!code highlight]
+    size: 'normal | compact' //[!code highlight]
+  }"
+>
+  <slot />
+</GoogleReCaptchaProvider>
+```
+
+```vue tab="Composable"
+<script setup>
+import { useGoogleReCaptchaProvider } from '@google-recaptcha/vue';
+
+useGoogleReCaptchaProvider({
+  type: 'v3',
+  siteKey: 'your_site_key',
+  explicit: {
+    badge: 'bottomright | bottomleft | inline', //[!code highlight]
+    size: 'normal | compact' //[!code highlight]
+  }
+});
+</script>
+```
+
+```vue tab="Plugin"
+<script setup>
+import { createApp } from 'vue';
+import { googleReCaptcha } from '@google-recaptcha/vue';
+
+const app = createApp(App);
+
+app.use(googleReCaptcha, {
+  type: 'v3',
+  siteKey: 'your_site_key',
+  explicit: {
+    badge: 'bottomright | bottomleft | inline', //[!code highlight]
+    size: 'normal | compact' //[!code highlight]
+  }
+});
+</script>
+```

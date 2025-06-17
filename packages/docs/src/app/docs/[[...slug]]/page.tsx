@@ -1,30 +1,36 @@
-import { createRelativeLink } from 'fumadocs-ui/mdx';
-import { DocsBody, DocsDescription, DocsPage, DocsTitle } from 'fumadocs-ui/page';
-import { notFound } from 'next/navigation';
+import { createRelativeLink } from "fumadocs-ui/mdx";
+import {
+  DocsBody,
+  DocsDescription,
+  DocsPage,
+  DocsTitle,
+} from "fumadocs-ui/page";
+import { notFound } from "next/navigation";
 
-import { frameworkSource } from '@/lib/source';
-import { getMDXComponents } from '@/mdx-components';
+import { docsSource } from "@/lib/source";
+import { getMDXComponents } from "@/mdx-components";
 
 interface DocPageProps {
   params: Promise<{ slug?: string[] }>;
 }
 
-export const generateStaticParams = () => frameworkSource.generateParams();
+export const generateStaticParams = () => docsSource.generateParams();
 
 export const generateMetadata = async (props: DocPageProps) => {
   const params = await props.params;
-  const page = frameworkSource.getPage(params.slug);
+  const page = docsSource.getPage(params.slug);
   if (!page) notFound();
 
   return {
     title: page.data.title,
-    description: page.data.description
+    description: page.data.description,
   };
 };
 
 const DocPage = async (props: DocPageProps) => {
   const params = await props.params;
-  const page = frameworkSource.getPage(params.slug);
+  const page = docsSource.getPage(params.slug);
+  console.log(page);
   if (!page) notFound();
 
   const MDXContent = page.data.body;
@@ -36,7 +42,7 @@ const DocPage = async (props: DocPageProps) => {
       <DocsBody>
         <MDXContent
           components={getMDXComponents({
-            a: createRelativeLink(frameworkSource, page)
+            a: createRelativeLink(docsSource, page),
           })}
         />
       </DocsBody>

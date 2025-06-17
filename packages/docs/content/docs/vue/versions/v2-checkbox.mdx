@@ -1,0 +1,63 @@
+---
+title: v2 сheckbox
+description: The Google reCAPTCHA v2 checkbox is a reCAPTCHA version that displays a checkbox to the user. It is used to verify that the user is a human and not a bot.
+---
+
+import { ReactDemo } from '@/app/(components)/demos';
+
+## Demo
+
+<ReactDemo type='v2-checkbox' />
+
+## Provider Setup
+
+All reCAPTCHA functionality requires wrapping your application with the `GoogleReCaptchaProvider`. This provider manages the reCAPTCHA script loading and provides context to child components.
+
+```tsx twoslash
+import React from 'react';
+import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
+
+export const App = () => (
+  // [!code word:"v2-checkbox"]
+  <GoogleReCaptchaProvider type='v2-checkbox' siteKey='your_site_key'>
+    ...
+  </GoogleReCaptchaProvider>
+);
+```
+
+## Usage
+
+When a user interacts with the [Google ReCaptcha v2 checkbox](https://developers.google.com/recaptcha/docs/display), advanced algorithms analyze their behavior to distinguish between humans and bots. If the system suspects suspicious activity, additional challenges may be presented, such as image selections or puzzle-solving tasks.
+
+```tsx twoslash
+import React from 'react';
+import { GoogleReCaptchaCheckbox } from '@google-recaptcha/react';
+
+const App = () => <GoogleReCaptchaCheckbox onChange={(token) => console.log(token)} />;
+```
+
+## Enterprise Mode
+
+Google reCAPTCHA Enterprise provides enhanced security features, advanced analytics, and better customization options for businesses. It offers improved bot detection, detailed risk analysis, and enterprise-grade support.
+
+```tsx
+// [!code word:isEnterprise]
+<GoogleReCaptchaProvider type='v2-checkbox' siteKey='your_enterprise_site_key' isEnterprise>
+  <App />
+</GoogleReCaptchaProvider>
+```
+
+After enabling enterprise mode, you can use the `GoogleReCaptchaCheckbox` component to set the action for the checkbox.
+
+```tsx twoslash
+import React from 'react';
+import { GoogleReCaptchaCheckbox } from '@google-recaptcha/react';
+
+const App = () => (
+  <GoogleReCaptchaCheckbox
+    // [!code word:"some action"]
+    action='custom action'
+    onChange={(token) => console.log(token)}
+  />
+);
+```

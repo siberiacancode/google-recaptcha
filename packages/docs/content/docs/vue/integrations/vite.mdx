@@ -1,0 +1,63 @@
+---
+title: Vite
+description: Integrate the vue google recaptcha with Vite
+---
+
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+
+<Steps>
+  <Step title="Installation">
+    Install the required package using your preferred package manager:
+
+    ```package-install
+    npm install @google-recaptcha/vue
+    ```
+
+  </Step>
+
+  <Step title="Plugin Setup">
+    Set up the reCAPTCHA plugin in your main application file:
+
+    ```ts title="src/main.ts"
+    import { createApp } from 'vue'
+    import { googleReCaptcha } from '@google-recaptcha/vue' // [!code highlight]
+
+    import App from './App.vue'
+
+    const app = createApp(App)
+
+    app.use(googleReCaptcha, {
+      type: 'v3',
+      siteKey: 'your_site_key'
+    })
+
+    app.mount('#app')
+    ```
+
+  </Step>
+
+  <Step title="Component Usage">
+    Create a component to use reCAPTCHA:
+
+    ```vue
+    <template>
+      <form @submit.prevent="onSubmit">
+        ...
+        <button type="submit">Submit</button>
+      </form>
+    </template>
+
+    <script setup>
+    import { useGoogleReCaptcha } from '@google-recaptcha/vue'
+
+    const googleReCaptcha = useGoogleReCaptcha()
+
+    const onSubmit = async () => {
+      const token = await googleReCaptcha.executeV3()
+      // Handle the token
+    }
+    </script>
+    ```
+
+  </Step>
+</Steps>

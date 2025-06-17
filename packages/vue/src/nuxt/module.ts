@@ -33,6 +33,10 @@ export default defineNuxtModule({
         name: 'GoogleReCaptchaCheckbox'
       },
       {
+        from: resolver.resolve('../components/GoogleReCaptchaBadge.vue'),
+        name: 'GoogleReCaptchaBadge'
+      },
+      {
         from: resolver.resolve('../components/GoogleReCaptchaInvisible.vue'),
         name: 'GoogleReCaptchaInvisible'
       },

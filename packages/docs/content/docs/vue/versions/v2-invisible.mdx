@@ -1,0 +1,51 @@
+---
+title: v2 invisible
+description: The Google reCAPTCHA v2 invisible is a reCAPTCHA version that runs in the background without requiring user interaction. It is used to verify that the user is a human and not a bot.
+---
+
+import { ReactDemo } from '@/app/(components)/demos';
+
+## Demo
+
+<ReactDemo type='v2-invisible' />
+
+## Provider Setup
+
+All reCAPTCHA functionality requires wrapping your application with the `GoogleReCaptchaProvider`. This provider manages the reCAPTCHA script loading and provides context to child components.
+
+```tsx twoslash
+import React from 'react';
+import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
+
+export const App = () => (
+  // [!code word:"v2-invisible"]
+  <GoogleReCaptchaProvider type='v2-invisible' siteKey='your_site_key'>
+    ...
+  </GoogleReCaptchaProvider>
+);
+```
+
+## Usage
+
+[Google ReCaptcha v2 invisible](https://developers.google.com/recaptcha/docs/display) does not require users to solve any puzzles or enter any codes. Instead, it runs in the background and analyzes user behavior on the web page to determine if they are genuine users or potential bots.
+
+```tsx twoslash
+import React from 'react';
+import { useGoogleReCaptcha } from '@google-recaptcha/react';
+
+const App = () => {
+  const googleReCaptcha = useGoogleReCaptcha();
+
+  const onReCaptchaVerify = async () => {
+    if (!googleReCaptcha.executeV2Invisible) {
+      console.log('Execute recaptcha not available');
+      return;
+    }
+
+    // [!code word:executeV2Invisible]
+    const token = await googleReCaptcha.executeV2Invisible();
+  };
+
+  return <button onClick={onReCaptchaVerify}>verify</button>;
+};
+```

@@ -16,6 +16,9 @@ export interface GoogleReCaptchaDefaultOptions {
   language?: string;
   scriptProps?: GoogleReCaptcha.Script;
   siteKey: string;
+  theme?: GoogleReCaptcha.Theme;
+  onError?: () => Promise<void>;
+  onLoad?: (googleReCaptcha: GoogleReCaptcha.Instance) => Promise<void> | void;
 }
 
 export interface Explicit {
@@ -29,9 +32,11 @@ export interface Explicit {
 
 export interface GoogleReCaptchaV2InvisibleOptions extends GoogleReCaptchaDefaultOptions {
   type: Extract<GoogleReCaptcha.Type, 'v2-invisible'>;
-  explicit?: Explicit & {
-    badge?: GoogleReCaptcha.Badge;
-  };
+  explicit?:
+    | (Explicit & {
+        badge?: GoogleReCaptcha.Badge;
+      })
+    | true;
 }
 
 export interface GoogleReCaptchaV2CheckBoxOptions extends GoogleReCaptchaDefaultOptions {
@@ -39,16 +44,17 @@ export interface GoogleReCaptchaV2CheckBoxOptions extends GoogleReCaptchaDefault
   explicit?: Explicit & {
     container: Container;
     action?: GoogleReCaptcha.Action['action'];
-    theme?: GoogleReCaptcha.Theme;
     size?: GoogleReCaptcha.Size['v2-checkbox'];
   };
 }
 
 export interface GoogleReCaptchaV3Options extends GoogleReCaptchaDefaultOptions {
   type: Extract<GoogleReCaptcha.Type, 'v3'>;
-  explicit?: Explicit & {
-    badge?: GoogleReCaptcha.Badge;
-  };
+  explicit?:
+    | (Explicit & {
+        badge?: GoogleReCaptcha.Badge;
+      })
+    | true;
 }
 
 export type GoogleReCaptchaOptions =
@@ -57,10 +63,11 @@ export type GoogleReCaptchaOptions =
   | GoogleReCaptchaV3Options;
 
 export interface GoogleReCaptchaState {
-  googleReCaptcha?: GoogleReCaptcha.Instance;
+  instance?: GoogleReCaptcha.Instance;
   isLoading: boolean;
   language?: GoogleReCaptcha.Language;
   siteKey: string;
+  theme?: GoogleReCaptcha.Theme;
   executeV2Invisible: (optWidgetId?: GoogleReCaptcha.OptWidgetId) => Promise<void>;
   executeV3: (action: GoogleReCaptcha.Action['action']) => Promise<string>;
   getResponse?: (optWidgetId?: GoogleReCaptcha.OptWidgetId) => string;
@@ -73,7 +80,18 @@ export interface GoogleReCaptchaState {
 }
 
 export const useGoogleReCaptchaProvider = (options: GoogleReCaptchaOptions) => {
-  const { type, siteKey, language, scriptProps, isEnterprise = false, host, explicit } = options;
+  const {
+    type,
+    siteKey,
+    language,
+    scriptProps,
+    isEnterprise = false,
+    host,
+    theme = 'light',
+    explicit,
+    onLoad,
+    onError
+  } = options;
 
   const onLoadCallbackName = 'onGoogleReCaptchaLoad';
   const containerId = 'google-recaptcha-container';
@@ -93,12 +111,13 @@ export const useGoogleReCaptchaProvider = (options: GoogleReCaptchaOptions) => {
     return googleReCaptchaInstance.value.execute(optWidgetId);
   };
 
-  const state = reactive({
+  const state = reactive<GoogleReCaptchaState>({
     get instance() {
       return googleReCaptchaInstance.value;
     },
     siteKey,
-    isLoading,
+    isLoading: isLoading.value,
+    theme,
     language: language as GoogleReCaptcha.Language,
     executeV3,
     executeV2Invisible,
@@ -117,6 +136,11 @@ export const useGoogleReCaptchaProvider = (options: GoogleReCaptchaOptions) => {
         ? (window as any).grecaptcha?.enterprise
         : (window as any).grecaptcha;
 
+      if (!googleReCaptcha) {
+        if (onError) onError();
+        return;
+      }
+
       if (!explicit) {
         googleReCaptcha.ready(async () => {
           googleReCaptchaInstance.value = googleReCaptcha;
@@ -124,6 +148,7 @@ export const useGoogleReCaptchaProvider = (options: GoogleReCaptchaOptions) => {
           state.getResponse = googleReCaptcha.getResponse;
           state.render = googleReCaptcha.render;
 
+          if (onLoad) await onLoad(googleReCaptcha);
           isLoading.value = false;
         });
       }
@@ -133,20 +158,25 @@ export const useGoogleReCaptchaProvider = (options: GoogleReCaptchaOptions) => {
           size: type === 'v3' || type === 'v2-invisible' ? 'invisible' : 'normal',
           ...((type === 'v3' || type === 'v2-invisible') && ({ badge: 'bottomright' } as const)),
           sitekey: siteKey,
-          ...explicit,
-          'expired-callback': explicit.expiredCallback,
-          'error-callback': explicit.errorCallback
+          theme,
+          ...(typeof explicit === 'object' && {
+            ...explicit,
+            'expired-callback': explicit.expiredCallback,
+            'error-callback': explicit.errorCallback
+          })
         } as const;
 
         if (!isGoogleReCaptchaInjected) {
           const isV3AndV2OptWidgetHidden =
-            (type === 'v3' || type === 'v2-invisible') && explicit?.badge === 'hidden';
+            typeof explicit === 'object' &&
+            (type === 'v3' || type === 'v2-invisible') &&
+            explicit?.badge === 'hidden';
 
           if (isV3AndV2OptWidgetHidden) hideGoogleReCaptchaBadge();
         }
 
         googleReCaptcha.ready(async () => {
-          if (explicit.container)
+          if (typeof explicit === 'object' && explicit.container)
             googleReCaptcha.render(explicit.container, params, !!explicit.inherit);
 
           googleReCaptchaInstance.value = googleReCaptcha;
@@ -154,6 +184,7 @@ export const useGoogleReCaptchaProvider = (options: GoogleReCaptchaOptions) => {
           state.getResponse = googleReCaptcha.getResponse;
           state.render = googleReCaptcha.render;
 
+          if (onLoad) await onLoad(googleReCaptcha);
           isLoading.value = false;
         });
       }
@@ -167,15 +198,13 @@ export const useGoogleReCaptchaProvider = (options: GoogleReCaptchaOptions) => {
         isEnterprise,
         host,
         ...((type === 'v3' || type === 'v2-invisible') &&
-          explicit?.badge && {
-            badge: explicit?.badge === 'hidden' ? 'bottomright' : explicit?.badge
+          typeof explicit === 'object' &&
+          explicit?.badge &&
+          explicit.badge !== 'hidden' && {
+            badge: explicit.badge
           }),
         ...(language && { hl: language }),
-        render:
-          ((type === 'v3' || type === 'v2-invisible') && explicit?.container) ||
-          type === 'v2-checkbox'
-            ? 'explicit'
-            : siteKey,
+        render: explicit || type === 'v2-checkbox' ? 'explicit' : siteKey,
         ...scriptProps,
         onload,
         id: scriptId
@@ -189,7 +218,12 @@ export const useGoogleReCaptchaProvider = (options: GoogleReCaptchaOptions) => {
 
   onUnmounted(() => {
     if (checkGoogleReCaptchaInjected()) removeGoogleReCaptchaScript();
-    if ((type === 'v3' || type === 'v2-invisible') && !explicit?.container && explicit?.badge) {
+    if (
+      typeof explicit === 'object' &&
+      (type === 'v3' || type === 'v2-invisible') &&
+      !explicit?.container &&
+      explicit?.badge
+    ) {
       removeGoogleReCaptchaContainer(containerId);
     } else {
       removeGoogleReCaptchaBadge();

@@ -1,6 +1,5 @@
 {
-  "title": "React",
-  "icon": "react",
+  "root": true,
   "pages": [
     "index",
     "---Versions---",

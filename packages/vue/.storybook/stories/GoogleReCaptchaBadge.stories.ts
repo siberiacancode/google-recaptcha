@@ -1,11 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import { ref } from 'vue';
-
-import { GoogleReCaptchaCheckbox, GoogleReCaptchaProvider } from '../../src/components';
+import { GoogleReCaptchaBadge, GoogleReCaptchaProvider } from '../../src/components';
 
 const meta: Meta<typeof GoogleReCaptchaProvider> = {
-  title: 'google recaptcha checkbox',
+  title: 'google recaptcha badge',
   component: GoogleReCaptchaProvider,
   parameters: {
     docs: {
@@ -23,24 +21,18 @@ type Story = StoryObj<typeof GoogleReCaptchaProvider>;
 
 export const Playground: Story = {
   render: (args) => ({
-    components: { GoogleReCaptchaProvider, GoogleReCaptchaCheckbox },
+    components: { GoogleReCaptchaProvider, GoogleReCaptchaBadge },
     setup() {
-      const token = ref('');
-      return { args, token };
+      return { args };
     },
     template: `
       <GoogleReCaptchaProvider v-bind="args">
-        <GoogleReCaptchaCheckbox
-          v-model="token"
-          theme="light"
-          size="normal"
-        />
-        <p v-if="token">Token: {{ token.substring(0, 15) }}...</p>
+        <GoogleReCaptchaBadge badge="inline" />
       </GoogleReCaptchaProvider>
     `
   }),
   args: {
-    type: 'v2-checkbox',
-    siteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+    type: 'v3',
+    siteKey: '6LejC9kZAAAAAFQyq2IjCq0eK4g88GkixXr4_BGs'
   }
 };

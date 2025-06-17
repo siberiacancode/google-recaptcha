@@ -45,24 +45,24 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 Create a component to use reCAPTCHA:
 
 ```tsx
-   import type { FormEvent } from 'react';
-   import { useGoogleReCaptcha } from '@google-recaptcha/react';
+import type { FormEvent } from 'react';
+import { useGoogleReCaptcha } from '@google-recaptcha/react';
 
-   export const Form = () => {
-     const googleReCaptcha = useGoogleReCaptcha();
+export const Form = () => {
+  const googleReCaptcha = useGoogleReCaptcha();
 
-     const onSubmit = async (event: FormEvent) => {
-       event.preventDefault();
+  const onSubmit = async (event: FormEvent) => {
+    event.preventDefault();
 
-       const token = await googleReCaptcha.executeV3();
-       ...
-     };
+    const token = await googleReCaptcha.executeV3();
+    ...
+  };
 
-     return (
-       <form onSubmit={onSubmit}>
-         ...
-         <button type="submit">Submit</button>
-       </form>
-     );
-   }
+  return (
+    <form onSubmit={onSubmit}>
+      ...
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
 ```

@@ -1,0 +1,12 @@
+{
+  "root": true,
+  "pages": [
+    "---getting started---",
+    "index",
+    "basic usage",
+    "---Packages---",
+    "packages/core",
+    "packages/react",
+    "packages/vue"
+  ]
+}

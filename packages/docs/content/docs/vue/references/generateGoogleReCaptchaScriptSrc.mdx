@@ -1,0 +1,28 @@
+---
+title: generateGoogleReCaptchaScriptSrc
+description: Utility function for generating Google reCAPTCHA script source URL
+---
+
+```tsx
+const scriptSrc = generateGoogleReCaptchaScriptSrc({
+  host,
+  isEnterprise,
+  render,
+  hl,
+  badge
+});
+```
+
+## Parameters
+
+| Parameter      | Type                                        | Required | Default        | Description                                        |
+| -------------- | ------------------------------------------- | -------- | -------------- | -------------------------------------------------- |
+| `host`         | `string`                                    | -        | `'google.com'` | The host for the script source URL                 |
+| `isEnterprise` | `boolean`                                   | -        | `false`        | Whether to use the enterprise version of reCAPTCHA |
+| `render`       | `string`                                    | Yes      | -              | The render parameter for the script source URL     |
+| `hl`           | `string`                                    | -        | -              | The language code for the reCAPTCHA widget         |
+| `badge`        | `'bottomright' \| 'bottomleft' \| 'inline'` | -        | -              | The position of the reCAPTCHA badge                |
+
+## Return
+
+Returns a string containing the complete URL for the Google reCAPTCHA script.

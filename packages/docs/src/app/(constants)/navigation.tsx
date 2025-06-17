@@ -7,10 +7,10 @@ export const DEFAULT_SIDEBAR = {
     {
       title: 'Framework',
       description: 'The google recaptcha',
-      url: '/docs'
+      url: '/docs/framework'
     },
     {
-      icon: <ReactIcon className='size-6' fill='var(--color-fd-primary)' />,
+      icon: <ReactIcon className='size-6' fill='var(--color-react-primary)' />,
       title: 'React',
       description: 'The adapted version for react',
       url: '/docs/react'

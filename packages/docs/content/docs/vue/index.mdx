@@ -1,0 +1,55 @@
+---
+title: Installation
+description: Install the vue recaptcha package
+---
+
+The Vue package provides a comprehensive solution for integrating Google reCAPTCHA into Vue applications. Built specifically for Vue, it offers composables, components, and plugins that seamlessly integrate with your Vue workflow while supporting all reCAPTCHA versions including [v3](./versions/v3), [v2-invisible](./versions/v2-invisible), and [v2-checkbox](./versions/v2-checkbox).
+
+## Installation
+
+Install the Vue package using your preferred package manager:
+
+```package-install
+npm install @google-recaptcha/vue
+```
+
+## Setup
+
+All reCAPTCHA functionality requires wrapping your application with the `GoogleReCaptchaProvider`. This provider manages the reCAPTCHA script loading and provides context to child components.
+
+```vue tab="Plugin"
+<script setup>
+import { createApp } from 'vue';
+import { googleReCaptcha } from '@google-recaptcha/vue';
+
+const app = createApp(App);
+
+app.use(googleReCaptcha, {
+  type: 'v3',
+  siteKey: 'your_site_key'
+});
+</script>
+```
+
+```vue tab="Component"
+<template>
+  <GoogleReCaptchaProvider type="v3 | v2-checkbox | v2-invisible" siteKey="your_site_key">
+    <slot />
+  </GoogleReCaptchaProvider>
+</template>
+
+<script setup>
+import { GoogleReCaptchaProvider } from '@google-recaptcha/vue';
+</script>
+```
+
+```vue tab="Composable"
+<script setup>
+import { useGoogleReCaptchaProvider } from '@google-recaptcha/vue';
+
+useGoogleReCaptchaProvider({
+  type: 'v3',
+  siteKey: 'your_site_key'
+});
+</script>
+```

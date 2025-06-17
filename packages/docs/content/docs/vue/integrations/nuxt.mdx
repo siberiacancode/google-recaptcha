@@ -1,0 +1,92 @@
+---
+title: Nuxt.js
+description: Integrate the vue google recaptcha with Nuxt.js
+---
+
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+
+<Steps>
+  <Step title="Installation">
+    Install the required package using your preferred package manager:
+
+    ```package-install
+    npm install @google-recaptcha/vue
+    ```
+
+    <Callout>
+      This package provides Vue components and composables for client-side reCAPTCHA integration.
+    </Callout>
+
+  </Step>
+
+  <Step title="Create plugin">
+    Create a Nuxt plugin to initialize reCAPTCHA:
+
+    ```ts title="plugins/google-recaptcha.ts"
+    import { googleReCaptcha } from '@google-recaptcha/vue'
+
+    export default defineNuxtPlugin((nuxtApp) => {
+      nuxtApp.vueApp.use(googleReCaptcha, {
+        type: 'v3',
+        siteKey: 'your_site_key'
+      })
+    })
+    ```
+
+  </Step>
+
+  <Step title="Use reCAPTCHA in your components">
+    ```vue
+    <template>
+      <form @submit.prevent="onSubmit">
+        ...
+        <button type="submit">Submit</button>
+      </form>
+    </template>
+
+    <script setup>
+    import { useGoogleReCaptcha } from '@google-recaptcha/vue'
+
+    const googleReCaptcha = useGoogleReCaptcha()
+
+    const onSubmit = async () => {
+      const token = await googleReCaptcha.executeV3()
+      ...
+    }
+    </script>
+    ```
+
+  </Step>
+</Steps>
+
+## Optimize script loading
+
+You can optimize performance by pre-loading the reCAPTCHA script using Nuxt's `useHead` composable combined with the core utility function. The `googleReCaptcha` plugin automatically detects if the reCAPTCHA script is already loaded and will not add a duplicate script tag.
+
+```ts title="plugins/google-recaptcha.ts"
+import { googleReCaptcha } from '@google-recaptcha/vue';
+import { generateGoogleReCaptchaScriptSrc } from '@google-recaptcha/core';
+
+export default defineNuxtPlugin((nuxtApp) => {
+  const scriptSrc = generateGoogleReCaptchaScriptSrc({
+    isEnterprise: false,
+    render: 'your_site_key',
+    hl: 'en'
+  });
+
+  useHead({
+    script: [
+      {
+        src: scriptSrc,
+        async: true,
+        defer: true
+      }
+    ]
+  });
+
+  nuxtApp.vueApp.use(googleReCaptcha, {
+    type: 'v3',
+    siteKey: 'your_site_key'
+  });
+});
+```
