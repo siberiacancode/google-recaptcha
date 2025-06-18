@@ -1,0 +1,88 @@
+---
+title: GoogleReCaptchaProvider
+description: Provider component for Google reCAPTCHA integration in Vue applications
+---
+
+```vue
+<GoogleReCaptchaProvider
+  type
+  siteKey
+  language
+  scriptProps
+  isEnterprise
+  host
+  theme
+  explicit
+  onLoad
+  onError
+>
+ ...
+</GoogleReCaptchaProvider>
+```
+
+## Props
+
+### Common Props
+
+| Prop           | Type                                      | Required | Default | Description                                    |
+| -------------- | ----------------------------------------- | -------- | ------- | ---------------------------------------------- |
+| `type`         | `'v2-checkbox' \| 'v2-invisible' \| 'v3'` | Yes      | -       | The type of reCAPTCHA to use                   |
+| `siteKey`      | `string`                                  | Yes      | -       | Your Google reCAPTCHA site key                 |
+| `language`     | `string`                                  | -        | -       | Language code for the reCAPTCHA widget         |
+| `scriptProps`  | `GoogleReCaptcha.Script`                  | -        | -       | Additional properties for the reCAPTCHA script |
+| `isEnterprise` | `boolean`                                 | -        | `false` | Whether to use reCAPTCHA Enterprise            |
+| `host`         | `string`                                  | -        | -       | Custom host for the reCAPTCHA script           |
+| `theme`        | `'light' \| 'dark'`                       | -        | `light` | Theme of the reCAPTCHA widget                  |
+
+### v3 props
+
+| Prop                       | Type                                        | Required | Default | Description                                  |
+| -------------------------- | ------------------------------------------- | -------- | ------- | -------------------------------------------- |
+| `explicit.badge`           | `'bottomright' \| 'bottomleft' \| 'inline'` | -        | -       | Position of the reCAPTCHA badge              |
+| `explicit.tabIndex`        | `number`                                    | -        | -       | Tab index for the reCAPTCHA widget           |
+| `explicit.callback`        | `(token: string) => void`                   | -        | -       | Callback when verification is successful     |
+| `explicit.errorCallback`   | `() => void`                                | -        | -       | Callback when reCAPTCHA encounters an error  |
+| `explicit.expiredCallback` | `() => void`                                | -        | -       | Callback when the reCAPTCHA response expires |
+
+### v2 checkbox props
+
+| Prop                       | Type                      | Required | Default | Description                                  |
+| -------------------------- | ------------------------- | -------- | ------- | -------------------------------------------- |
+| `explicit.container`       | `string`                  | Yes      | -       | Container ID for the reCAPTCHA widget        |
+| `explicit.action`          | `string`                  | -        | -       | Action name for the reCAPTCHA                |
+| `explicit.size`            | `'normal' \| 'compact'`   | -        | -       | Size of the reCAPTCHA widget                 |
+| `explicit.tabIndex`        | `number`                  | -        | -       | Tab index for the reCAPTCHA widget           |
+| `explicit.callback`        | `(token: string) => void` | -        | -       | Callback when verification is successful     |
+| `explicit.errorCallback`   | `() => void`              | -        | -       | Callback when reCAPTCHA encounters an error  |
+| `explicit.expiredCallback` | `() => void`              | -        | -       | Callback when the reCAPTCHA response expires |
+
+### v2 invisible props
+
+| Prop                       | Type                                        | Required | Default | Description                                  |
+| -------------------------- | ------------------------------------------- | -------- | ------- | -------------------------------------------- |
+| `explicit.badge`           | `'bottomright' \| 'bottomleft' \| 'inline'` | -        | -       | Position of the reCAPTCHA badge              |
+| `explicit.tabIndex`        | `number`                                    | -        | -       | Tab index for the reCAPTCHA widget           |
+| `explicit.callback`        | `(token: string) => void`                   | -        | -       | Callback when verification is successful     |
+| `explicit.errorCallback`   | `() => void`                                | -        | -       | Callback when reCAPTCHA encounters an error  |
+| `explicit.expiredCallback` | `() => void`                                | -        | -       | Callback when the reCAPTCHA response expires |
+
+## Events
+
+| Event   | Payload                    | Description                          |
+| ------- | -------------------------- | ------------------------------------ |
+| `load`  | `GoogleReCaptcha.Instance` | Emitted when the reCAPTCHA is loaded |
+| `error` | -                          | Emitted when an error occurs         |
+
+## Provide/Inject Values
+
+| Property             | Type                                                                                                       | Description                                                                                    |
+| -------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `instance`           | `GoogleReCaptcha.Instance \| undefined`                                                                    | The reCAPTCHA instance.                                                                        |
+| `isLoading`          | `boolean`                                                                                                  | Whether the reCAPTCHA script is still loading.                                                 |
+| `language`           | `string \| undefined`                                                                                      | The language code used for reCAPTCHA.                                                          |
+| `siteKey`            | `string`                                                                                                   | The site key used for reCAPTCHA.                                                               |
+| `executeV3`          | `(action: string) => Promise<string>`                                                                      | Executes reCAPTCHA v3 verification. Returns a promise that resolves to the verification token. |
+| `executeV2Invisible` | `(optWidgetId?: string) => Promise<void>`                                                                  | Executes reCAPTCHA v2 invisible verification.                                                  |
+| `reset`              | `(optWidgetId?: string) => void`                                                                           | Resets the reCAPTCHA widget.                                                                   |
+| `getResponse`        | `(optWidgetId?: string) => string`                                                                         | Gets the current reCAPTCHA response token.                                                     |
+| `render`             | `(container: string \| HTMLElement, parameters?: GoogleReCaptcha.Parameters, inherit?: boolean) => number` | Renders the reCAPTCHA widget.                                                                  |

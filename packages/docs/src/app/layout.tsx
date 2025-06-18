@@ -1,14 +1,15 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
-import { RootProvider } from "fumadocs-ui/provider";
-import { Inter } from "next/font/google";
+import { RootProvider } from 'fumadocs-ui/provider';
+import { Mulish } from 'next/font/google';
 
-import { SearchDialog } from "./(components)/search";
+import { SearchDialog } from './(components)/search';
 
-import "./global.css";
+import './global.css';
 
-const inter = Inter({
-  subsets: ["latin"],
+const mulish = Mulish({
+  weight: ['400', '500', '700'],
+  subsets: ['latin']
 });
 
 interface LayoutProps {
@@ -16,11 +17,11 @@ interface LayoutProps {
 }
 
 export const Layout = ({ children }: LayoutProps) => (
-  <html className={inter.className} lang="en" suppressHydrationWarning>
-    <body className="flex flex-col min-h-screen">
+  <html className={mulish.className} lang='en' suppressHydrationWarning>
+    <body className='flex flex-col min-h-screen'>
       <RootProvider
         search={{
-          SearchDialog,
+          SearchDialog
         }}
       >
         {children}

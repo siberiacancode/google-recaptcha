@@ -1,0 +1,26 @@
+---
+title: GoogleReCaptchaBadge
+description: Badge component for Google reCAPTCHA in Vue applications
+---
+
+```vue
+<GoogleReCaptchaBadge id badge theme language @change @error @expired @update:token />
+```
+
+## Props
+
+| Prop       | Type                                        | Required | Default | Description                               |
+| ---------- | ------------------------------------------- | -------- | ------- | ----------------------------------------- |
+| `id`       | `string`                                    | -        | -       | Unique identifier for the badge container |
+| `badge`    | `'bottomright' \| 'bottomleft' \| 'inline'` | -        | -       | Position of the reCAPTCHA badge           |
+| `theme`    | `'light' \| 'dark'`                         | -        | -       | Theme of the reCAPTCHA badge              |
+| `language` | `string`                                    | -        | -       | Language code for the reCAPTCHA badge     |
+
+## Events
+
+| Event          | Payload  | Description                                   |
+| -------------- | -------- | --------------------------------------------- |
+| `change`       | `string` | Emitted when the user completes the challenge |
+| `error`        | -        | Emitted when an error occurs                  |
+| `expired`      | -        | Emitted when the challenge expires            |
+| `update:token` | `string` | Emitted when the token is updated             |

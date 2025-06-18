@@ -1,3 +1,5 @@
+import { LayersIcon } from 'lucide-react';
+
 import { GithubIcon, ReactIcon, VueIcon } from '../(components)/icons';
 import { LINKS } from './links';
 
@@ -5,6 +7,7 @@ export const DEFAULT_SIDEBAR = {
   collapsible: false,
   tabs: [
     {
+      icon: <LayersIcon className='size-6' />,
       title: 'Framework',
       description: 'The google recaptcha',
       url: '/docs/framework'
@@ -29,14 +32,15 @@ export const DEFAULT_SIDEBAR = {
   ]
 };
 
+export const REACTUSE_LINK = {
+  url: LINKS.REACTUSE,
+  text: 'reactuse',
+  label: 'reactuse',
+  external: true,
+  icon: <img alt='reactuse' className='size-4' src={`${LINKS.REACTUSE}/logo.svg`} />
+};
+
 export const DEFAULT_LINKS = [
-  {
-    url: LINKS.REACTUSE,
-    text: 'reactuse',
-    label: 'reactuse',
-    external: true,
-    icon: <img alt='reactuse' className='size-4' src={`${LINKS.REACTUSE}/logo.svg`} />
-  },
   {
     url: 'https://github.com/siberiacancode/google-recaptcha',
     text: 'GitHub',

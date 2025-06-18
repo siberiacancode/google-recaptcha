@@ -14,6 +14,14 @@
     "guides/explicit",
     "guides/theme",
     "guides/hide-badge",
-    "---References---"
+    "---References---",
+    "references/GoogleReCaptchaProvider",
+    "references/GoogleReCaptchaCheckbox",
+    "references/GoogleReCaptchaBadge",
+    "references/GoogleReCaptchaV3",
+    "references/useGoogleReCaptcha",
+    "references/useGoogleReCaptchaProvider",
+    "references/generateGoogleReCaptchaScriptSrc",
+    "references/generateGoogleReCaptchaHiddenBadgeStyles"
   ]
 }

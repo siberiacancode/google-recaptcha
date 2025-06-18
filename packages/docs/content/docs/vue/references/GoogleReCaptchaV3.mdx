@@ -1,0 +1,29 @@
+---
+title: GoogleReCaptchaV3
+description: Component for Google reCAPTCHA v3 in Vue applications
+---
+
+```vue
+<GoogleReCaptchaV3 action />
+```
+
+## Props
+
+| Prop     | Type     | Required | Default | Description                                |
+| -------- | -------- | -------- | ------- | ------------------------------------------ |
+| `action` | `string` | Yes      | -       | Action name for the reCAPTCHA v3 challenge |
+
+## Events
+
+| Event               | Payload  | Description                           |
+| ------------------- | -------- | ------------------------------------- |
+| `update:modelValue` | `string` | Emitted when a new token is generated |
+
+## Notes
+
+- The component must be used within a `GoogleReCaptchaProvider`
+- The component requires a default slot to render the trigger element
+- The component will execute the v3 challenge when the trigger element is clicked
+- The token is emitted through the `update:modelValue` event
+- The token should be sent to your backend for verification
+- The component supports v-model binding

@@ -1,0 +1,27 @@
+---
+title: GoogleReCaptchaCheckbox
+description: Checkbox component for Google reCAPTCHA v2 in Vue applications
+---
+
+```vue
+<GoogleReCaptchaCheckbox id size theme language action @change @error @expired @update:token />
+```
+
+## Props
+
+| Prop       | Type                    | Required | Default | Description                                  |
+| ---------- | ----------------------- | -------- | ------- | -------------------------------------------- |
+| `id`       | `string`                | Yes      | -       | Unique identifier for the checkbox container |
+| `size`     | `'normal' \| 'compact'` | -        | -       | Size of the reCAPTCHA widget                 |
+| `theme`    | `'light' \| 'dark'`     | -        | -       | Theme of the reCAPTCHA widget                |
+| `language` | `string`                | -        | -       | Language code for the reCAPTCHA widget       |
+| `action`   | `string`                | -        | -       | Action name for the reCAPTCHA                |
+
+## Events
+
+| Event          | Payload  | Description                                   |
+| -------------- | -------- | --------------------------------------------- |
+| `change`       | `string` | Emitted when the user completes the challenge |
+| `error`        | -        | Emitted when an error occurs                  |
+| `expired`      | -        | Emitted when the challenge expires            |
+| `update:token` | `string` | Emitted when the token is updated             |
