@@ -18,7 +18,7 @@ Google reCAPTCHA is a powerful library that provides easy integration of Google 
 
 ## Documentation
 
-Visit https://siberiacancode.github.io/google-recaptcha/docs to view the full documentation.
+Visit https://siberiacancode.github.io/google-recaptcha/docs/react to view the full documentation.
 
 ## Getting Started
 
@@ -27,15 +27,15 @@ npm install @google-recaptcha/react
 ```
 
 ```tsx
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { GoogleReCaptchaProvider } from "@google-recaptcha/react";
 
-import App from './App';
+import App from "./App";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <GoogleReCaptchaProvider type='v3' siteKey='your_site_key'>
+    <GoogleReCaptchaProvider type="v3" siteKey="your_site_key">
       <App />
     </GoogleReCaptchaProvider>
   </React.StrictMode>

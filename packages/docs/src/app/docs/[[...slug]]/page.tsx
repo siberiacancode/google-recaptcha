@@ -25,12 +25,13 @@ export const generateMetadata = async (props: DocPageProps) => {
 const DocPage = async (props: DocPageProps) => {
   const params = await props.params;
   const page = docsSource.getPage(params.slug);
+
   if (!page) notFound();
 
   const MDXContent = page.data.body;
 
   return (
-    <DocsPage full={page.data.full} toc={page.data.toc}>
+    <DocsPage full={page.data.full} lastUpdate={page.data.lastModified} toc={page.data.toc}>
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
