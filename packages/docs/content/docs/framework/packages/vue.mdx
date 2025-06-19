@@ -67,7 +67,7 @@ import { useGoogleReCaptcha } from '@google-recaptcha/vue';
 
 const googleReCaptcha = useGoogleReCaptcha();
 
-const onReCaptchaVerify = async () => {
+const onVerify = async () => {
   if (!googleReCaptcha.executeV3) {
     console.log('Execute recaptcha not available');
     return;
@@ -80,7 +80,7 @@ const onReCaptchaVerify = async () => {
 </script>
 
 <template>
-  <button @click="onReCaptchaVerify">Verify</button>
+  <button @click="onVerify">Verify</button>
 </template>
 ```
 
@@ -108,7 +108,7 @@ import { useGoogleReCaptcha } from '@google-recaptcha/vue';
 
 const googleReCaptcha = useGoogleReCaptcha();
 
-const onReCaptchaVerify = async () => {
+const onVerify = async () => {
   if (!googleReCaptcha.executeV2Invisible) {
     console.log('Execute recaptcha not available');
     return;
@@ -121,7 +121,7 @@ const onReCaptchaVerify = async () => {
 </script>
 
 <template>
-  <button @click="onReCaptchaVerify">Verify</button>
+  <button @click="onVerify">Verify</button>
 </template>
 ```
 

@@ -36,7 +36,7 @@ import { useGoogleReCaptcha } from '@google-recaptcha/react';
 const App = () => {
   const googleReCaptcha = useGoogleReCaptcha();
 
-  const onReCaptchaVerify = async () => {
+  const onVerify = async () => {
     if (!googleReCaptcha.executeV3) {
       console.log('Execute recaptcha not available');
       return;
@@ -46,7 +46,7 @@ const App = () => {
     const token = await googleReCaptcha.executeV3('some action');
   };
 
-  return <button onClick={onReCaptchaVerify}>verify</button>;
+  return <button onClick={onVerify}>verify</button>;
 };
 ```
 

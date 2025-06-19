@@ -3,8 +3,8 @@ import type { ReactNode } from 'react';
 
 import { Banner } from 'fumadocs-ui/components/banner';
 import { DocsLayout } from 'fumadocs-ui/layouts/docs';
-import { LockKeyholeIcon } from 'lucide-react';
 
+import { Logo } from '@/app/(components)/logo';
 import { DEFAULT_LINKS, DEFAULT_SIDEBAR, REACTUSE_LINK } from '@/app/(constants)';
 import { LINKS } from '@/app/(constants)/links';
 import { baseOptions } from '@/app/layout.config';
@@ -23,9 +23,8 @@ const DocLayout = async ({ children, params }: DocLayoutProps) => {
     tree: docsSource.pageTree,
     nav: {
       title: (
-        <div className='flex items-center gap-2 mb-4'>
-          <LockKeyholeIcon className='size-4' />
-          google recaptcha
+        <div className='flex items-center gap-2'>
+          <Logo className='h-10' />
         </div>
       ),
       transparentMode: 'always'

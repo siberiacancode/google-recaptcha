@@ -18,6 +18,9 @@ interface LayoutProps {
 
 export const Layout = ({ children }: LayoutProps) => (
   <html className={mulish.className} lang='en' suppressHydrationWarning>
+    <head>
+      <link href='/google-recaptcha/metadata/favicon.ico' rel='icon' sizes='any' />
+    </head>
     <body className='flex flex-col min-h-screen'>
       <RootProvider
         search={{

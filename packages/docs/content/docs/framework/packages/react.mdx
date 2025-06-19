@@ -37,7 +37,7 @@ import { useGoogleReCaptcha } from '@google-recaptcha/react';
 const App = () => {
   const googleReCaptcha = useGoogleReCaptcha();
 
-  const onReCaptchaVerify = async () => {
+  const onVerify = async () => {
     if (!googleReCaptcha.executeV3) {
       console.log('Execute recaptcha not available');
       return;
@@ -48,7 +48,7 @@ const App = () => {
     ...
   };
 
-  return <button onClick={onReCaptchaVerify}>verify</button>;
+  return <button onClick={onVerify}>verify</button>;
 };
 ```
 
@@ -62,7 +62,7 @@ import { useGoogleReCaptcha } from '@google-recaptcha/react';
 const App = () => {
   const googleReCaptcha = useGoogleReCaptcha();
 
-  const onReCaptchaVerify = async () => {
+  const onVerify = async () => {
     if (!googleReCaptcha.executeV2Invisible) {
       console.log('Execute recaptcha not available');
       return;
@@ -73,7 +73,7 @@ const App = () => {
     ...
   };
 
-  return <button onClick={onReCaptchaVerify}>verify</button>;
+  return <button onClick={onVerify}>verify</button>;
 };
 ```
 
