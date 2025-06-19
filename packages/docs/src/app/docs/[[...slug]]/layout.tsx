@@ -24,7 +24,7 @@ const DocLayout = async ({ children, params }: DocLayoutProps) => {
     nav: {
       title: (
         <div className='flex items-center gap-2'>
-          <Logo className='h-10' />
+          <Logo className='h-8' />
         </div>
       ),
       transparentMode: 'always'

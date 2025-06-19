@@ -2,7 +2,7 @@ import type { SVGProps } from 'react';
 
 export const ReactIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    fill='#00D8FF'
+    fill='currentColor'
     height='1em'
     width='1.13em'
     xmlns='http://www.w3.org/2000/svg'
