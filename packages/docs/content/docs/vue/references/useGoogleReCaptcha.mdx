@@ -13,7 +13,7 @@ const {
   executeV2Invisible,
   reset,
   getResponse,
-  render
+  render,
 } = useGoogleReCaptcha();
 ```
 
@@ -30,10 +30,3 @@ const {
 | `reset`              | `(optWidgetId?: string) => void`                                                                           | Resets the reCAPTCHA widget.                                                                   |
 | `getResponse`        | `(optWidgetId?: string) => string`                                                                         | Gets the current reCAPTCHA response token.                                                     |
 | `render`             | `(container: string \| HTMLElement, parameters?: GoogleReCaptcha.Parameters, inherit?: boolean) => number` | Renders the reCAPTCHA widget.                                                                  |
-
-## Notes
-
-- The composable must be used within a component that is a child of `GoogleReCaptchaProvider`
-- The composable will throw an error if used outside of a `GoogleReCaptchaProvider`
-- The returned object is readonly
-- Some methods may be undefined depending on the reCAPTCHA type and configuration
