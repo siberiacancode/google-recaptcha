@@ -43,7 +43,7 @@ const App = () => {
     }
 
     // [!code word:executeV3]
-    const token = await googleReCaptcha.executeV3('some action');
+    const token = await googleReCaptcha.executeV3('action');
   };
 
   return <button onClick={onVerify}>verify</button>;
@@ -76,8 +76,8 @@ const App = () => {
       return;
     }
 
-    // [!code word:"some action"]
-    const token = await googleReCaptcha.executeV3('some action');
+    // [!code word:"action"]
+    const token = await googleReCaptcha.executeV3('action');
   };
 
   return <button onClick={onVerify}>verify</button>;

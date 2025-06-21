@@ -1,8 +1,14 @@
 <div align="center">
+  <a href="https://siberiacancode.github.io/google-recaptcha/docs/react">
+    <picture>
+      <img alt="React Use logo" src="https://siberiacancode.github.io/google-recaptcha/logo/gr-dark.png" height="60">
+    </picture>
+  </a>
   <h1>React Google reCAPTCHA</h1>
 
 <a href="https://www.npmjs.com/package/@google-recaptcha/react"><img alt="NPM version" src="https://img.shields.io/npm/v/@google-recaptcha/react.svg?style=for-the-badge&labelColor=000000"></a>
 <a href="https://github.com/siberiacancode/google-recaptcha/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/@google-recaptcha/react.svg?style=for-the-badge&labelColor=000000"></a>
+<a href="https://siberiacancode.github.io/reactuse/"><img alt="reactuse" src="https://img.shields.io/badge/reactuse-blueviolet.svg?style=for-the-badge&logo=npm&labelColor=000000&logoWidth=20"></a>
 <a href="https://github.com/siberiacancode/google-recaptcha/discussions"><img alt="Join the community on GitHub" src="https://img.shields.io/badge/Join%20the%20community-blueviolet.svg?style=for-the-badge&logo=React&labelColor=000000&logoWidth=20"></a>
 
 </div>
@@ -54,7 +60,7 @@ export const Form = () => {
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    const token = await googleReCaptcha.executeV3();
+    const token = await googleReCaptcha.executeV3('action');
     ...
   };
 

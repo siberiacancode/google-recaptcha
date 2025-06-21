@@ -53,8 +53,8 @@ import { Steps, Step } from 'fumadocs-ui/components/steps';
     const googleReCaptcha = useGoogleReCaptcha()
 
     const onSubmit = async () => {
-      const token = await googleReCaptcha.executeV3()
-      // Handle the token
+      const token = await googleReCaptcha.executeV3('action')
+      ...
     }
     </script>
     ```
