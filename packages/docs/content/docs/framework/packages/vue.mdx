@@ -73,8 +73,8 @@ const onVerify = async () => {
     return;
   }
 
-  // [!code word:executeV3()]
-  const token = await googleReCaptcha.executeV3();
+  // [!code word:executeV3]
+  const token = await googleReCaptcha.executeV3('action');
   ...
 };
 </script>

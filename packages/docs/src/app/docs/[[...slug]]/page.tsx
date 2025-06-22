@@ -2,6 +2,8 @@ import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { DocsBody, DocsDescription, DocsPage, DocsTitle } from 'fumadocs-ui/page';
 import { notFound } from 'next/navigation';
 
+import { GithubIcon } from '@/app/(components)/icons';
+import { Button } from '@/app/(components)/ui';
 import { docsSource } from '@/lib/source';
 import { getMDXComponents } from '@/mdx-components';
 
@@ -33,7 +35,19 @@ const DocPage = async (props: DocPageProps) => {
   return (
     <DocsPage full={page.data.full} lastUpdate={page.data.lastModified} toc={page.data.toc}>
       <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsDescription>{page.data.description}</DocsDescription>
+      <DocsDescription className='mb-0'>{page.data.description}</DocsDescription>
+      <div className='flex gap-4'>
+        <Button asChild className='w-fit' variant='secondary'>
+          <a
+            href={`https://github.com/siberiacancode/google-recaptcha/blob/main/packages/docs/content/docs/${page.path}`}
+            rel='noreferrer'
+            target='_blank'
+          >
+            <GithubIcon />
+            View on GitHub
+          </a>
+        </Button>
+      </div>
       <DocsBody>
         <MDXContent
           components={getMDXComponents({
