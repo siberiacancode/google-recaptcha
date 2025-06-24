@@ -5,7 +5,7 @@ export const GoogleAnalyticsScript = () => (
     <Script
       async
       id='google-analytics'
-      src='https://www.googletagmanager.com/gtag/js?id=G-RRECQP6XBW'
+      src='https://www.googletagmanager.com/gtag/js?id=G-P8B92MT7W1'
       strategy='afterInteractive'
     />
     <Script
@@ -16,12 +16,8 @@ export const GoogleAnalyticsScript = () => (
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-RRECQP6XBW', {
-            anonymize_ip: true,
-            client_storage: 'none',
-            allow_google_signals: false,
-            allow_ad_personalization_signals: false
-          });
+
+          gtag('config', 'G-P8B92MT7W1');
         `
       }}
     />
