@@ -1,0 +1,24 @@
+---
+title: Hide badge
+description: Learn how to hide the reCAPTCHA badge while complying with Google's terms of service
+---
+
+Sometimes you may want to hide the reCAPTCHA badge to implement your own privacy policy and terms of service display. This is a common requirement for applications that need to maintain a specific design aesthetic or want to present their privacy information in a more integrated way.
+
+Google officially allows hiding the badge, but with an important requirement: you must include the reCAPTCHA branding and privacy policy text in your application's privacy policy or terms of service. This ensures users are still informed about the use of reCAPTCHA while maintaining your desired design.
+
+## Official solution
+
+The official way to hide the badge is through CSS. Google provides a specific class that you can target to hide the badge while maintaining compliance with their terms of service. Here's how to implement it:
+
+```css
+.grecaptcha-badge {
+  display: none !important;
+}
+```
+
+You can add this CSS to your global styles or component-specific styles.
+
+## Using the helper function
+
+For convenience, we provide a helper function `hideGoogleReCaptchaBadge` and [`generateGoogleReCaptchaHiddenBadgeStyles`](../references/generateGoogleReCaptchaHiddenBadgeStyles.mdx) that handles the badge hiding for you.

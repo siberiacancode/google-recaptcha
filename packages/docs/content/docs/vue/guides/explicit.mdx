@@ -1,6 +1,123 @@
 ---
 title: Explicit
-description: Explicitly render the reCAPTCHA widget
+description: Configure explicit rendering options for reCAPTCHA
 ---
 
-inprogress
+## What is explicit and why do you need it?
+
+The `explicit` parameter allows you to control how and where the reCAPTCHA widget is rendered. By default, reCAPTCHA automatically renders in specific locations, but with `explicit` you get full control over the rendering process.
+
+## Configuring explicit for all reCAPTCHA types
+
+The `explicit` parameter can be configured for all reCAPTCHA types (v2-checkbox, v2-invisible, v3). For detailed type definitions, refer to the provider interfaces:
+
+- `GoogleReCaptchaV2CheckBoxOptions` - for v2-checkbox
+- `GoogleReCaptchaV2InvisibleOptions` - for v2-invisible
+- `GoogleReCaptchaV3Options` - for v3
+
+## v2 сheckbox
+
+For v2-checkbox, the `explicit` parameter is always `true` by default. This means reCAPTCHA won't render automatically - you need to explicitly place the `GoogleReCaptchaCheckbox` component where you want the widget to appear.
+
+```vue tab="Component"
+<GoogleReCaptchaProvider type="v2-checkbox" siteKey="your_site_key">
+  <GoogleReCaptchaCheckbox />
+</GoogleReCaptchaProvider>
+```
+
+```vue tab="Composable"
+<script setup>
+import { useGoogleReCaptchaProvider } from '@google-recaptcha/vue';
+
+useGoogleReCaptchaProvider({
+  type: 'v2-checkbox',
+  siteKey: 'your_site_key'
+});
+</script>
+```
+
+If you prefer not to use the [`GoogleReCaptchaCheckbox` component](../references/GoogleReCaptchaCheckbox.mdx), you can configure the widget directly through the `explicit` [parameter](../references/GoogleReCaptchaProvider.mdx#v2-checkbox-props). This gives you more control over the rendering process:
+
+```vue tab="Component"
+<GoogleReCaptchaProvider
+  type="v2-checkbox"
+  siteKey="your_site_key"
+  :explicit="{
+    container: 'container',
+    callback: (token) => console.log('Token:', token)
+  }"
+>
+  <div id="container" />
+</GoogleReCaptchaProvider>
+```
+
+```vue tab="Composable"
+<script setup>
+import { useGoogleReCaptchaProvider } from '@google-recaptcha/vue';
+
+useGoogleReCaptchaProvider({
+  type: 'v2-checkbox',
+  siteKey: 'your_site_key',
+  explicit: {
+    container: 'container',
+    callback: (token) => console.log('Token:', token)
+  }
+});
+</script>
+```
+
+## v3 and v2 Invisible
+
+For v3 and v2-invisible, you can configure badge parameters through the `explicit` [object](../references/GoogleReCaptchaProvider.mdx#v3-props), or use `explicit: true` with the `GoogleReCaptchaBadge` component for custom placement. You can configure badge position and size through the `explicit` object:
+
+```vue tab="Component"
+<GoogleReCaptchaProvider
+  type="v3 | v2-invisible"
+  siteKey="your_site_key"
+  :explicit="{
+    container: 'container',
+    badge: 'bottomleft',
+    size: 'compact'
+  }"
+>
+  <div id="container" />
+</GoogleReCaptchaProvider>
+```
+
+```vue tab="Composable"
+<script setup>
+import { useGoogleReCaptchaProvider } from '@google-recaptcha/vue';
+
+useGoogleReCaptchaProvider({
+  type: 'v3',
+  siteKey: 'your_site_key',
+  explicit: {
+    container: 'container',
+    badge: 'bottomleft',
+    size: 'compact'
+  }
+});
+</script>
+```
+
+### Using explicit
+
+By default, reCAPTCHA automatically renders a badge in the bottom-right corner. If you want to control where the badge appears, use `explicit: true` and the [`GoogleReCaptchaBadge` component](../references/GoogleReCaptchaBadge.mdx):
+
+```vue tab="Component"
+<GoogleReCaptchaProvider type="v3 | v2-invisible" siteKey="your_site_key" explicit>
+  <GoogleReCaptchaBadge />
+</GoogleReCaptchaProvider>
+```
+
+```vue tab="Composable"
+<script setup>
+import { useGoogleReCaptchaProvider } from '@google-recaptcha/vue';
+
+useGoogleReCaptchaProvider({
+  type: 'v3',
+  siteKey: 'your_site_key',
+  explicit: true
+});
+</script>
+```
