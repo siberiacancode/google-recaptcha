@@ -1,0 +1,19 @@
+{
+  "root": true,
+  "pages": [
+    "index",
+    "---Guides---",
+    "guides/explicit",
+    "guides/theme",
+    "guides/hide-badge",
+    "---References---",
+    "references/injectGoogleReCaptchaScript",
+    "references/checkGoogleReCaptchaInjected",
+    "references/removeGoogleReCaptchaScript",
+    "references/generateGoogleReCaptchaScriptSrc",
+    "references/hideGoogleReCaptchaBadge",
+    "references/removeGoogleReCaptchaBadge",
+    "references/generateGoogleReCaptchaHiddenBadgeStyles",
+    "references/removeGoogleReCaptchaContainer"
+  ]
+}

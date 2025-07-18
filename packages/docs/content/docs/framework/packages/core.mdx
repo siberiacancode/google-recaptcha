@@ -1,0 +1,47 @@
+---
+title: Core
+description: Core utilities and types for Google reCAPTCHA integration
+---
+
+The Core package provides low-level utilities and types for integrating Google reCAPTCHA into your applications. It serves as the foundation for both React and Vue implementations, offering direct control over script lifecycle, badge management, and container handling.
+
+## Installation
+
+Install the Core package using your preferred package manager:
+
+```package-install
+npm install @google-recaptcha/core
+```
+
+## Basic Usage
+
+The core package can be used directly to manage reCAPTCHA integration:
+
+```ts
+import { injectGoogleReCaptchaScript, checkGoogleReCaptchaInjected } from '@google-recaptcha/core';
+
+injectGoogleReCaptchaScript({
+  render: 'explicit',
+  siteKey: 'your_site_key'
+});
+
+grecaptcha.ready(function () {
+  grecaptcha.execute('reCAPTCHA_site_key', { action: 'submit' }).then((token) => {
+    // ...
+  });
+});
+```
+
+## Enterprise Mode
+
+Google reCAPTCHA Enterprise provides enhanced security features and analytics:
+
+```ts
+import { injectGoogleReCaptchaScript } from '@google-recaptcha/core';
+
+injectGoogleReCaptchaScript({
+  render: 'explicit',
+  siteKey: 'your_enterprise_site_key',
+  isEnterprise: true
+});
+```

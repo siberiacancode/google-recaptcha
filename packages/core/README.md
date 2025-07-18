@@ -1,94 +1,43 @@
-# 🔑 Core Google ReCaptcha
+<div align="center">
+  <a href="https://siberiacancode.github.io/google-recaptcha/docs/react">
+    <picture>
+      <img alt="Google Recaptcha" src="https://siberiacancode.github.io/google-recaptcha/logo/gr-dark.png" height="60">
+    </picture>
+  </a>
+  <h1>Core Google reCAPTCHA</h1>
 
-🔑 tool that easily and quickly add Google ReCaptcha for your website or application
+<a href="https://www.npmjs.com/package/@google-recaptcha/core"><img alt="NPM version" src="https://img.shields.io/npm/v/@google-recaptcha/core.svg?style=for-the-badge&labelColor=000000"></a>
+<a href="https://github.com/siberiacancode/google-recaptcha/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/@google-recaptcha/core.svg?style=for-the-badge&labelColor=000000"></a>
+<a href="https://github.com/siberiacancode/google-recaptcha/discussions"><img alt="Join the community on GitHub" src="https://img.shields.io/badge/Join%20the%20community-blueviolet.svg?style=for-the-badge&logo=React&labelColor=000000&logoWidth=20"></a>
 
-## Install
+</div>
 
-Install with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+Google reCAPTCHA is a powerful library that provides easy integration of Google reCAPTCHA into your applications. Built with **TypeScript-first** approach, **SSR compatibility**, and **tree-shaking optimization** - everything you need to protect your forms and applications from spam and abuse.
 
-```bash
-$ npm i @google-recaptcha/core
-# or
-$ yarn add @google-recaptcha/core
+## Supported reCAPTCHA Versions
+
+- **V3** - Invisible protection that returns a risk score (0.0-1.0) for each request
+- **V2 Invisible** - Background analysis without user interaction
+- **V2 Checkbox** - Interactive "I'm not a robot" checkbox with optional challenges
+- **Enterprise mode** - support [enterprise](https://cloud.google.com/recaptcha/docs/overview)
+
+## Documentation
+
+Visit https://siberiacancode.github.io/google-recaptcha/docs/react to view the full documentation.
+
+## Getting Started
+
+```ts
+import {
+  checkGoogleReCaptchaInjected,
+  injectGoogleReCaptchaScript,
+} from "@google-recaptcha/core";
+
+if (checkGoogleReCaptchaInjected()) return;
+
+injectGoogleReCaptchaScript({
+  render: "explicit",
+  onload: () => console.log("reCAPTCHA loaded"),
+  siteKey: "your_site_key",
+});
 ```
-
-## 🦉 Philosophy
-
-**🔑 Google ReCaptcha** this is a library that will allow you to easily and quickly add Google ReCaptcha for your website or application. The main difference from other libraries is that all current versions of Google ReCaptcha are supported here.
-
-## Features
-
-- **Support all recaptcha versions** - support v3, v2-checkbox, v2-invisible
-- **Enterprise mode** - support [enterprise](https://cloud.google.com/recaptcha-enterprise/docs/overview)
-- **TypeScript support out of the box** - full typed package
-- **SSR** - package work with server side render
-
-## Usage
-
-Install **🔑 Core Google ReCaptcha** with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
-
-```bash
-$ npm i @google-recaptcha/core
-# or
-$ yarn add @google-recaptcha/core
-```
-
-### V3
-
-[Google ReCaptcha v3](https://developers.google.com/recaptcha/docs/v3) returns a score for each request without user friction. The score is based on interactions with your site and enables you to take an appropriate action for your site.
-
-### V2 invisible
-
-[Google ReCaptcha v2 invisible](https://developers.google.com/recaptcha/docs/display) does not require users to solve any puzzles or enter any codes. Instead, it runs in the background and analyzes user behavior on the web page to determine if they are genuine users or potential bots.
-
-### V2 checkbox
-
-When a user interacts with the [Google ReCaptcha v2 checkbox](https://developers.google.com/recaptcha/docs/display), advanced algorithms analyze their behavior to distinguish between humans and bots. If the system suspects suspicious activity, additional challenges may be presented, such as image selections or puzzle-solving tasks.
-
-## Enterprise
-
-[Google ReCaptcha Enterprise](https://cloud.google.com/recaptcha-enterprise/docs/overview) is built on the existing reCAPTCHA API and it uses advanced risk analysis techniques to distinguish between humans and bots.
-In order to enable enterprise mode, you need to set the flag `isEnterprise` in `GoogleReCaptchaProvider`. Also in this mode you can pass specials `actions`.
-
-## API
-
-### generateGoogleReCaptchaScriptSrc
-
-The function `generateGoogleReCaptchaScriptSrc` function may be needed for applications with ssr to get a link for the recaptcha script and load it before rendering the UI.
-
-| **Parameters** |                 **Type**                  | **Required** | **Note**                                                                                     |
-| -------------- | :---------------------------------------: | ------------ | -------------------------------------------------------------------------------------------- |
-| host           |      `recaptcha.net` or `google.com`      | No           | Load script from `recaptcha.net` or `google.com`                                             |
-| isEnterprise   |                  Boolean                  | Yes          |                                                                                              |
-| render         |                  String                   | Yes          | siteKey of reCaptcha                                                                         |
-| hl             |                  String                   | No           | Prop to support different languages that is supported by Google Recaptcha                    |
-| badge          | `inline` or `bottomleft` or `bottomright` | No           | Reposition the reCAPTCHA badge. Depends on type of reCaptcha. If not provide badge is hidden |
-
-### generateGoogleReCaptchaHiddenBadgeStyles
-
-The function `generateGoogleReCaptchaHiddenBadgeStyles` function returns [hidden styles](https://developers.google.com/recaptcha/docs/faq) for Google ReCaptcha badge.
-
-## ✨ Contributors
-
-<table>
-  <tr>
-    <td align="center" style="word-wrap: break-word; width: 100; height: 100">
-        <a href="https://github.com/debabin">
-            <img src="https://avatars.githubusercontent.com/u/45297354?v=4"
-            width="100;"  
-            alt="debabin" />
-            <br />
-            <sub style="font-size:13px"><b>☄️ debabin</b></sub>
-        </a>
-    </td>
-    <td align="center" style="word-wrap: break-word; width: 100.0; height: 100.0">
-        <a href="https://github.com/anv296">
-            <img src="https://avatars.githubusercontent.com/u/39154399?s=400&u=7c4fcc6d120f4b13ccbd03a9a384622b6523c376&v=4"
-            width="100;"  
-            alt="anv296" />
-            <br />
-            <sub style="font-size:13px"><b>🎱️ anv296</b></sub>
-        </a>
-    </td>
-  </tr>
-</table>

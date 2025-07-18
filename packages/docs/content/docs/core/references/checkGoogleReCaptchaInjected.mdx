@@ -1,0 +1,70 @@
+---
+title: checkGoogleReCaptchaInjected
+description: Checks if Google reCAPTCHA script is already injected in the document
+---
+
+## Import
+
+```ts
+import { checkGoogleReCaptchaInjected } from '@google-recaptcha/core';
+```
+
+## Usage
+
+```ts
+checkGoogleReCaptchaInjected();
+```
+
+## Return
+
+Returns `true` if the reCAPTCHA script is already injected, `false` otherwise.
+
+## Examples
+
+### Basic
+
+```ts
+if (checkGoogleReCaptchaInjected()) {
+  console.log('Script already loaded');
+}
+```
+
+### With Script Loading
+
+```ts
+if (!checkGoogleReCaptchaInjected()) {
+  injectGoogleReCaptchaScript({
+    render: 'explicit',
+    onload: () => console.log('Script loaded')
+  });
+}
+```
+
+### With Cleanup
+
+```ts
+if (checkGoogleReCaptchaInjected()) {
+  removeGoogleReCaptchaScript();
+}
+```
+
+## Details
+
+### Script Detection
+
+Checks for:
+
+- Script tags with reCAPTCHA source
+- Excludes gstatic resources
+- Both standard and enterprise versions
+
+### Performance
+
+- Synchronous operation
+- DOM query based
+- No network requests
+
+## See Also
+
+- [`injectGoogleReCaptchaScript`](./injectGoogleReCaptchaScript)
+- [`removeGoogleReCaptchaScript`](./removeGoogleReCaptchaScript)

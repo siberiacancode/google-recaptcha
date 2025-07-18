@@ -1,0 +1,43 @@
+---
+title: Explicit
+description: Configure explicit rendering options for reCAPTCHA
+---
+
+## What is explicit rendering?
+
+Explicit rendering gives you full control over how and where the reCAPTCHA widget is rendered. Instead of automatic rendering, you can specify exactly where and when the widget should appear.
+
+## Basic Configuration
+
+### v2 Checkbox
+
+For v2 checkbox, you need to specify a container element where the widget will be rendered:
+
+```ts
+import { injectGoogleReCaptchaScript } from '@google-recaptcha/core';
+
+const container = document.createElement('div');
+container.id = 'recaptcha-container';
+document.body.appendChild(container);
+
+injectGoogleReCaptchaScript({
+  render: 'explicit',
+  container: 'recaptcha-container',
+  onload: () => console.log('onload')
+});
+```
+
+### v3 and v2 Invisible
+
+For v3 and v2 invisible, you can control badge placement:
+
+```ts
+import { injectGoogleReCaptchaScript } from '@google-recaptcha/core';
+
+injectGoogleReCaptchaScript({
+  render: 'explicit',
+  badge: 'inline',
+  container: 'badge-container',
+  onload: () => console.log('onload')
+});
+```

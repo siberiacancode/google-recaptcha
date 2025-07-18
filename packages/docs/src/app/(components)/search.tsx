@@ -18,7 +18,8 @@ import { useI18n } from 'fumadocs-ui/contexts/i18n';
 
 const initOrama = () =>
   create({
-    schema: { _: 'string' }
+    schema: { _: 'string' },
+    language: 'english'
   });
 
 export const SearchDialog = (props: SharedProps) => {

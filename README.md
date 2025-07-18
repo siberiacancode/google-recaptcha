@@ -1,39 +1,34 @@
-# 🔑 Google ReCaptcha
+<div align="center">
+  <a href="https://siberiacancode.github.io/google-recaptcha/docs/react">
+    <picture>
+      <img alt="Google Recaptcha" src="https://siberiacancode.github.io/google-recaptcha/logo/gr-dark.png" height="60">
+    </picture>
+  </a>
+  <h1>React Google reCAPTCHA</h1>
 
-tool that easily and quickly add Google ReCaptcha for your website or application
+<a href="https://www.npmjs.com/package/@google-recaptcha/react"><img alt="NPM version" src="https://img.shields.io/npm/v/@google-recaptcha/react.svg?style=for-the-badge&labelColor=000000"></a>
+<a href="https://github.com/siberiacancode/google-recaptcha/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/@google-recaptcha/react.svg?style=for-the-badge&labelColor=000000"></a>
+<a href="https://siberiacancode.github.io/reactuse/"><img alt="reactuse" src="https://img.shields.io/badge/reactuse-blueviolet.svg?style=for-the-badge&logo=npm&labelColor=000000&logoWidth=20"></a>
+<a href="https://github.com/siberiacancode/google-recaptcha/discussions"><img alt="Join the community on GitHub" src="https://img.shields.io/badge/Join%20the%20community-blueviolet.svg?style=for-the-badge&logo=React&labelColor=000000&logoWidth=20"></a>
 
-## 📦 Packages
+</div>
+
+Google reCAPTCHA is a powerful library that provides easy integration of Google reCAPTCHA into your React applications. Built with **TypeScript-first** approach, **SSR compatibility**, and **tree-shaking optimization** - everything you need to protect your forms and applications from spam and abuse.
+
+## Supported reCAPTCHA Versions
+
+- **V3** - Invisible protection that returns a risk score (0.0-1.0) for each request
+- **V2 Invisible** - Background analysis without user interaction
+- **V2 Checkbox** - Interactive "I'm not a robot" checkbox with optional challenges
+- **Enterprise mode** - support [enterprise](https://cloud.google.com/recaptcha/docs/overview)
+
+## Documentation
+
+Visit https://siberiacancode.github.io/google-recaptcha/docs/react to view the full documentation.
+
+## Packages
 
 - [core](https://github.com/siberiacancode/google-recaptcha/tree/main/packages/core)
 - [react](https://github.com/siberiacancode/google-recaptcha/tree/main/packages/react)
 - [vue](https://github.com/siberiacancode/google-recaptcha/tree/main/packages/vue)
 - [docs](https://github.com/siberiacancode/google-recaptcha/tree/main/packages/docs)
-
-## 🦉 Philosophy
-
-**🔑 Google ReCaptcha** this is a library that will allow you to easily and quickly add Google ReCaptcha for your website or application. The main difference from other libraries is that all current versions of Google ReCaptcha are supported here.
-
-## Features
-
-- **Support all recaptcha versions** - support v3, v2-checkbox, v2-invisible
-- **Enterprise mode** - support [enterprise](https://cloud.google.com/recaptcha-enterprise/docs/overview)
-- **TypeScript support out of the box** - full typed package
-- **SSR** - package work with server side render
-
-### V3
-
-[Google ReCaptcha v3](https://developers.google.com/recaptcha/docs/v3) returns a score for each request without user friction. The score is based on interactions with your site and enables you to take an appropriate action for your site.
-
-### V2 invisible
-
-[Google ReCaptcha v2 invisible](https://developers.google.com/recaptcha/docs/display) does not require users to solve any puzzles or enter any codes. Instead, it runs in the background and analyzes user behavior on the web page to determine if they are genuine users or potential bots.
-
-### V2 checkbox
-
-When a user interacts with the [Google ReCaptcha v2 checkbox](https://developers.google.com/recaptcha/docs/display), advanced algorithms analyze their behavior to distinguish between humans and bots. If the system suspects suspicious activity, additional challenges may be presented, such as image selections or puzzle-solving tasks.
-|
-
-## Enterprise
-
-[Google ReCaptcha Enterprise](https://cloud.google.com/recaptcha-enterprise/docs/overview) is built on the existing reCAPTCHA API and it uses advanced risk analysis techniques to distinguish between humans and bots.
-In order to enable enterprise mode, you need to set the flag `isEnterprise` in `GoogleReCaptchaProvider`. Also in this mode you can pass specials `actions`.

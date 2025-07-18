@@ -1,7 +1,7 @@
 <div align="center">
   <a href="https://siberiacancode.github.io/google-recaptcha/docs/vue">
     <picture>
-      <img alt="React Use logo" src="https://siberiacancode.github.io/google-recaptcha/logo/gr-dark.png" height="60">
+      <img alt="Google Recaptcha" src="https://siberiacancode.github.io/google-recaptcha/logo/gr-dark.png" height="60">
     </picture>
   </a>
   <h1>Vue Google reCAPTCHA</h1>

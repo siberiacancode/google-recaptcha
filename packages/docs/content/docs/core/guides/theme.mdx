@@ -1,0 +1,32 @@
+---
+title: Theme
+description: Learn how to customize the appearance of reCAPTCHA widgets
+---
+
+The Google reCAPTCHA provides two themes: "light" and "dark". When using the core package, you can configure the theme when injecting the script.
+
+## Basic Theme Configuration
+
+```ts
+import { injectGoogleReCaptchaScript } from '@google-recaptcha/core';
+
+injectGoogleReCaptchaScript({
+  render: 'explicit',
+  theme: 'dark', // or 'light'
+  onload: () => console.log('onload')
+});
+```
+
+## Badge Customization
+
+For v2 invisible and v3, you can customize the badge position:
+
+```ts
+import { injectGoogleReCaptchaScript } from '@google-recaptcha/core';
+
+injectGoogleReCaptchaScript({
+  render: 'explicit',
+  badge: 'bottomright', // or 'bottomleft', 'inline'
+  onload: () => console.log('onload')
+});
+```

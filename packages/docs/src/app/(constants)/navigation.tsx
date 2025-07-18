@@ -1,4 +1,4 @@
-import { LayersIcon } from 'lucide-react';
+import { LayersIcon, PackageIcon } from 'lucide-react';
 
 import { GithubIcon, ReactIcon, VueIcon } from '../(components)/icons';
 import { LINKS } from './links';
@@ -7,28 +7,29 @@ export const DEFAULT_SIDEBAR = {
   collapsible: false,
   tabs: [
     {
-      icon: <LayersIcon className='size-6' />,
+      icon: <LayersIcon className='size-5' />,
       title: 'Framework',
       description: 'The google recaptcha',
       url: '/docs/framework'
     },
     {
-      icon: <ReactIcon className='size-6' />,
+      icon: <PackageIcon className='size-5' />,
+      title: 'Core',
+      description: 'The core package',
+      url: '/docs/core'
+    },
+    {
+      icon: <ReactIcon className='size-5' />,
       title: 'React',
       description: 'The adapted version for react',
       url: '/docs/react'
     },
     {
-      icon: <VueIcon className='size-6' />,
+      icon: <VueIcon className='size-5' />,
       title: 'Vue',
       description: 'In maintenance mode',
       url: '/docs/vue'
     }
-    // {
-    //   title: "Core",
-    //   description: "In maintenance mode",
-    //   url: "/docs/core/getting-started",
-    // },
   ]
 };
 

@@ -1,0 +1,28 @@
+---
+title: injectGoogleReCaptchaScript
+description: Injects the Google reCAPTCHA script into the document
+---
+
+```ts
+injectGoogleReCaptchaScript({
+  badge,
+  hl,
+  host,
+  isEnterprise,
+  render,
+  onload
+});
+```
+
+### Parameters
+
+The function accepts a configuration object with the following properties:
+
+| Name           | Type                                        | Required | Default        | Description                  |
+| -------------- | ------------------------------------------- | -------- | -------------- | ---------------------------- |
+| `badge`        | `'bottomright' \| 'bottomleft' \| 'inline'` | Yes      | -              | Badge position               |
+| `hl`           | `string`                                    | No       | -              | Language code                |
+| `host`         | `'google.com' \| 'recaptcha.net'`           | No       | `'google.com'` | Script host                  |
+| `isEnterprise` | `boolean`                                   | No       | `false`        | Use enterprise version       |
+| `render`       | `string`                                    | Yes      | -              | Rendering mode for reCAPTCHA |
+| `onload`       | `() => void`                                | Yes      | -              | Callback when script loads   |

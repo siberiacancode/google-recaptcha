@@ -3,7 +3,6 @@
   "pages": [
     "---Getting started---",
     "index",
-    "basic usage",
     "---Packages---",
     "packages/core",
     "packages/react",
