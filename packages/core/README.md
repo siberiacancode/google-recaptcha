@@ -23,7 +23,7 @@ Google reCAPTCHA is a powerful library that provides easy integration of Google 
 
 ## Documentation
 
-Visit https://siberiacancode.github.io/google-recaptcha/docs/react to view the full documentation.
+Visit https://siberiacancode.github.io/google-recaptcha/docs/core to view the full documentation.
 
 ## Getting Started
 
