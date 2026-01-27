@@ -29,4 +29,4 @@ const {
 | `executeV2Invisible` | `() => Promise<string>`                | Executes reCAPTCHA v2 invisible verification. Returns a promise that resolves to the verification token. |
 | `reset`              | `() => void`                           | Resets the reCAPTCHA widget.                                                                             |
 | `getResponse`        | `() => string`                         | Gets the current reCAPTCHA response token.                                                               |
-| `render`             | `() => void`                           | Renders the reCAPTCHA widget.                                                                            |
+| `render`             | `(container: Container, parameters?: GoogleReCaptcha.Parameters, inherit?: boolean) => number \| undefined` | Renders the reCAPTCHA widget and returns its widget id.                                                   |

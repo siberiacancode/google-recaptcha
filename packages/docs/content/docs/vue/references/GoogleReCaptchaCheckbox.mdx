@@ -5,6 +5,7 @@ description: Checkbox component for Google reCAPTCHA v2 in Vue applications
 
 ```vue
 <GoogleReCaptchaCheckbox
+  site-key
   id
   size
   theme
@@ -21,6 +22,7 @@ description: Checkbox component for Google reCAPTCHA v2 in Vue applications
 
 | Prop       | Type                    | Required | Default | Description                                  |
 | ---------- | ----------------------- | -------- | ------- | -------------------------------------------- |
+| `siteKey`  | `string`                | -        | -       | The site key for the reCAPTCHA widget        |
 | `id`       | `string`                | Yes      | -       | Unique identifier for the checkbox container |
 | `size`     | `'normal' \| 'compact'` | -        | -       | Size of the reCAPTCHA widget                 |
 | `theme`    | `'light' \| 'dark'`     | -        | -       | Theme of the reCAPTCHA widget                |

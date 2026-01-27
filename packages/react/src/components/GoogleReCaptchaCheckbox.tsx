@@ -1,22 +1,24 @@
-import type { GoogleReCaptcha } from '@google-recaptcha/core';
-import type { ComponentProps } from 'react';
+import type { GoogleReCaptcha } from "@google-recaptcha/core";
+import type { ComponentProps } from "react";
 
-import { removeGoogleReCaptchaContainer } from '@google-recaptcha/core';
-import React, { useEffect, useRef } from 'react';
+import { removeGoogleReCaptchaContainer } from "@google-recaptcha/core";
+import React, { useEffect, useRef } from "react";
 
-import { useGoogleReCaptcha } from '../context/useGoogleReCaptcha';
+import { useGoogleReCaptcha } from "../context/useGoogleReCaptcha";
 
-export interface GoogleReCaptchaCheckboxProps extends Omit<ComponentProps<'div'>, 'onChange'> {
+export interface GoogleReCaptchaCheckboxProps
+  extends Omit<ComponentProps<"div">, "onChange"> {
   action?: string;
+  siteKey?: string;
   language?: GoogleReCaptcha.Language;
-  size?: GoogleReCaptcha.Size['v2-checkbox'];
+  size?: GoogleReCaptcha.Size["v2-checkbox"];
   theme?: GoogleReCaptcha.Theme;
   onChange?: (token: string) => void;
   onError?: () => void;
   onExpired?: () => void;
 }
 
-const CHECKBOX_CONTAINER_ID = 'google-recaptcha-checkbox-container';
+const CHECKBOX_CONTAINER_ID = "google-recaptcha-checkbox-container";
 
 /**
  * Google reCAPTCHA checkbox component
@@ -24,6 +26,7 @@ const CHECKBOX_CONTAINER_ID = 'google-recaptcha-checkbox-container';
  * @param {string} [props.id] - The ID of the checkbox container
  * @param {(token: string) => void} [props.onChange] - Callback function when verification is successful
  * @param {string} [props.action] - The action name for analytics
+ * @param {string} [props.siteKey] - The site key for the reCAPTCHA widget
  * @param {GoogleReCaptcha.Language} [props.language] - The language for the reCAPTCHA widget
  * @param {GoogleReCaptcha.Theme} [props.theme] - The color theme of the widget
  * @param {GoogleReCaptcha.Size['v2-checkbox']} [props.size] - The size of the widget
@@ -51,17 +54,17 @@ export const GoogleReCaptchaCheckbox = ({
 
   useEffect(() => {
     if (!googleReCaptcha.render) return;
-    const checkbox = document.createElement('div');
+    const checkbox = document.createElement("div");
 
     const params = {
-      sitekey: googleReCaptcha.siteKey,
+      sitekey: props.siteKey ?? googleReCaptcha.siteKey,
       callback: onChange,
       ...(hl && { hl }),
       ...(action && { action }),
-      'expired-callback': onExpired,
-      'error-callback': onError,
+      "expired-callback": onExpired,
+      "error-callback": onError,
       size,
-      theme
+      theme,
     } satisfies GoogleReCaptcha.Parameters;
 
     googleReCaptcha.render(checkbox, params);
@@ -73,7 +76,16 @@ export const GoogleReCaptchaCheckbox = ({
     return () => {
       removeGoogleReCaptchaContainer(id);
     };
-  }, [googleReCaptcha.siteKey, googleReCaptcha.render, hl, onChange, id, size, action, theme]);
+  }, [
+    googleReCaptcha.siteKey,
+    googleReCaptcha.render,
+    hl,
+    onChange,
+    id,
+    size,
+    action,
+    theme,
+  ]);
 
   return <div ref={googleReCaptchaCheckboxContainerRef} id={id} {...props} />;
 };

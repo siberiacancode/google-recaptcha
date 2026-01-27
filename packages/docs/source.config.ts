@@ -1,5 +1,5 @@
 import { rehypeCodeDefaultOptions } from "fumadocs-core/mdx-plugins";
-import { remarkInstall } from "fumadocs-docgen";
+import { remarkNpm } from "fumadocs-core/mdx-plugins";
 import {
   defineConfig,
   defineDocs,
@@ -19,7 +19,7 @@ export const docs = defineDocs({
 
 export default defineConfig({
   mdxOptions: {
-    remarkPlugins: [remarkInstall],
+    remarkPlugins: [remarkNpm],
     rehypeCodeOptions: {
       langs: [
         "tsx",
@@ -43,5 +43,4 @@ export default defineConfig({
       ],
     },
   },
-  lastModifiedTime: "git",
 });

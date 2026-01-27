@@ -41,8 +41,8 @@ npm install @google-recaptcha/vue
 </template>
 
 <script setup lang="ts">
-import { GoogleReCaptchaProvider } from "@google-recaptcha/vue";
-import App from "./App.vue";
+import { GoogleReCaptchaProvider } from '@google-recaptcha/vue';
+import App from './App.vue';
 </script>
 ```
 

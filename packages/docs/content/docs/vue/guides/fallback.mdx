@@ -1,0 +1,167 @@
+---
+title: Fallback
+description: Implementing an abstract fallback flow with two different reCAPTCHA types (e.g., v3 and v2)
+---
+
+import { Steps, Step } from "fumadocs-ui/components/steps";
+
+<Steps>
+  <Step title="Add the provider">
+    You always need a `GoogleReCaptchaProvider`. In Vue you can set it up with a component, composable, or plugin:
+
+    ```vue tab="Component"
+    <template>
+      <GoogleReCaptchaProvider type="v3" siteKey="your_site_key">
+        <slot />
+      </GoogleReCaptchaProvider>
+    </template>
+
+    <script setup>
+    import { GoogleReCaptchaProvider } from '@google-recaptcha/vue';
+    </script>
+    ```
+
+    ```vue tab="Composable"
+    <script setup>
+    import { useGoogleReCaptchaProvider } from '@google-recaptcha/vue';
+
+    useGoogleReCaptchaProvider({
+      type: 'v3',
+      siteKey: 'your_site_key'
+    });
+    </script>
+    ```
+
+    ```vue tab="Plugin"
+    <script setup>
+    import { createApp } from 'vue';
+    import { googleReCaptcha } from '@google-recaptcha/vue';
+
+    const app = createApp(App);
+
+    app.use(googleReCaptcha, {
+      type: 'v3',
+      siteKey: 'your_site_key'
+    });
+    </script>
+    ```
+
+  </Step>
+
+  <Step title="Create verification component">
+    In our component, we want to perform verification by sending the reCAPTCHA token to our backend API.
+
+    ```vue tab="Composable"
+    <script setup>
+    import { useGoogleReCaptcha } from '@google-recaptcha/vue';
+
+    const googleReCaptcha = useGoogleReCaptcha();
+
+    const onVerify = async () => {
+      if (!googleReCaptcha.executeV3) {
+        console.log('Execute recaptcha not available');
+        return;
+      }
+
+      // [!code word:executeV3]
+      const token = await googleReCaptcha.executeV3('action');
+    };
+    </script>
+
+    <template>
+      <button @click="onVerify">verify</button>
+    </template>
+    ```
+
+    ```vue tab="Component"
+    <script setup>
+    import { GoogleReCaptchaV3 } from '@google-recaptcha/vue';
+
+    const onVerify = (token) => {
+      ...
+    };
+    </script>
+
+    <template>
+      <GoogleReCaptchaV3 action="custom_action" @verify="onVerify" />
+    </template>
+    ```
+
+  </Step>
+
+  <Step title="Show the fallback component">
+    After receiving the token, call your backend validation; if it fails, you can trigger another reCAPTCHA version with its own `siteKey`.
+
+    ```vue tab="Composable"
+    <script setup>
+    import { ref } from 'vue';
+    import { GoogleReCaptchaCheckbox, useGoogleReCaptcha } from '@google-recaptcha/vue';
+
+    const showFallback = ref(false);
+    const googleReCaptcha = useGoogleReCaptcha();
+
+    const onVerify = async () => {
+      if (!googleReCaptcha.executeV3) {
+        console.log('Execute recaptcha not available');
+        return;
+      }
+
+      // [!code word:executeV3]
+      const token = await googleReCaptcha.executeV3('action');
+
+      try {
+        // your request with token
+        const response = await fetch('/api/verify', {
+          method: 'POST',
+          body: JSON.stringify({ token })
+        });
+        // ...
+      } catch {
+        showFallback.value = true;
+      }
+    };
+    </script>
+
+    <template>
+      <button @click="onVerify">verify</button>
+      <GoogleReCaptchaCheckbox
+        v-if="showFallback"
+        siteKey="your_v2_site_key"
+        @change="(token) => console.log(token)"
+      />
+    </template>
+    ```
+
+    ```vue tab="Component"
+    <script setup>
+    import { ref } from 'vue';
+    import { GoogleReCaptchaCheckbox, GoogleReCaptchaV3 } from '@google-recaptcha/vue';
+
+    const showFallback = ref(false);
+
+    const onVerify = async (token) => {
+      try {
+        // your request with token
+        const response = await fetch('/api/verify', {
+          method: 'POST',
+          body: JSON.stringify({ token })
+        });
+        // ...
+      } catch {
+        showFallback.value = true;
+      }
+    };
+    </script>
+
+    <template>
+      <GoogleReCaptchaV3 action="custom_action" @verify="onVerify" />
+      <GoogleReCaptchaCheckbox
+        v-if="showFallback"
+        siteKey="your_v2_site_key"
+        @change="(token) => console.log(token)"
+      />
+    </template>
+    ```
+
+  </Step>
+</Steps>

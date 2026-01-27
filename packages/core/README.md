@@ -28,16 +28,13 @@ Visit https://siberiacancode.github.io/google-recaptcha/docs/core to view the fu
 ## Getting Started
 
 ```ts
-import {
-  checkGoogleReCaptchaInjected,
-  injectGoogleReCaptchaScript,
-} from "@google-recaptcha/core";
+import { checkGoogleReCaptchaInjected, injectGoogleReCaptchaScript } from '@google-recaptcha/core';
 
 if (checkGoogleReCaptchaInjected()) return;
 
 injectGoogleReCaptchaScript({
-  render: "explicit",
-  onload: () => console.log("reCAPTCHA loaded"),
-  siteKey: "your_site_key",
+  render: 'explicit',
+  onload: () => console.log('reCAPTCHA loaded'),
+  siteKey: 'your_site_key'
 });
 ```

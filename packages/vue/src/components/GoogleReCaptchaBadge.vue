@@ -18,6 +18,7 @@ const emit = defineEmits<{
 const BADGE_CONTAINER_ID = 'google-recaptcha-badge-container';
 
 export interface GoogleReCaptchaBadgeProps {
+  siteKey?: string;
   badge?: GoogleReCaptcha.Badge;
   id?: string;
   language?: GoogleReCaptcha.Language;
@@ -34,7 +35,7 @@ const renderCaptcha = () => {
   const container = document.createElement('div');
 
   const params = {
-    sitekey: googleReCaptcha.siteKey,
+    sitekey: props.siteKey ?? googleReCaptcha.siteKey,
     badge: props.badge ?? 'bottomright',
     size: 'invisible',
     callback: (token: string) => {

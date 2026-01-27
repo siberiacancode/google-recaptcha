@@ -4,7 +4,7 @@ description: Pre-built checkbox component for v2 checkbox reCAPTCHA
 ---
 
 ```tsx
-<GoogleReCaptchaCheckbox action language size theme onChange onError onExpired />
+<GoogleReCaptchaCheckbox action siteKey language size theme onChange onError onExpired />
 ```
 
 ## Return
@@ -12,6 +12,7 @@ description: Pre-built checkbox component for v2 checkbox reCAPTCHA
 | Prop        | Type                      | Required | Default    | Description                                                |
 | ----------- | ------------------------- | -------- | ---------- | ---------------------------------------------------------- |
 | `action`    | `string`                  | -        | -          | [The action name for analytics](../versions/enteprise.mdx) |
+| `siteKey`   | `string`                  | -        | -          | Overrides the provider site key for this widget            |
 | `language`  | `string`                  | -        | -          | The language for the reCAPTCHA widget                      |
 | `size`      | `'compact' \| 'normal'`   | -        | `'normal'` | The size of the widget                                     |
 | `theme`     | `'light' \| 'dark'`       | -        | `'light'`  | The color theme of the widget                              |

@@ -1,0 +1,98 @@
+---
+title: Fallback
+description: Implementing an abstract fallback flow with two different reCAPTCHA types (e.g., v3 and v2)
+---
+
+import { Steps, Step } from "fumadocs-ui/components/steps";
+
+<Steps>
+  <Step title="Add the provider">
+    First, we need to initialize the main reCAPTCHA provider component. In these examples, we'll use reCAPTCHA v3 as a starting point for the flow:
+
+    ```tsx
+    import React from 'react';
+    import { GoogleReCaptchaProvider } from '@google-recaptcha/react';
+
+    export const App = () => (
+      <GoogleReCaptchaProvider type='v3' siteKey='your_site_key'>
+        ...
+      </GoogleReCaptchaProvider>
+    );
+    ```
+
+  </Step>
+
+  <Step title="Create verification component">
+    In our component, we want to perform verification by sending the reCAPTCHA token to our backend API.
+
+    ```tsx twoslash
+    import React from "react";
+    import { useGoogleReCaptcha } from "@google-recaptcha/react";
+
+    const App = () => {
+      const googleReCaptcha = useGoogleReCaptcha();
+
+      const onVerify = async () => {
+        if (!googleReCaptcha.executeV3) {
+          console.log("Execute recaptcha not available");
+          return;
+        }
+
+        // [!code word:"action"]
+        const token = await googleReCaptcha.executeV3("action");
+      };
+
+      return <button onClick={onVerify}>verify</button>;
+    };
+    ```
+
+  </Step>
+
+  <Step title="Show the fallback component">
+    After receiving the token, call your backend validation; if it fails, you can trigger another reCAPTCHA version with its own `siteKey`.
+
+    ```tsx twoslash
+    import React from "react";
+    import { useDisclosure } from "@siberiacancode/reactuse"; // [!code highlight]
+    import { GoogleReCaptchaCheckbox, useGoogleReCaptcha } from "@google-recaptcha/react"; // [!code highlight]
+
+    const App = () => {
+      const googleReCaptcha = useGoogleReCaptcha();
+      const fallbackRecaptcha = useDisclosure(); // [!code highlight]
+
+      const onVerify = async () => {
+        if (!googleReCaptcha.executeV3) {
+          console.log("Execute recaptcha not available");
+          return;
+        }
+
+        try {
+          // [!code word:"action"]
+          const token = await googleReCaptcha.executeV3("action");
+          // your request with token
+          const response = await fetch("/api/verify", {
+            method: "POST",
+            body: JSON.stringify({ token })
+          });
+          // ...
+        } catch {
+          fallbackRecaptcha.open();
+        }
+      };
+
+      return (
+        <>
+          <button onClick={onVerify}>verify</button>
+          {fallbackRecaptcha.opened && (
+            <GoogleReCaptchaCheckbox
+              // [!code word:"your_v2_site_key"]
+              onChange={(token) => console.log(token)}
+            />
+          )}
+        </>
+      );
+    };
+    ```
+
+  </Step>
+</Steps>

@@ -12,6 +12,7 @@
     "integrations/vite",
     "---Guides---",
     "guides/explicit",
+    "guides/fallback",
     "guides/theme",
     "guides/hide-badge",
     "---References---",
