@@ -1,6 +1,6 @@
 {
   "name": "@google-recaptcha/react",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "type": "module",
   "description": "Tool that easily and quickly add Google ReCaptcha for your website or application",
   "author": {
@@ -30,6 +30,18 @@
     "react recaptcha enterprise"
   ],
   "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/esm/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/cjs/index.cjs"
+      }
+    }
+  },
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
   "types": "dist/types/index.d.ts",
