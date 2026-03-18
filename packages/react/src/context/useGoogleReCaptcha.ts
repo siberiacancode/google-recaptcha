@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { use } from 'react';
 
 import { GoogleReCaptchaContext } from './GoogleReCaptchaContext';
 
@@ -7,4 +7,4 @@ import { GoogleReCaptchaContext } from './GoogleReCaptchaContext';
  *
  * @returns The context value containing the GoogleReCaptcha instance and related methods
  */
-export const useGoogleReCaptcha = () => useContext(GoogleReCaptchaContext);
+export const useGoogleReCaptcha = () => use(GoogleReCaptchaContext);

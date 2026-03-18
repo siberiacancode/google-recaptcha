@@ -83,6 +83,5 @@ export const GoogleReCaptchaBadge = ({
 
   if (!googleReCaptcha.render || !googleReCaptcha.siteKey) return null;
 
-  // @ts-ignore
-  return <g-recaptcha ref={googleReCaptchaBadgeContainerRef} />;
+  return <div ref={googleReCaptchaBadgeContainerRef} id={id} />;
 };

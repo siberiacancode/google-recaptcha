@@ -3,7 +3,7 @@
     "target": "esnext",
     "lib": ["dom", "es2021"],
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "strict": true,
     "noFallthroughCasesInSwitch": true,

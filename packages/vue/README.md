@@ -34,28 +34,22 @@ npm install @google-recaptcha/vue
 ### Basic Setup
 
 ```vue
+<script setup lang="ts">
+import { GoogleReCaptchaProvider } from "@google-recaptcha/vue";
+
+import App from "./App.vue";
+</script>
+
 <template>
   <GoogleReCaptchaProvider type="v3" site-key="your_site_key">
     <App />
   </GoogleReCaptchaProvider>
 </template>
-
-<script setup lang="ts">
-import { GoogleReCaptchaProvider } from '@google-recaptcha/vue';
-import App from './App.vue';
-</script>
 ```
 
 ### Using reCAPTCHA in Components
 
 ```vue
-<template>
-  <form @submit="onSubmit">
-    ...
-    <button type="submit">Submit</button>
-  </form>
-</template>
-
 <script setup lang="ts">
 import { useGoogleReCaptcha } from "@google-recaptcha/vue";
 
@@ -64,8 +58,17 @@ const googleReCaptcha = useGoogleReCaptcha();
 const onSubmit = async (event: Event) => {
   event.preventDefault();
 
-  const token = await googleReCaptcha.executeV3('action');
-  ...
+  const token = await googleReCaptcha.executeV3("action");
+  //...
 };
 </script>
+
+<template>
+  <form @submit="onSubmit">
+    ...
+    <button type="submit">
+      Submit
+    </button>
+  </form>
+</template>
 ```

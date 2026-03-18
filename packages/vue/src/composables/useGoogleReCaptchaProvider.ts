@@ -31,30 +31,30 @@ export interface Explicit {
 }
 
 export interface GoogleReCaptchaV2InvisibleOptions extends GoogleReCaptchaDefaultOptions {
-  type: Extract<GoogleReCaptcha.Type, 'v2-invisible'>;
   explicit?:
     | (Explicit & {
         badge?: GoogleReCaptcha.Badge;
       })
     | true;
+  type: Extract<GoogleReCaptcha.Type, 'v2-invisible'>;
 }
 
 export interface GoogleReCaptchaV2CheckBoxOptions extends GoogleReCaptchaDefaultOptions {
-  type: Extract<GoogleReCaptcha.Type, 'v2-checkbox'>;
   explicit?: Explicit & {
     container: Container;
     action?: GoogleReCaptcha.Action['action'];
     size?: GoogleReCaptcha.Size['v2-checkbox'];
   };
+  type: Extract<GoogleReCaptcha.Type, 'v2-checkbox'>;
 }
 
 export interface GoogleReCaptchaV3Options extends GoogleReCaptchaDefaultOptions {
-  type: Extract<GoogleReCaptcha.Type, 'v3'>;
   explicit?:
     | (Explicit & {
         badge?: GoogleReCaptcha.Badge;
       })
     | true;
+  type: Extract<GoogleReCaptcha.Type, 'v3'>;
 }
 
 export type GoogleReCaptchaOptions =
@@ -130,85 +130,89 @@ export const useGoogleReCaptchaProvider = (options: GoogleReCaptchaOptions) => {
     const scriptId = scriptProps?.id ?? `google-recaptcha-${type}-script`;
     const isGoogleReCaptchaInjected = checkGoogleReCaptchaInjected();
 
-    const onload = () => {
-      isLoading.value = true;
-      const googleReCaptcha: GoogleReCaptcha.Instance = isEnterprise
-        ? (window as any).grecaptcha?.enterprise
-        : (window as any).grecaptcha;
+    try {
+      const onload = () => {
+        isLoading.value = true;
+        const googleReCaptcha: GoogleReCaptcha.Instance = isEnterprise
+          ? (window as any).grecaptcha?.enterprise
+          : (window as any).grecaptcha;
 
-      if (!googleReCaptcha) {
-        if (onError) onError();
-        return;
-      }
-
-      if (!explicit) {
-        googleReCaptcha.ready(async () => {
-          googleReCaptchaInstance.value = googleReCaptcha;
-          state.reset = googleReCaptcha.reset;
-          state.getResponse = googleReCaptcha.getResponse;
-          state.render = googleReCaptcha.render;
-
-          if (onLoad) await onLoad(googleReCaptcha);
-          isLoading.value = false;
-        });
-      }
-
-      if (explicit) {
-        const params = {
-          size: type === 'v3' || type === 'v2-invisible' ? 'invisible' : 'normal',
-          ...((type === 'v3' || type === 'v2-invisible') && ({ badge: 'bottomright' } as const)),
-          sitekey: siteKey,
-          theme,
-          ...(typeof explicit === 'object' && {
-            ...explicit,
-            'expired-callback': explicit.expiredCallback,
-            'error-callback': explicit.errorCallback
-          })
-        } as const;
-
-        if (!isGoogleReCaptchaInjected) {
-          const isV3AndV2OptWidgetHidden =
-            typeof explicit === 'object' &&
-            (type === 'v3' || type === 'v2-invisible') &&
-            explicit?.badge === 'hidden';
-
-          if (isV3AndV2OptWidgetHidden) hideGoogleReCaptchaBadge();
+        if (!googleReCaptcha) {
+          if (onError) onError();
+          return;
         }
 
-        googleReCaptcha.ready(async () => {
-          if (typeof explicit === 'object' && explicit.container)
-            googleReCaptcha.render(explicit.container, params, !!explicit.inherit);
+        if (!explicit) {
+          googleReCaptcha.ready(async () => {
+            googleReCaptchaInstance.value = googleReCaptcha;
+            state.reset = googleReCaptcha.reset;
+            state.getResponse = googleReCaptcha.getResponse;
+            state.render = googleReCaptcha.render;
 
-          googleReCaptchaInstance.value = googleReCaptcha;
-          state.reset = googleReCaptcha.reset;
-          state.getResponse = googleReCaptcha.getResponse;
-          state.render = googleReCaptcha.render;
+            await onLoad?.(googleReCaptcha);
+            isLoading.value = false;
+          });
+        }
 
-          if (onLoad) await onLoad(googleReCaptcha);
-          isLoading.value = false;
+        if (explicit) {
+          const params = {
+            size: type === 'v3' || type === 'v2-invisible' ? 'invisible' : 'normal',
+            ...((type === 'v3' || type === 'v2-invisible') && ({ badge: 'bottomright' } as const)),
+            sitekey: siteKey,
+            theme,
+            ...(typeof explicit === 'object' && {
+              ...explicit,
+              'expired-callback': explicit.expiredCallback,
+              'error-callback': explicit.errorCallback
+            })
+          } as const;
+
+          if (!isGoogleReCaptchaInjected) {
+            const isV3AndV2OptWidgetHidden =
+              typeof explicit === 'object' &&
+              (type === 'v3' || type === 'v2-invisible') &&
+              explicit?.badge === 'hidden';
+
+            if (isV3AndV2OptWidgetHidden) hideGoogleReCaptchaBadge();
+          }
+
+          googleReCaptcha.ready(async () => {
+            if (typeof explicit === 'object' && explicit.container)
+              googleReCaptcha.render(explicit.container, params, !!explicit.inherit);
+
+            googleReCaptchaInstance.value = googleReCaptcha;
+            state.reset = googleReCaptcha.reset;
+            state.getResponse = googleReCaptcha.getResponse;
+            state.render = googleReCaptcha.render;
+
+            if (onLoad) await onLoad(googleReCaptcha);
+            isLoading.value = false;
+          });
+        }
+      };
+      (window as any)[onLoadCallbackName] = onload;
+
+      if (isGoogleReCaptchaInjected) {
+        onload();
+      } else {
+        injectGoogleReCaptchaScript({
+          isEnterprise,
+          host,
+          ...((type === 'v3' || type === 'v2-invisible') &&
+            typeof explicit === 'object' &&
+            explicit?.badge &&
+            explicit.badge !== 'hidden' && {
+              badge: explicit.badge
+            }),
+          ...(language && { hl: language }),
+          render: explicit || type === 'v2-checkbox' ? 'explicit' : siteKey,
+          ...scriptProps,
+          onload,
+          id: scriptId
         });
       }
-    };
-    (window as any)[onLoadCallbackName] = onload;
-
-    if (isGoogleReCaptchaInjected) {
-      onload();
-    } else {
-      injectGoogleReCaptchaScript({
-        isEnterprise,
-        host,
-        ...((type === 'v3' || type === 'v2-invisible') &&
-          typeof explicit === 'object' &&
-          explicit?.badge &&
-          explicit.badge !== 'hidden' && {
-            badge: explicit.badge
-          }),
-        ...(language && { hl: language }),
-        render: explicit || type === 'v2-checkbox' ? 'explicit' : siteKey,
-        ...scriptProps,
-        onload,
-        id: scriptId
-      });
+    } catch {
+      isLoading.value = false;
     }
   };
 

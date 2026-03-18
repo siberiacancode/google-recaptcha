@@ -1,17 +1,17 @@
-import { createRelativeLink } from "fumadocs-ui/mdx";
+import { createRelativeLink } from 'fumadocs-ui/mdx';
 import {
   DocsBody,
   DocsDescription,
   DocsPage,
-  DocsTitle,
+  DocsTitle
   // PageLastUpdate
-} from "fumadocs-ui/page";
-import { notFound } from "next/navigation";
+} from 'fumadocs-ui/page';
+import { notFound } from 'next/navigation';
 
-import { GithubIcon } from "@/app/(components)/icons";
-import { Button } from "@/app/(components)/ui";
-import { docsSource } from "@/lib/source";
-import { getMDXComponents } from "@/mdx-components";
+import { GithubIcon } from '@/app/(components)/icons';
+import { Button } from '@/app/(components)/ui';
+import { docsSource } from '@/lib/source';
+import { getMDXComponents } from '@/mdx-components';
 
 // import { getGithubLastEdit } from "fumadocs-core/content/github";
 
@@ -28,7 +28,7 @@ export const generateMetadata = async (props: DocPageProps) => {
 
   return {
     title: page.data.title,
-    description: page.data.description,
+    description: page.data.description
   };
 };
 
@@ -49,15 +49,13 @@ const DocPage = async (props: DocPageProps) => {
   return (
     <DocsPage full={page.data.full} toc={page.data.toc}>
       <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsDescription className="mb-0">
-        {page.data.description}
-      </DocsDescription>
-      <div className="flex gap-4">
-        <Button asChild className="w-fit" variant="secondary">
+      <DocsDescription className='mb-0'>{page.data.description}</DocsDescription>
+      <div className='flex gap-4'>
+        <Button asChild className='w-fit' variant='secondary'>
           <a
             href={`https://github.com/siberiacancode/google-recaptcha/blob/main/packages/docs/content/docs/${page.path}`}
-            rel="noreferrer"
-            target="_blank"
+            rel='noreferrer'
+            target='_blank'
           >
             <GithubIcon />
             View on GitHub
@@ -67,7 +65,7 @@ const DocPage = async (props: DocPageProps) => {
       <DocsBody>
         <MDXContent
           components={getMDXComponents({
-            a: createRelativeLink(docsSource, page),
+            a: createRelativeLink(docsSource, page)
           })}
         />
       </DocsBody>

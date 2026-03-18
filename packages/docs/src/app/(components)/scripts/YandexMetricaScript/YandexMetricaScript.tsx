@@ -1,10 +1,8 @@
-import Script from "next/script";
+import Script from 'next/script';
 
 export const YandexMetricaScript = () => (
   <>
     <Script
-      id="yandex-metrika"
-      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: `
           (function(m,e,t,r,i,k,a){
@@ -22,15 +20,17 @@ export const YandexMetricaScript = () => (
             trackLinks:true,
             accurateTrackBounce:true
           });
-        `,
+        `
       }}
+      id='yandex-metrika'
+      strategy='afterInteractive'
     />
     <noscript>
       <div>
         <img
-          alt=""
-          src="https://mc.yandex.ru/watch/102972492"
-          style={{ position: "absolute", left: "-9999px" }}
+          alt=''
+          src='https://mc.yandex.ru/watch/102972492'
+          style={{ position: 'absolute', left: '-9999px' }}
         />
       </div>
     </noscript>

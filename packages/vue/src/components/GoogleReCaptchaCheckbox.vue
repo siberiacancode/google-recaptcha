@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { GoogleReCaptcha } from '@google-recaptcha/core';
 
-import { removeGoogleReCaptchaContainer } from '@google-recaptcha/core';
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 
 import { useGoogleReCaptcha } from '../composables/useGoogleReCaptcha';
@@ -27,12 +26,19 @@ export interface GoogleReCaptchaCheckboxProps {
 
 const id = props.id ?? CHECKBOX_CONTAINER_ID;
 const googleReCaptchaCheckboxContainerRef = ref<HTMLDivElement | null>(null);
+const checkboxRef = ref<HTMLDivElement | null>(null);
 const googleReCaptcha = useGoogleReCaptcha();
 const hl = computed(() => props.language ?? googleReCaptcha.language);
 
 const renderCaptcha = () => {
   if (!googleReCaptcha.render) return;
+
+  if (googleReCaptchaCheckboxContainerRef.value) {
+    checkboxRef.value = null;
+    googleReCaptchaCheckboxContainerRef.value.replaceChildren();
+  }
   const checkbox = document.createElement('div');
+  checkboxRef.value = checkbox;
 
   const params = {
     sitekey: googleReCaptcha.siteKey,
@@ -59,9 +65,8 @@ const renderCaptcha = () => {
 
 onMounted(renderCaptcha);
 onUnmounted(() => {
-  if (id) {
-    removeGoogleReCaptchaContainer(id);
-  }
+  checkboxRef.value?.remove();
+  checkboxRef.value = null;
 });
 
 watch(

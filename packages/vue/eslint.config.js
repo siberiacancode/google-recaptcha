@@ -6,14 +6,14 @@ export default eslint(
     vue: true
   },
   {
-    name: 'siberiacancode/reactuse/md',
+    name: '@google-recaptcha/vue/md',
     files: ['**/*.md'],
     rules: {
       'style/max-len': 'off'
     }
   },
   {
-    name: 'siberiacancode/reactuse/docs',
+    name: '@google-recaptcha/vue/docs',
     files: ['**/src/**/*.ts'],
     rules: {
       'regexp/no-super-linear-backtracking': 'off'

@@ -13,10 +13,11 @@ export default defineNuxtModule({
     name: 'google-recaptcha',
     configKey: 'googleReCaptcha',
     compatibility: {
-      nuxt: '^3'
+      nuxt: '^3 || ^4'
     }
   },
   setup(options, nuxtApp) {
+    console.log('[my-module] module loaded');
     const resolver = createResolver(import.meta.url);
 
     if (!options.siteKey) {
@@ -45,17 +46,24 @@ export default defineNuxtModule({
         name: 'GoogleReCaptchaV3'
       },
       {
-        from: resolver.resolve('../composables/useGoogleReCaptcha.ts'),
+        from: resolver.resolve('../composables/useGoogleReCaptcha.js'),
         name: 'useGoogleReCaptcha'
       },
       {
-        from: resolver.resolve('../composables/useGoogleReCaptchaProvider.ts'),
+        from: resolver.resolve('../composables/useGoogleReCaptchaProvider.js'),
         name: 'useGoogleReCaptchaProvider'
       }
     ]);
 
     nuxtApp.options.runtimeConfig.public.googleReCaptcha = options as GoogleReCaptchaOptions;
 
-    addPlugin(resolver.resolve('./plugin'));
+    addPlugin({
+      src: resolver.resolve('./runtime/plugin.client'),
+      mode: 'client'
+    });
+    addPlugin({
+      src: resolver.resolve('./runtime/plugin.server'),
+      mode: 'server'
+    });
   }
 });

@@ -50,7 +50,7 @@
     "storybook": "storybook dev -p 6010"
   },
   "peerDependencies": {
-    "@nuxt/kit": "^3 || ^4",
+    "@nuxt/kit": "^4",
     "vue": "^3"
   },
   "dependencies": {
