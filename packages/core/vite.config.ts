@@ -1,3 +1,4 @@
+import { copyFileSync } from 'node:fs';
 import path from 'node:path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
@@ -7,8 +8,12 @@ import pkg from './package.json';
 export default defineConfig({
   plugins: [
     dts({
+      afterBuild: () => {
+        copyFileSync('dist/types/index.d.ts', 'dist/types/index.d.mts');
+      },
       entryRoot: 'src',
-      outDir: 'dist/types'
+      outDir: 'dist/types',
+      tsconfigPath: './tsconfig.json'
     })
   ],
   build: {

@@ -1,4 +1,5 @@
 import react from '@vitejs/plugin-react';
+import { copyFileSync } from 'node:fs';
 import path from 'node:path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
@@ -9,9 +10,13 @@ export default defineConfig({
   plugins: [
     react(),
     dts({
+      afterBuild: () => {
+        copyFileSync('dist/types/index.d.ts', 'dist/types/index.d.mts');
+      },
       exclude: ['**/*.test.{ts,tsx}', '**/*.stories.{ts,tsx}'],
       entryRoot: 'src',
-      outDir: 'dist/types'
+      outDir: 'dist/types',
+      tsconfigPath: './tsconfig.json'
     })
   ],
   build: {
