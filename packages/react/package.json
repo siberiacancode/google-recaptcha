@@ -1,6 +1,6 @@
 {
   "name": "@google-recaptcha/react",
-  "version": "2.4.2",
+  "version": "2.5.0",
   "type": "module",
   "description": "Tool that easily and quickly add Google ReCaptcha for your website or application",
   "author": {
@@ -72,26 +72,27 @@
     }
   },
   "dependencies": {
-    "@google-recaptcha/core": "*"
+    "@google-recaptcha/core": "*",
+    "@siberiacancode/reactuse": "1.0.2"
   },
   "devDependencies": {
     "@siberiacancode/vitest": "^2.4.1",
     "@storybook/addon-actions": "^9.0.8",
-    "@storybook/addon-links": "^10.2.19",
-    "@storybook/react": "^10.2.1",
-    "@storybook/react-vite": "^10.2.1",
+    "@storybook/addon-links": "^10.4.6",
+    "@storybook/react": "^10.4.6",
+    "@storybook/react-vite": "^10.4.6",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
-    "@types/react": "19.2.14",
-    "@vitejs/plugin-react": "^6.0.1",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "@types/react": "19.2.17",
+    "@vitejs/plugin-react": "^6.0.3",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "shx": "^0.4.0",
-    "storybook": "^10.2.19",
-    "ts-loader": "^9.5.4",
-    "vite": "^8.0.0",
-    "vite-plugin-dts": "^4.5.4",
-    "vitest": "^4.1.0"
+    "storybook": "^10.4.6",
+    "ts-loader": "^9.6.2",
+    "vite": "^8.1.2",
+    "vite-plugin-dts": "^5.0.3",
+    "vitest": "^4.1.9"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [

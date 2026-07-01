@@ -26,10 +26,10 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@siberiacancode/eslint": "^2.16.11",
-    "@siberiacancode/prettier": "^1.6.1",
+    "@siberiacancode/eslint": "^2.17.6",
+    "@siberiacancode/prettier": "^1.7.0",
     "husky": "^9.1.7",
-    "lint-staged": "^16.4.0",
-    "typescript": "^5.9.3"
+    "lint-staged": "^17.0.8",
+    "typescript": "^6.0.3"
   }
 }

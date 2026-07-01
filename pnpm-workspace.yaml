@@ -1,2 +1,8 @@
 packages:
   - 'packages/*'
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  sharp: true
+minimumReleaseAgeExclude:
+  - vite@8.1.2
