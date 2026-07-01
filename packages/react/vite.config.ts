@@ -15,7 +15,7 @@ export default defineConfig({
       },
       exclude: ['**/*.test.{ts,tsx}', '**/*.stories.{ts,tsx}'],
       entryRoot: 'src',
-      outDir: 'dist/types',
+      outDirs: 'dist/types',
       tsconfigPath: './tsconfig.json'
     })
   ],
