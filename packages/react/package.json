@@ -63,7 +63,7 @@
     "storybook": "storybook dev -p 6010"
   },
   "peerDependencies": {
-    "@types/react": "^17 || ^18|| ^19",
+    "@types/react": "^17 || ^18 || ^19",
     "react": "^17 || ^18 || ^19"
   },
   "peerDependenciesMeta": {
