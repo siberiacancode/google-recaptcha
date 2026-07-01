@@ -1,6 +1,6 @@
 {
   "name": "@google-recaptcha/react",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "type": "module",
   "description": "Tool that easily and quickly add Google ReCaptcha for your website or application",
   "author": {
@@ -63,7 +63,6 @@
     "storybook": "storybook dev -p 6010"
   },
   "peerDependencies": {
-    "@siberiacancode/reactuse": "1",
     "@types/react": "^17 || ^18|| ^19",
     "react": "^17 || ^18 || ^19"
   },
@@ -73,7 +72,8 @@
     }
   },
   "dependencies": {
-    "@google-recaptcha/core": "*"
+    "@google-recaptcha/core": "*",
+    "@siberiacancode/reactuse": "1.0.2"
   },
   "devDependencies": {
     "@siberiacancode/vitest": "^2.4.1",
