@@ -1,6 +1,6 @@
 {
   "name": "@google-recaptcha/react",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "type": "module",
   "description": "Tool that easily and quickly add Google ReCaptcha for your website or application",
   "author": {
